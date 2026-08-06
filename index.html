@@ -38,7 +38,6 @@
             '70%': { boxShadow: '0 0 0 10px rgba(99,102,241,0)' },
             '100%': { boxShadow: '0 0 0 0 rgba(99,102,241,0)' },
           },
-          drawline: { 'to': { strokeDashoffset: 0 } },
         },
         animation: {
           marquee: 'marquee 32s linear infinite',
@@ -55,9 +54,6 @@
 
 <!-- Lucide Icons -->
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 </head>
 
 <body class="bg-[#FCFDFE] text-ink antialiased relative">
@@ -72,7 +68,6 @@
         Bayu<span class="text-gradient">.</span>
       </a>
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider text-inksoft">
-        <a href="#showcase" class="hover:text-indigo transition-colors">Analytics</a>
         <a href="#skills" class="hover:text-indigo transition-colors">Skills</a>
         <a href="#projects" class="hover:text-indigo transition-colors">Projects</a>
         <a href="#experience" class="hover:text-indigo transition-colors">Experience</a>
@@ -89,7 +84,6 @@
   <!-- Mobile menu -->
   <div id="mobile-menu" class="md:hidden hidden glass-strong border-t border-black/5">
     <div class="px-6 py-4 flex flex-col gap-4 font-mono text-sm uppercase tracking-wide text-inksoft">
-      <a href="#showcase" class="mobile-link">Analytics</a>
       <a href="#skills" class="mobile-link">Skills</a>
       <a href="#projects" class="mobile-link">Projects</a>
       <a href="#experience" class="mobile-link">Experience</a>
@@ -123,116 +117,44 @@
 <!-- ============ HERO ============ -->
 <section id="hero" class="relative pt-40 pb-24 md:pt-48 md:pb-32 dot-grid overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FCFDFE] pointer-events-none"></div>
-  <div class="max-w-7xl mx-auto px-6 relative z-10">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+    <div data-animate class="flex flex-col items-center">
+      <span class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-indigo bg-indigo/5 border border-indigo/20 rounded-full px-3 py-1">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Portfolio
+      </span>
+      <h1 class="mt-6 font-display font-extrabold text-5xl sm:text-6xl md:text-7xl leading-[1.05] tracking-tight text-ink">
+        Hi, I'm <span class="text-gradient">Bayu Aziz</span>
+      </h1>
+      <p class="mt-4 font-display font-semibold text-xl sm:text-2xl text-inksoft">
+        Data Analyst &amp; Logistic Specialist
+      </p>
+      <p class="mt-6 text-inksoft text-base sm:text-lg max-w-2xl leading-relaxed mx-auto">
+        Offering a strong foundation in Supply-Chain Operations with a proven ability to drive efficiency. I turn raw logistics data into decision-ready insights, resolving anomalies and automating workflows via SQL, Spreadsheets, and Data Dashboards.
+      </p>
 
-      <div data-animate>
-        <span class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-indigo bg-indigo/5 border border-indigo/20 rounded-full px-3 py-1">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Portfolio
-        </span>
-        <h1 class="mt-6 font-display font-extrabold text-5xl sm:text-6xl leading-[1.05] tracking-tight text-ink">
-          Hi, I'm <span class="text-gradient">Bayu Aziz</span>
-        </h1>
-        <p class="mt-3 font-display font-semibold text-xl sm:text-2xl text-inksoft">
-          Data Analyst &amp; Logistic Specialist
-        </p>
-        <p class="mt-5 text-inksoft text-base sm:text-lg max-w-xl leading-relaxed">
-          Offering a strong foundation in Supply-Chain Operations with a proven ability to drive efficiency. I turn raw logistics data into decision-ready insights, resolving anomalies and automating workflows via SQL, Spreadsheets, and Data Dashboards.
-        </p>
-
-        <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a href="#projects" class="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white btn-primary transition-all">
-            View Projects <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </a>
-          <a href="#contact" class="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-ink glass glow-ring transition-all">
-            Contact Me <i data-lucide="mail" class="w-4 h-4"></i>
-          </a>
-        </div>
-
-        <!-- Stats mini cards -->
-        <div class="mt-12 grid grid-cols-3 gap-3 max-w-lg">
-          <div class="glass glow-ring rounded-2xl px-4 py-4 text-center">
-            <p class="font-display font-extrabold text-2xl sm:text-3xl text-gradient">8+</p>
-            <p class="mt-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wide text-inksoft">Years Logistics Exp</p>
-          </div>
-          <div class="glass glow-ring rounded-2xl px-4 py-4 text-center">
-            <p class="font-display font-extrabold text-2xl sm:text-3xl text-gradient">3.88</p>
-            <p class="mt-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wide text-inksoft">Magna Cumlaude</p>
-          </div>
-          <div class="glass glow-ring rounded-2xl px-4 py-4 text-center">
-            <p class="font-display font-extrabold text-2xl sm:text-3xl text-gradient">3+</p>
-            <p class="mt-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wide text-inksoft">Data Pipelines Built</p>
-          </div>
-        </div>
+      <div class="mt-10 flex flex-wrap justify-center items-center gap-4">
+        <a href="#projects" class="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white btn-primary transition-all">
+          View Projects <i data-lucide="arrow-down" class="w-4 h-4"></i>
+        </a>
+        <a href="#contact" class="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-ink glass glow-ring transition-all">
+          Contact Me <i data-lucide="mail" class="w-4 h-4"></i>
+        </a>
       </div>
 
-      <!-- Hero visual: live dashboard preview -->
-      <div data-animate class="relative">
-        <div class="absolute -top-8 -right-4 sm:right-4 glass rounded-xl px-3 py-2 font-mono text-[11px] text-indigo shadow-sm animate-floaty">SQL</div>
-        <div class="absolute top-16 -left-6 glass rounded-xl px-3 py-2 font-mono text-[11px] text-cyanx shadow-sm animate-floaty" style="animation-delay:1.2s;">App Script</div>
-        <div class="absolute -bottom-6 right-8 glass rounded-xl px-3 py-2 font-mono text-[11px] text-indigo shadow-sm animate-floaty" style="animation-delay:2.4s;">BigQuery</div>
-
-        <div class="glass-strong rounded-3xl p-6 sm:p-8 shadow-xl shadow-indigo-100/50">
-          <div class="flex items-center justify-between">
-            <p class="font-mono text-xs uppercase tracking-wider text-inksoft">Supply Chain SLA Metric</p>
-            <span class="flex items-center gap-1.5 text-[11px] font-mono text-emerald-600">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulsering"></span> Monitored
-            </span>
-          </div>
-
-          <svg class="sparkline mt-6 w-full h-28" viewBox="0 0 300 100" fill="none" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#6366F1" stop-opacity="0.25"/>
-                <stop offset="100%" stop-color="#06B6D4" stop-opacity="0"/>
-              </linearGradient>
-              <linearGradient id="sparkStroke" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#6366F1"/>
-                <stop offset="100%" stop-color="#06B6D4"/>
-              </linearGradient>
-            </defs>
-            <path d="M0,70 L0,80 Q20,80 30,60 T70,55 T110,65 T150,30 T190,40 T230,20 T270,28 T300,10 L300,100 L0,100 Z" fill="url(#sparkFill)" stroke="none"/>
-            <path pathLength="1" d="M0,80 Q20,80 30,60 T70,55 T110,65 T150,30 T190,40 T230,20 T270,28 T300,10" stroke="url(#sparkStroke)" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
-
-          <div class="mt-6 grid grid-cols-2 gap-4">
-            <div class="rounded-xl bg-ink/[0.03] border border-black/5 px-4 py-3">
-              <p class="font-mono text-[10px] uppercase tracking-wide text-inkfaint">SLA Achievement</p>
-              <p class="font-display font-bold text-lg text-ink mt-1">98.5%</p>
-            </div>
-            <div class="rounded-xl bg-ink/[0.03] border border-black/5 px-4 py-3">
-              <p class="font-mono text-[10px] uppercase tracking-wide text-inkfaint">Anomalies Detected</p>
-              <p class="font-display font-bold text-lg text-ink mt-1">-14% (YoY)</p>
-            </div>
-          </div>
+      <!-- Stats mini cards -->
+      <div class="mt-16 w-full max-w-xl grid grid-cols-3 gap-4 mx-auto">
+        <div class="glass glow-ring rounded-2xl px-4 py-5 text-center">
+          <p class="font-display font-extrabold text-2xl sm:text-3xl text-gradient">8+</p>
+          <p class="mt-1.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-wide text-inksoft">Years Logistics Exp</p>
         </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ DATA VIZ SHOWCASE ============ -->
-<section id="showcase" class="py-24 border-t border-black/5">
-  <div class="max-w-7xl mx-auto px-6">
-    <div data-animate class="max-w-2xl">
-      <span class="font-mono text-xs uppercase tracking-widest text-cyanx">Interactive Analytics</span>
-      <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-ink">Monitoring Logistics Performance</h2>
-      <p class="mt-4 text-inksoft leading-relaxed">A live look at how tracking raw logistics data minimizes bottlenecks. Toggle between operational metrics to see the impact of proactive analysis.</p>
-    </div>
-
-    <div data-animate class="mt-10 glass-strong rounded-3xl p-6 sm:p-10 glow-ring">
-      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <div class="flex items-center gap-2 font-mono text-xs text-inksoft">
-          <i data-lucide="activity" class="w-4 h-4 text-indigo"></i> Monthly Operation Trend
+        <div class="glass glow-ring rounded-2xl px-4 py-5 text-center">
+          <p class="font-display font-extrabold text-2xl sm:text-3xl text-gradient">3.88</p>
+          <p class="mt-1.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-wide text-inksoft">Magna Cumlaude</p>
         </div>
-        <div class="flex gap-2 rounded-full glass p-1">
-          <button id="btn-dash" class="chart-toggle active-toggle rounded-full px-4 py-1.5 text-xs font-mono font-medium transition-all">Parcels Recovered</button>
-          <button id="btn-acc" class="chart-toggle rounded-full px-4 py-1.5 text-xs font-mono font-medium transition-all">SLA Metric (%)</button>
+        <div class="glass glow-ring rounded-2xl px-4 py-5 text-center">
+          <p class="font-display font-extrabold text-2xl sm:text-3xl text-gradient">3+</p>
+          <p class="mt-1.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-wide text-inksoft">Data Pipelines Built</p>
         </div>
-      </div>
-      <div class="relative h-72 sm:h-80">
-        <canvas id="analyticsChart"></canvas>
       </div>
     </div>
   </div>
@@ -539,105 +461,6 @@
   });
   document.querySelectorAll('.mobile-link').forEach(link => {
     link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); menuBtn.setAttribute('aria-expanded', 'false'); });
-  });
-
-  // Chart.js Setup
-  const ctx = document.getElementById('analyticsChart').getContext('2d');
-  
-  // Data sets (Mock Logistics Data)
-  const dataRecovered = [4200, 3800, 4600, 4100, 5200, 4800, 5600, 5900, 5300, 6100, 6700, 7200];
-  const dataSLA = [92.1, 93.4, 93.0, 95.2, 94.8, 96.1, 96.8, 97.5, 97.2, 98.1, 98.5, 98.8];
-  const labels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-  // Gradient setups
-  const gradIndigo = ctx.createLinearGradient(0,0,0,300);
-  gradIndigo.addColorStop(0, 'rgba(99,102,241,0.3)');
-  gradIndigo.addColorStop(1, 'rgba(99,102,241,0.0)');
-
-  const gradCyan = ctx.createLinearGradient(0,0,0,300);
-  gradCyan.addColorStop(0, 'rgba(6,182,212,0.3)');
-  gradCyan.addColorStop(1, 'rgba(6,182,212,0.0)');
-
-  Chart.defaults.font.family = '"JetBrains Mono", monospace';
-  Chart.defaults.color = '#94A3B8';
-
-  const chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Parcels Recovered',
-        data: dataRecovered,
-        borderColor: '#6366F1',
-        backgroundColor: gradIndigo,
-        borderWidth: 2,
-        pointBackgroundColor: '#6366F1',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: '#6366F1',
-        pointRadius: 3,
-        pointHoverRadius: 6,
-        fill: true,
-        tension: 0.4
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#0F172A',
-          titleFont: { size: 11 },
-          bodyFont: { size: 12, weight: 'bold' },
-          padding: 10,
-          cornerRadius: 8,
-          displayColors: false
-        }
-      },
-      scales: {
-        x: { grid: { display: false }, border: { display: false } },
-        y: { 
-          grid: { color: 'rgba(15,23,42,0.04)' },
-          border: { display: false },
-          beginAtZero: true
-        }
-      },
-      interaction: { mode: 'index', intersect: false }
-    }
-  });
-
-  // Toggle Logic
-  const btnDash = document.getElementById('btn-dash');
-  const btnAcc = document.getElementById('btn-acc');
-
-  function updateChart(dataset, label, colorHex, gradient) {
-    chart.data.datasets[0].data = dataset;
-    chart.data.datasets[0].label = label;
-    chart.data.datasets[0].borderColor = colorHex;
-    chart.data.datasets[0].pointBackgroundColor = colorHex;
-    chart.data.datasets[0].pointHoverBorderColor = colorHex;
-    chart.data.datasets[0].backgroundColor = gradient;
-    if (label === 'SLA Metric (%)') {
-        chart.options.scales.y.min = 80;
-        chart.options.scales.y.max = 100;
-    } else {
-        chart.options.scales.y.min = 0;
-        chart.options.scales.y.max = 8000;
-    }
-    chart.update();
-  }
-
-  btnDash.addEventListener('click', () => {
-    btnDash.classList.add('active-toggle');
-    btnAcc.classList.remove('active-toggle');
-    updateChart(dataRecovered, 'Parcels Recovered', '#6366F1', gradIndigo);
-  });
-
-  btnAcc.addEventListener('click', () => {
-    btnAcc.classList.add('active-toggle');
-    btnDash.classList.remove('active-toggle');
-    updateChart(dataSLA, 'SLA Metric (%)', '#06B6D4', gradCyan);
   });
 </script>
 </body>
