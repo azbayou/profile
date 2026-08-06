@@ -117,13 +117,6 @@ h1, h2, h3, h4, .font-display {
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 1), 0 0 0 6px rgba(99, 102, 241, 0.25);
 }
 
-/* Sparkline draw-in */
-.sparkline path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: drawline 1.8s ease forwards .3s;
-}
-
 /* Badges & Pills */
 .skill-pill {
   display: inline-flex;
@@ -158,21 +151,6 @@ h1, h2, h3, h4, .font-display {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #0F172A;
-}
-
-.chart-toggle { 
-  color: #475569; 
-  transition: all 0.2s ease;
-}
-
-.chart-toggle:hover { 
-  color: #0F172A; 
-}
-
-.active-toggle { 
-  background-color: #ffffff; 
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); 
-  color: #0F172A; 
 }
 
 ::selection { 
