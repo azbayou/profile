@@ -137,7 +137,6 @@
       <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-ink">Tech Stack &amp; Skills</h2>
       <p class="mt-4 text-inksoft leading-relaxed">The toolset I use to transform complex workflows into streamlined insights.</p>
     </div>
-    <!-- Container untuk Skills dinamis -->
     <div id="skills-container" class="mt-10 grid sm:grid-cols-2 gap-5">
       <!-- Diisi oleh Javascript -->
     </div>
@@ -152,7 +151,6 @@
       <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-ink">Featured Projects</h2>
       <p class="mt-4 text-inksoft leading-relaxed">Showcasing data automation, interactive dashboards, and integrations.</p>
     </div>
-    <!-- Container untuk Projects dinamis -->
     <div id="projects-container" class="mt-10 grid lg:grid-cols-2 gap-6">
       <!-- Diisi oleh Javascript -->
     </div>
@@ -169,7 +167,6 @@
     
     <div class="mt-14 relative pl-10">
       <div class="absolute left-[7px] top-1 bottom-1 w-[2px] timeline-line"></div>
-      <!-- Container untuk Experience dinamis -->
       <div id="experience-container">
         <!-- Diisi oleh Javascript -->
       </div>
@@ -196,10 +193,9 @@
         </a>
       </div>
 
-      <div class="mt-16 pt-8 border-t border-black/5 flex flex-wrap justify-center gap-6 font-mono text-sm">
-        <a id="link-linkedin" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn</a>
-        <a id="link-cv" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-cyanx transition-colors"><i data-lucide="file-spreadsheet" class="w-4 h-4"></i> CV Spreadsheets</a>
-        <a id="link-chatbot" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors"><i data-lucide="bot" class="w-4 h-4"></i> AI Chatbot</a>
+      <!-- Features Bar (Dinamis dari Tab Features) -->
+      <div id="features-container" class="mt-16 pt-8 border-t border-black/5 flex flex-wrap justify-center gap-6 font-mono text-sm">
+        <!-- Diisi oleh Javascript -->
       </div>
     </div>
   </div>
@@ -213,15 +209,12 @@
 </footer>
 
 <script>
-  // API URL dari Google Apps Script lo
   const API_URL = 'https://script.google.com/macros/s/AKfycbxHEUE0p1Wpi2Rs4WisjYiLinfAoF7xhU46TUAbxEfkO8MP6ixBTGq8bHbaHHVVTOz1/exec';
 
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('current-year').textContent = new Date().getFullYear();
-    
     if (window.lucide) lucide.createIcons();
     setupInteractions();
-
     fetchData();
   });
 
@@ -234,6 +227,7 @@
       renderSkills(data.skills);
       renderProjects(data.projects);
       renderExperiences(data.experiences);
+      renderFeatures(data.features || []);
       
       if (window.lucide) lucide.createIcons();
 
@@ -259,9 +253,30 @@
     
     document.getElementById('btn-email').href = `mailto:${profile.email}`;
     document.getElementById('btn-whatsapp').href = `https://wa.me/${profile.whatsapp.toString().replace(/\D/g,'')}`;
-    document.getElementById('link-linkedin').href = profile.linkedin;
-    document.getElementById('link-cv').href = profile.link_cv;
-    document.getElementById('link-chatbot').href = profile.link_chatbot;
+  }
+
+  function renderFeatures(features) {
+    const container = document.getElementById('features-container');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const activeFeatures = features.filter(f => f.is_featured === true);
+
+    activeFeatures.forEach(feat => {
+      const nameLower = feat.features_name.toLowerCase();
+      let icon = 'external-link';
+
+      if (nameLower.includes('linkedin')) icon = 'linkedin';
+      else if (nameLower.includes('cv') || nameLower.includes('sheet') || nameLower.includes('spreadsheet')) icon = 'file-spreadsheet';
+      else if (nameLower.includes('ai') || nameLower.includes('bot') || nameLower.includes('chat')) icon = 'bot';
+
+      const featureItem = `
+        <a href="${feat.link}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors">
+          <i data-lucide="${icon}" class="w-4 h-4"></i> ${feat.features_name}
+        </a>
+      `;
+      container.insertAdjacentHTML('beforeend', featureItem);
+    });
   }
 
   function renderSkills(skills) {
@@ -406,6 +421,5 @@
     });
   }
 </script>
-
 </body>
 </html>
