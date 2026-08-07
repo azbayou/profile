@@ -95,8 +95,13 @@
 
 <!-- ============ Loading Overlay ============ -->
 <div id="loader" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center transition-opacity duration-500">
-  <div class="w-10 h-10 border-4 border-indigo/20 border-t-indigo rounded-full animate-spin"></div>
-  <p class="mt-4 font-mono text-xs text-inksoft uppercase tracking-widest animate-pulse">Syncing Data...</p>
+  <!-- Ikon berputar -->
+  <i data-lucide="loader-2" class="w-10 h-10 text-indigo animate-spin mb-4"></i>
+  
+  <div class="flex items-center gap-2 animate-pulse">
+    <i data-lucide="cloud-download" class="w-4 h-4 text-inksoft"></i>
+    <p class="font-mono text-xs text-inksoft uppercase tracking-widest">Syncing Data...</p>
+  </div>
 </div>
 
 <!-- ============ HERO ============ -->
@@ -218,30 +223,57 @@
     fetchData();
   });
 
-  async function fetchData() {
+async function fetchData() {
     try {
+      // 1. Cek apakah ada data lama yang tersimpan di memori browser (cache)
+      const cachedData = localStorage.getItem('portfolioData');
+      
+      // Jika ada cache, langsung tampilkan datanya detik itu juga!
+      if (cachedData) {
+        const parsedData = JSON.parse(cachedData);
+        renderAllData(parsedData);
+        hideLoader();
+      }
+
+      // 2. Mengambil data terbaru dari Google Sheets (berjalan di background)
       const response = await fetch(API_URL);
       const data = await response.json();
       
-      renderProfile(data.profile[0]);
-      renderSkills(data.skills);
-      renderProjects(data.projects);
-      renderExperiences(data.experiences);
-      renderFeatures(data.features || []);
+      // 3. Simpan data terbaru ke cache browser
+      localStorage.setItem('portfolioData', JSON.stringify(data));
       
-      if (window.lucide) lucide.createIcons();
-
-      const loader = document.getElementById('loader');
-      loader.style.opacity = '0';
-      setTimeout(() => loader.style.display = 'none', 500);
+      // 4. Render ulang UI dengan data terbaru dan pastikan loader hilang
+      renderAllData(data);
+      hideLoader();
 
     } catch (error) {
       console.error('Gagal mengambil data dari Google Sheets:', error);
       document.getElementById('hero-name').textContent = "Error Loading Data";
       document.getElementById('hero-about').textContent = "Pastikan Web App URL sudah benar dan dapat diakses publik.";
+      hideLoader(); // Tetap hilangkan loader jika error
     }
   }
 
+  // Fungsi pembantu agar kode lebih rapi
+  function renderAllData(data) {
+    renderProfile(data.profile[0]);
+    renderSkills(data.skills);
+    renderProjects(data.projects);
+    renderExperiences(data.experiences);
+    renderFeatures(data.features || []);
+    
+    // Wajib panggil ulang Lucide agar ikon yang baru dirender langsung muncul
+    if (window.lucide) lucide.createIcons();
+  }
+
+  // Fungsi pembantu untuk menghilangkan loader dengan transisi halus
+  function hideLoader() {
+    const loader = document.getElementById('loader');
+    if (loader && loader.style.display !== 'none') {
+      loader.style.opacity = '0';
+      setTimeout(() => loader.style.display = 'none', 500);
+    }
+  }
   function renderProfile(profile) {
     if(!profile) return;
     
