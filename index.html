@@ -219,11 +219,9 @@
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('current-year').textContent = new Date().getFullYear();
     
-    // Inisialisasi Icons (UI dasar)
     if (window.lucide) lucide.createIcons();
     setupInteractions();
 
-    // Fetch Data dari API
     fetchData();
   });
 
@@ -237,10 +235,8 @@
       renderProjects(data.projects);
       renderExperiences(data.experiences);
       
-      // Re-render Icons karena ada elemen HTML baru
       if (window.lucide) lucide.createIcons();
 
-      // Sembunyikan loader
       const loader = document.getElementById('loader');
       loader.style.opacity = '0';
       setTimeout(() => loader.style.display = 'none', 500);
@@ -255,16 +251,14 @@
   function renderProfile(profile) {
     if(!profile) return;
     
-    // Header & Hero
     document.getElementById('nav-name').textContent = profile.name.split(' ')[0];
     document.getElementById('hero-name').textContent = profile.name;
     document.getElementById('footer-name').textContent = profile.name;
     document.getElementById('hero-headline').textContent = profile.headline;
     document.getElementById('hero-about').textContent = profile.about;
     
-    // Links & Contacts
     document.getElementById('btn-email').href = `mailto:${profile.email}`;
-    document.getElementById('btn-whatsapp').href = `https://wa.me/${profile.whatsapp.replace(/\D/g,'')}`;
+    document.getElementById('btn-whatsapp').href = `https://wa.me/${profile.whatsapp.toString().replace(/\D/g,'')}`;
     document.getElementById('link-linkedin').href = profile.linkedin;
     document.getElementById('link-cv').href = profile.link_cv;
     document.getElementById('link-chatbot').href = profile.link_chatbot;
@@ -272,16 +266,14 @@
 
   function renderSkills(skills) {
     const container = document.getElementById('skills-container');
-    container.innerHTML = ''; // bersihkan container
+    container.innerHTML = '';
 
-    // Kelompokkan skill berdasarkan 'category'
     const groupedSkills = skills.reduce((acc, curr) => {
       if (!acc[curr.category]) acc[curr.category] = [];
       acc[curr.category].push(curr.skill_name);
       return acc;
     }, {});
 
-    // Icon mapping sederhana berdasarkan nama kategori
     const getCategoryIcon = (cat) => {
       if(cat.toLowerCase().includes('lang')) return { icon: 'terminal', color: 'indigo' };
       if(cat.toLowerCase().includes('data') || cat.toLowerCase().includes('bi')) return { icon: 'database', color: 'cyanx' };
@@ -312,7 +304,6 @@
     const container = document.getElementById('projects-container');
     container.innerHTML = '';
     
-    // Filter hanya yang is_featured == true
     const featuredProjects = projects.filter(p => p.is_featured === true);
 
     featuredProjects.forEach((proj, index) => {
@@ -330,7 +321,7 @@
               <i data-lucide="${icon}" class="w-6 h-6"></i>
             </span>
             <h3 class="font-display font-extrabold text-2xl text-ink leading-tight">${proj.title}</h3>
-            <p class="mt-4 text-inksoft text-sm leading-relaxed">${proj.overview}</p>
+            <p class="mt-4 text-inksoft text-sm leading-relaxed whitespace-pre-line">${proj.overview}</p>
             <div class="mt-6 flex flex-wrap gap-2">
               ${tools}
             </div>
@@ -350,7 +341,6 @@
     const container = document.getElementById('experience-container');
     container.innerHTML = '';
 
-    // Sort berdasarkan order_index
     const sortedExps = experiences.sort((a, b) => a.order_index - b.order_index);
 
     sortedExps.forEach((exp, index) => {
@@ -360,7 +350,6 @@
 
       const expItem = `
         <div data-animate class="relative pl-8 pb-12 last:pb-0 in-view group">
-          <!-- Timeline Dot -->
           <div class="absolute left-[-17px] top-1.5 w-[14px] h-[14px] rounded-full border-[3px] ${dotColor} z-10 group-hover:border-indigo transition-colors shadow-sm"></div>
           
           <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 mb-2">
@@ -370,41 +359,40 @@
           <h4 class="font-display font-semibold text-base text-inksoft mb-4 flex items-center gap-1.5">
             <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${exp.company}
           </h4>
-          <p class="text-inksoft text-sm leading-relaxed max-w-3xl">${exp.description}</p>
+          <p class="text-inksoft text-sm leading-relaxed max-w-3xl whitespace-pre-line">${exp.description}</p>
         </div>
       `;
       container.insertAdjacentHTML('beforeend', expItem);
     });
   }
 
-  // Interaksi UI Dasar (Menu, Cursor, Scroll Animasi)
   function setupInteractions() {
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const cursor = document.getElementById('cursor-glow');
 
-    // Toggle Mobile Menu
-    menuBtn.addEventListener('click', () => {
-      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      menuBtn.setAttribute('aria-expanded', !isExpanded);
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // Close menu on link click
-    document.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-        menuBtn.setAttribute('aria-expanded', 'false');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.setAttribute('aria-expanded', !isExpanded);
+        mobileMenu.classList.toggle('hidden');
       });
-    });
 
-    // Custom Cursor
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          menuBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
     document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+      if (cursor) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      }
     });
 
-    // Scroll Animations (Simple Intersection Observer)
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
