@@ -255,30 +255,30 @@
     document.getElementById('btn-whatsapp').href = `https://wa.me/${profile.whatsapp.toString().replace(/\D/g,'')}`;
   }
 
-  function renderFeatures(features) {
+function renderFeatures(features) {
     const container = document.getElementById('features-container');
     if (!container) return;
     container.innerHTML = '';
 
-    const activeFeatures = features.filter(f => f.is_featured === true);
+    const activeFeatures = features.filter(f => 
+      f.is_featured === true || 
+      String(f.is_featured).toLowerCase() === 'true'
+    );
 
     activeFeatures.forEach(feat => {
-      const nameLower = feat.features_name.toLowerCase();
-      let icon = 'external-link';
-
-      if (nameLower.includes('linkedin')) icon = 'linkedin';
-      else if (nameLower.includes('cv') || nameLower.includes('sheet') || nameLower.includes('spreadsheet')) icon = 'file-spreadsheet';
-      else if (nameLower.includes('ai') || nameLower.includes('bot') || nameLower.includes('chat')) icon = 'bot';
+      // Ambil nama icon dari kolom 'icon' di sheet. 
+      // Kalau kolomnya kosong, otomatis pakai icon 'external-link' sebagai default.
+      const iconName = feat.icon ? feat.icon.trim() : 'external-link';
 
       const featureItem = `
         <a href="${feat.link}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors">
-          <i data-lucide="${icon}" class="w-4 h-4"></i> ${feat.features_name}
+          <i data-lucide="${iconName}" class="w-4 h-4"></i> ${feat.features_name}
         </a>
       `;
       container.insertAdjacentHTML('beforeend', featureItem);
     });
   }
-
+  
   function renderSkills(skills) {
     const container = document.getElementById('skills-container');
     container.innerHTML = '';
