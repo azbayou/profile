@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Bayu Aziz — Data Analyst & Logistic Specialist | Portfolio</title>
-<meta name="description" content="Bayu Aziz — Data Analyst & Logistic Specialist. Offering a strong foundation in Supply-Chain Operation with a proven ability to drive efficiency and deliver successful outcomes." />
+<meta name="description" content="Bayu Aziz — Data Analyst & Logistic Specialist Portfolio." />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,7 +65,7 @@
   <div class="max-w-7xl mx-auto px-6">
     <div class="flex items-center justify-between h-16">
       <a href="#hero" class="font-display font-extrabold text-lg tracking-tight text-ink">
-        Bayu<span class="text-gradient">.</span>
+        <span id="nav-name">Bayu</span><span class="text-gradient">.</span>
       </a>
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider text-inksoft">
         <a href="#skills" class="hover:text-indigo transition-colors">Skills</a>
@@ -91,29 +91,13 @@
       <a href="#contact" class="mobile-link">Contact</a>
     </div>
   </div>
-
-  <!-- Signature: live insight ticker -->
-  <div class="hidden sm:block border-t border-black/5 glass overflow-hidden">
-    <div class="flex whitespace-nowrap py-2 ticker-track" style="width:200%;">
-      <div class="flex items-center gap-10 font-mono text-[11px] text-inksoft w-1/2 justify-around">
-        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-cyanx animate-pulsering"></span>Logistics & Supply Chain</span>
-        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo"></span>SQL · App Script · JavaScript</span>
-        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-cyanx"></span>BigQuery · Metabase · Redash</span>
-        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo"></span>Spreadsheet Master</span>
-        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-cyanx"></span>Data Studio Dashboards</span>
-        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo"></span>WMS & Operations</span>
-      </div>
-      <div class="flex items-center gap-10 font-mono text-[11px] text-inksoft w-1/2 justify-around" aria-hidden="true">
-        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-cyanx"></span>Logistics & Supply Chain</span>
-        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo"></span>SQL · App Script · JavaScript</span>
-        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-cyanx"></span>BigQuery · Metabase · Redash</span>
-        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo"></span>Spreadsheet Master</span>
-        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-cyanx"></span>Data Studio Dashboards</span>
-        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo"></span>WMS & Operations</span>
-      </div>
-    </div>
-  </div>
 </header>
+
+<!-- ============ Loading Overlay ============ -->
+<div id="loader" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center transition-opacity duration-500">
+  <div class="w-10 h-10 border-4 border-indigo/20 border-t-indigo rounded-full animate-spin"></div>
+  <p class="mt-4 font-mono text-xs text-inksoft uppercase tracking-widest animate-pulse">Syncing Data...</p>
+</div>
 
 <!-- ============ HERO ============ -->
 <section id="hero" class="relative pt-40 pb-24 md:pt-48 md:pb-32 dot-grid overflow-hidden">
@@ -124,13 +108,13 @@
         <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Portfolio
       </span>
       <h1 class="mt-6 font-display font-extrabold text-5xl sm:text-6xl md:text-7xl leading-[1.05] tracking-tight text-ink">
-        Hi, I'm <span class="text-gradient">Bayu Aziz</span>
+        Hi, I'm <span class="text-gradient" id="hero-name">Loading...</span>
       </h1>
-      <p class="mt-4 font-display font-semibold text-xl sm:text-2xl text-inksoft">
-        Data Analyst &amp; Logistic Specialist
+      <p class="mt-4 font-display font-semibold text-xl sm:text-2xl text-inksoft" id="hero-headline">
+        Loading...
       </p>
-      <p class="mt-6 text-inksoft text-base sm:text-lg max-w-2xl leading-relaxed mx-auto">
-        Offering a strong foundation in Supply-Chain Operations with a proven ability to drive efficiency. I turn raw logistics data into decision-ready insights, resolving anomalies and automating workflows via SQL, Spreadsheets, and Data Dashboards.
+      <p class="mt-6 text-inksoft text-base sm:text-lg max-w-2xl leading-relaxed mx-auto" id="hero-about">
+        Loading data from Google Sheets...
       </p>
 
       <div class="mt-10 flex flex-wrap justify-center items-center gap-4">
@@ -140,22 +124,6 @@
         <a href="#contact" class="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-ink glass glow-ring transition-all">
           Contact Me <i data-lucide="mail" class="w-4 h-4"></i>
         </a>
-      </div>
-
-      <!-- Stats mini cards -->
-      <div class="mt-16 w-full max-w-xl grid grid-cols-3 gap-4 mx-auto">
-        <div class="glass glow-ring rounded-2xl px-4 py-5 text-center">
-          <p class="font-display font-extrabold text-2xl sm:text-3xl text-gradient">8+</p>
-          <p class="mt-1.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-wide text-inksoft">Years Logistics Exp</p>
-        </div>
-        <div class="glass glow-ring rounded-2xl px-4 py-5 text-center">
-          <p class="font-display font-extrabold text-2xl sm:text-3xl text-gradient">3.88</p>
-          <p class="mt-1.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-wide text-inksoft">Magna Cumlaude</p>
-        </div>
-        <div class="glass glow-ring rounded-2xl px-4 py-5 text-center">
-          <p class="font-display font-extrabold text-2xl sm:text-3xl text-gradient">3+</p>
-          <p class="mt-1.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-wide text-inksoft">Data Pipelines Built</p>
-        </div>
       </div>
     </div>
   </div>
@@ -167,61 +135,11 @@
     <div data-animate class="max-w-2xl">
       <span class="font-mono text-xs uppercase tracking-widest text-indigo">Capabilities</span>
       <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-ink">Tech Stack &amp; Skills</h2>
-      <p class="mt-4 text-inksoft leading-relaxed">The toolset I use to transform complex logistics workflows into streamlined, automated insights.</p>
+      <p class="mt-4 text-inksoft leading-relaxed">The toolset I use to transform complex workflows into streamlined insights.</p>
     </div>
-
-    <div class="mt-10 grid sm:grid-cols-2 gap-5">
-      <div data-animate class="glass rounded-2xl p-6 glow-ring">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="w-9 h-9 rounded-xl bg-indigo/10 flex items-center justify-center text-indigo"><i data-lucide="terminal" class="w-4.5 h-4.5"></i></span>
-          <h3 class="font-display font-bold text-ink">Languages & Scripts</h3>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          <span class="skill-pill">SQL</span>
-          <span class="skill-pill">Google Apps Script</span>
-          <span class="skill-pill">Javascript</span>
-          <span class="skill-pill">VBA</span>
-        </div>
-      </div>
-
-      <div data-animate class="glass rounded-2xl p-6 glow-ring">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="w-9 h-9 rounded-xl bg-cyanx/10 flex items-center justify-center text-cyanx"><i data-lucide="database" class="w-4.5 h-4.5"></i></span>
-          <h3 class="font-display font-bold text-ink">Database & BI Tools</h3>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          <span class="skill-pill">BigQuery / GCP</span>
-          <span class="skill-pill">Metabase</span>
-          <span class="skill-pill">Redash</span>
-          <span class="skill-pill">Google Data Studio</span>
-        </div>
-      </div>
-
-      <div data-animate class="glass rounded-2xl p-6 glow-ring">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="w-9 h-9 rounded-xl bg-indigo/10 flex items-center justify-center text-indigo"><i data-lucide="table-2" class="w-4.5 h-4.5"></i></span>
-          <h3 class="font-display font-bold text-ink">Spreadsheet & Modeling</h3>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          <span class="skill-pill">Advanced Excel</span>
-          <span class="skill-pill">Google Sheets</span>
-          <span class="skill-pill">Pivot Tables</span>
-          <span class="skill-pill">Data Entry</span>
-        </div>
-      </div>
-
-      <div data-animate class="glass rounded-2xl p-6 glow-ring">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="w-9 h-9 rounded-xl bg-cyanx/10 flex items-center justify-center text-cyanx"><i data-lucide="package" class="w-4.5 h-4.5"></i></span>
-          <h3 class="font-display font-bold text-ink">Logistics & Operations</h3>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          <span class="skill-pill">Supply-Chain Mgt.</span>
-          <span class="skill-pill">WMS</span>
-          <span class="skill-pill">Statistical Analysis</span>
-          <span class="skill-pill">Problem Solving</span>
-        </div>
-      </div>
+    <!-- Container untuk Skills dinamis -->
+    <div id="skills-container" class="mt-10 grid sm:grid-cols-2 gap-5">
+      <!-- Diisi oleh Javascript -->
     </div>
   </div>
 </section>
@@ -232,79 +150,11 @@
     <div data-animate class="max-w-2xl">
       <span class="font-mono text-xs uppercase tracking-widest text-cyanx">Selected Work</span>
       <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-ink">Featured Projects</h2>
-      <p class="mt-4 text-inksoft leading-relaxed">Showcasing data automation, interactive dashboards, and AI integrations.</p>
+      <p class="mt-4 text-inksoft leading-relaxed">Showcasing data automation, interactive dashboards, and integrations.</p>
     </div>
-
-    <div class="mt-10 grid lg:grid-cols-2 gap-6">
-
-      <!-- Project 1 -->
-      <article data-animate class="glass rounded-2xl p-7 glow-ring flex flex-col">
-        <div class="flex items-start justify-between gap-4">
-          <h3 class="font-display font-bold text-lg text-ink">Logistic Databases Pipeline</h3>
-          <span class="shrink-0 w-9 h-9 rounded-xl bg-cyanx/10 flex items-center justify-center text-cyanx"><i data-lucide="cloud" class="w-4.5 h-4.5"></i></span>
-        </div>
-        <p class="mt-3 text-sm text-inksoft leading-relaxed">
-          <span class="font-medium text-ink">Overview:</span> Developed an automated 2-way data pipeline using Google Apps Script to pull live BigQuery data and push order updates seamlessly. Designed a dashboard monitoring delivery rates and hub metrics.
-        </p>
-        <div class="mt-4 flex flex-wrap gap-2">
-          <span class="tool-pill">BigQuery</span><span class="tool-pill">Apps Script</span><span class="tool-pill">SQL</span><span class="tool-pill">GCP</span>
-        </div>
-        <div class="mt-6 pt-5 border-t border-black/5 flex items-center gap-5 text-sm font-mono">
-          <a href="https://docs.google.com/spreadsheets/d/1vTtD4qf38J5h8SSME7Enq-r_vTV563hNmUaHrv0IePU/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-inksoft hover:text-cyanx transition-colors"><i data-lucide="external-link" class="w-4 h-4"></i> View Dashboard</a>
-        </div>
-      </article>
-
-      <!-- Project 2 -->
-      <article data-animate class="glass rounded-2xl p-7 glow-ring flex flex-col">
-        <div class="flex items-start justify-between gap-4">
-          <h3 class="font-display font-bold text-lg text-ink">Interactive CV & Mini Portfolio</h3>
-          <span class="shrink-0 w-9 h-9 rounded-xl bg-indigo/10 flex items-center justify-center text-indigo"><i data-lucide="table-2" class="w-4.5 h-4.5"></i></span>
-        </div>
-        <p class="mt-3 text-sm text-inksoft leading-relaxed">
-          <span class="font-medium text-ink">Overview:</span> An interactive spreadsheet dashboard featuring my main CV alongside technical portfolios focused on data cleaning, Pivot Tables, data visualization, and smart filtering.
-        </p>
-        <div class="mt-4 flex flex-wrap gap-2">
-          <span class="tool-pill">Google Sheets</span><span class="tool-pill">Data Cleaning</span><span class="tool-pill">Pivot Tables</span>
-        </div>
-        <div class="mt-6 pt-5 border-t border-black/5 flex items-center gap-5 text-sm font-mono">
-          <a href="https://tinyurl.com/BayuCV" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-inksoft hover:text-indigo transition-colors"><i data-lucide="external-link" class="w-4 h-4"></i> View Spreadsheets</a>
-        </div>
-      </article>
-
-      <!-- Project 3 -->
-      <article data-animate class="glass rounded-2xl p-7 glow-ring flex flex-col">
-        <div class="flex items-start justify-between gap-4">
-          <h3 class="font-display font-bold text-lg text-ink">Personal Interactive AI Chatbot</h3>
-          <span class="shrink-0 w-9 h-9 rounded-xl bg-indigo/10 flex items-center justify-center text-indigo"><i data-lucide="bot" class="w-4.5 h-4.5"></i></span>
-        </div>
-        <p class="mt-3 text-sm text-inksoft leading-relaxed">
-          <span class="font-medium text-ink">Overview:</span> A personal, interactive AI assistant powered by Google Gemini via Google NotebookLM. Designed to answer any questions directly regarding my professional background, skills, and work preferences.
-        </p>
-        <div class="mt-4 flex flex-wrap gap-2">
-          <span class="tool-pill">AI Tools</span><span class="tool-pill">NotebookLM</span><span class="tool-pill">Google Gemini</span>
-        </div>
-        <div class="mt-6 pt-5 border-t border-black/5 flex items-center gap-5 text-sm font-mono">
-          <a href="https://tinyurl.com/BayuAI" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-inksoft hover:text-cyanx transition-colors"><i data-lucide="external-link" class="w-4 h-4"></i> Chat with AI</a>
-        </div>
-      </article>
-
-      <!-- Project 4 -->
-      <article data-animate class="glass rounded-2xl p-7 glow-ring flex flex-col">
-        <div class="flex items-start justify-between gap-4">
-          <h3 class="font-display font-bold text-lg text-ink">Address Route Optimization</h3>
-          <span class="shrink-0 w-9 h-9 rounded-xl bg-cyanx/10 flex items-center justify-center text-cyanx"><i data-lucide="map-pin" class="w-4.5 h-4.5"></i></span>
-        </div>
-        <p class="mt-3 text-sm text-inksoft leading-relaxed">
-          <span class="font-medium text-ink">Overview:</span> Optimized daily delivery routes for riders using location tracking matrices. Monitored invalid addresses or out-of-coverage spots using Excel and Google Maps to maximize dispatch efficiency.
-        </p>
-        <div class="mt-4 flex flex-wrap gap-2">
-          <span class="tool-pill">Excel</span><span class="tool-pill">Google Maps</span><span class="tool-pill">Data Analytics</span>
-        </div>
-        <div class="mt-6 pt-5 border-t border-black/5 flex items-center gap-5 text-sm font-mono">
-          <span class="inline-flex items-center gap-1.5 text-inkfaint"><i data-lucide="lock" class="w-4 h-4"></i> Internal Company Project</span>
-        </div>
-      </article>
-
+    <!-- Container untuk Projects dinamis -->
+    <div id="projects-container" class="mt-10 grid lg:grid-cols-2 gap-6">
+      <!-- Diisi oleh Javascript -->
     </div>
   </div>
 </section>
@@ -314,73 +164,15 @@
   <div class="max-w-7xl mx-auto px-6">
     <div data-animate class="max-w-2xl">
       <span class="font-mono text-xs uppercase tracking-widest text-indigo">Career Path</span>
-      <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-ink">Work Experience &amp; Education</h2>
-      <p class="mt-4 text-inksoft leading-relaxed">My professional journey across logistics operations, data analytics, and database management.</p>
+      <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-ink">Work Experience</h2>
     </div>
-
+    
     <div class="mt-14 relative pl-10">
       <div class="absolute left-[7px] top-1 bottom-1 w-[2px] timeline-line"></div>
-
-      <div data-animate class="relative pb-12">
-        <span class="absolute -left-10 top-1 w-4 h-4 rounded-full bg-indigo timeline-dot"></span>
-        <div class="glass rounded-2xl p-6 glow-ring">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <h3 class="font-display font-bold text-ink">Recovery Specialist</h3>
-            <span class="font-mono text-xs text-inkfaint">July 2018 — Aug 2026</span>
-          </div>
-          <p class="mt-1 text-sm font-medium text-cyanx">Ninja Xpress - Jakarta</p>
-          <ul class="mt-3 text-sm text-inksoft leading-relaxed list-disc list-inside space-y-1">
-            <li>Investigated and resolved missing/damaged parcel anomalies, adhering to SLA metrics.</li>
-            <li>Analyzed regional hub performance data using Redash & Metabase to isolate bottlenecks.</li>
-            <li>Formulated preventive measures via Excel, Sheets, and Apps Script to reduce problematic parcels.</li>
-          </ul>
-        </div>
+      <!-- Container untuk Experience dinamis -->
+      <div id="experience-container">
+        <!-- Diisi oleh Javascript -->
       </div>
-
-      <div data-animate class="relative pb-12">
-        <span class="absolute -left-10 top-1 w-4 h-4 rounded-full bg-cyanx timeline-dot"></span>
-        <div class="glass rounded-2xl p-6 glow-ring">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <h3 class="font-display font-bold text-ink">Address Verification – Lead</h3>
-            <span class="font-mono text-xs text-inkfaint">July 2017 — Aug 2018</span>
-          </div>
-          <p class="mt-1 text-sm font-medium text-cyanx">Ninja Xpress - Jakarta</p>
-          <ul class="mt-3 text-sm text-inksoft leading-relaxed list-disc list-inside space-y-1">
-            <li>Led address verification and optimized daily routes for drivers to maximize dispatch speed.</li>
-            <li>Monitored invalid addresses and out-of-coverage locations via Excel and Google Maps.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div data-animate class="relative pb-12">
-        <span class="absolute -left-10 top-1 w-4 h-4 rounded-full bg-indigo timeline-dot"></span>
-        <div class="glass rounded-2xl p-6 glow-ring">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <h3 class="font-display font-bold text-ink">Database Administrator (Intern)</h3>
-            <span class="font-mono text-xs text-inkfaint">July 2017 — Aug 2017</span>
-          </div>
-          <p class="mt-1 text-sm font-medium text-cyanx">SOHO Global Health - Jakarta</p>
-          <ul class="mt-3 text-sm text-inksoft leading-relaxed list-disc list-inside space-y-1">
-            <li>Developed VBA scripts in Excel to automate regulatory database processes and report generation.</li>
-            <li>Maintained data integrity and streamlined compliance workflows via SQL querying.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div data-animate class="relative">
-        <span class="absolute -left-10 top-1 w-4 h-4 rounded-full bg-cyanx timeline-dot"></span>
-        <div class="glass rounded-2xl p-6 glow-ring">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <h3 class="font-display font-bold text-ink flex items-center gap-2"><i data-lucide="graduation-cap" class="w-4 h-4"></i> D3 Sistem Informasi</h3>
-            <span class="font-mono text-xs text-inkfaint">2015 — 2018</span>
-          </div>
-          <p class="mt-1 text-sm font-medium text-cyanx">Universitas Bina Sarana Informatika</p>
-          <p class="mt-3 text-sm text-inksoft leading-relaxed">
-            Graduated <span class="font-bold text-ink">Magna Cumlaude</span> with a GPA of <span class="font-bold text-ink">3.88</span>. Focused on information systems, databases, and programming fundamentals.
-          </p>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -394,23 +186,20 @@
         <i data-lucide="mail" class="w-6 h-6"></i>
       </span>
       <h2 class="font-display font-extrabold text-4xl sm:text-5xl text-ink tracking-tight">Let's solve your data bottlenecks.</h2>
-      <p class="mt-5 text-lg text-inksoft leading-relaxed max-w-2xl mx-auto">
-        Whether you're looking to optimize logistics operations or need a data analyst to uncover insights, I'm open to discussing new challenges.
-      </p>
       
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a href="mailto:azbayou@gmail.com" class="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold text-white btn-primary transition-all">
+        <a id="btn-email" href="#" class="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold text-white btn-primary transition-all">
           Email Me <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </a>
-        <a href="https://wa.me/6281222493838" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold text-ink glass glow-ring transition-all">
+        <a id="btn-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold text-ink glass glow-ring transition-all">
           WhatsApp Me
         </a>
       </div>
 
       <div class="mt-16 pt-8 border-t border-black/5 flex flex-wrap justify-center gap-6 font-mono text-sm">
-        <a href="https://linkedin.com/in/azbayou" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn</a>
-        <a href="https://drive.google.com/file/d/1EHXueVdOmEh3-1kH7vROTracuRPJxnSl/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-cyanx transition-colors"><i data-lucide="file-drive" class="w-4 h-4"></i> CV </a>
-        <a href="https://tinyurl.com/BayuAI" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors"><i data-lucide="bot" class="w-4 h-4"></i> AI Chatbot</a>
+        <a id="link-linkedin" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn</a>
+        <a id="link-cv" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-cyanx transition-colors"><i data-lucide="file-spreadsheet" class="w-4 h-4"></i> CV Spreadsheets</a>
+        <a id="link-chatbot" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors"><i data-lucide="bot" class="w-4 h-4"></i> AI Chatbot</a>
       </div>
     </div>
   </div>
@@ -419,57 +208,216 @@
 <!-- ============ FOOTER ============ -->
 <footer class="py-8 border-t border-black/5 text-center bg-white relative z-10">
   <p class="font-mono text-xs text-inksoft">
-    &copy; 2026 Bayu Aziz. All rights reserved. <span class="text-cyanx mx-2">&bull;</span> Built with data in mind.
+    &copy; <span id="current-year"></span> <span id="footer-name">Bayu Aziz</span>. All rights reserved. <span class="text-cyanx mx-2">&bull;</span> Built with data in mind.
   </p>
 </footer>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Render Icons
-    if (window.lucide) {
-      lucide.createIcons();
-    }
+  // API URL dari Google Apps Script lo
+  const API_URL = 'https://script.google.com/macros/s/AKfycbxHEUE0p1Wpi2Rs4WisjYiLinfAoF7xhU46TUAbxEfkO8MP6ixBTGq8bHbaHHVVTOz1/exec';
 
-    // Scroll animations
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    
+    // Inisialisasi Icons (UI dasar)
+    if (window.lucide) lucide.createIcons();
+    setupInteractions();
+
+    // Fetch Data dari API
+    fetchData();
+  });
+
+  async function fetchData() {
+    try {
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      
+      renderProfile(data.profile[0]);
+      renderSkills(data.skills);
+      renderProjects(data.projects);
+      renderExperiences(data.experiences);
+      
+      // Re-render Icons karena ada elemen HTML baru
+      if (window.lucide) lucide.createIcons();
+
+      // Sembunyikan loader
+      const loader = document.getElementById('loader');
+      loader.style.opacity = '0';
+      setTimeout(() => loader.style.display = 'none', 500);
+
+    } catch (error) {
+      console.error('Gagal mengambil data dari Google Sheets:', error);
+      document.getElementById('hero-name').textContent = "Error Loading Data";
+      document.getElementById('hero-about').textContent = "Pastikan Web App URL sudah benar dan dapat diakses publik.";
+    }
+  }
+
+  function renderProfile(profile) {
+    if(!profile) return;
+    
+    // Header & Hero
+    document.getElementById('nav-name').textContent = profile.name.split(' ')[0];
+    document.getElementById('hero-name').textContent = profile.name;
+    document.getElementById('footer-name').textContent = profile.name;
+    document.getElementById('hero-headline').textContent = profile.headline;
+    document.getElementById('hero-about').textContent = profile.about;
+    
+    // Links & Contacts
+    document.getElementById('btn-email').href = `mailto:${profile.email}`;
+    document.getElementById('btn-whatsapp').href = `https://wa.me/${profile.whatsapp.replace(/\D/g,'')}`;
+    document.getElementById('link-linkedin').href = profile.linkedin;
+    document.getElementById('link-cv').href = profile.link_cv;
+    document.getElementById('link-chatbot').href = profile.link_chatbot;
+  }
+
+  function renderSkills(skills) {
+    const container = document.getElementById('skills-container');
+    container.innerHTML = ''; // bersihkan container
+
+    // Kelompokkan skill berdasarkan 'category'
+    const groupedSkills = skills.reduce((acc, curr) => {
+      if (!acc[curr.category]) acc[curr.category] = [];
+      acc[curr.category].push(curr.skill_name);
+      return acc;
+    }, {});
+
+    // Icon mapping sederhana berdasarkan nama kategori
+    const getCategoryIcon = (cat) => {
+      if(cat.toLowerCase().includes('lang')) return { icon: 'terminal', color: 'indigo' };
+      if(cat.toLowerCase().includes('data') || cat.toLowerCase().includes('bi')) return { icon: 'database', color: 'cyanx' };
+      if(cat.toLowerCase().includes('spread')) return { icon: 'table-2', color: 'indigo' };
+      return { icon: 'package', color: 'cyanx' };
+    };
+
+    Object.keys(groupedSkills).forEach(category => {
+      const config = getCategoryIcon(category);
+      const pills = groupedSkills[category].map(skill => `<span class="skill-pill">${skill}</span>`).join('');
+      
+      const skillCard = `
+        <div data-animate class="glass rounded-2xl p-6 glow-ring in-view">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="w-9 h-9 rounded-xl bg-${config.color}/10 flex items-center justify-center text-${config.color}"><i data-lucide="${config.icon}" class="w-4.5 h-4.5"></i></span>
+            <h3 class="font-display font-bold text-ink">${category}</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            ${pills}
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', skillCard);
+    });
+  }
+
+  function renderProjects(projects) {
+    const container = document.getElementById('projects-container');
+    container.innerHTML = '';
+    
+    // Filter hanya yang is_featured == true
+    const featuredProjects = projects.filter(p => p.is_featured === true);
+
+    featuredProjects.forEach((proj, index) => {
+      const isIndigo = index % 2 === 0;
+      const color = isIndigo ? 'indigo' : 'cyanx';
+      const icon = isIndigo ? 'cloud' : 'pie-chart';
+      
+      const tools = proj.tools.split(',').map(t => `<span class="px-2 py-1 bg-white/60 border border-black/5 rounded-md text-xs font-mono text-inksoft">${t.trim()}</span>`).join('');
+
+      const projectCard = `
+        <article data-animate class="glass rounded-[2rem] p-8 glow-ring flex flex-col justify-between in-view group relative overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-${color}/5 rounded-full blur-2xl group-hover:bg-${color}/10 transition-all duration-500"></div>
+          <div>
+            <span class="w-12 h-12 rounded-2xl bg-${color}/10 flex items-center justify-center text-${color} mb-6">
+              <i data-lucide="${icon}" class="w-6 h-6"></i>
+            </span>
+            <h3 class="font-display font-extrabold text-2xl text-ink leading-tight">${proj.title}</h3>
+            <p class="mt-4 text-inksoft text-sm leading-relaxed">${proj.overview}</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              ${tools}
+            </div>
+          </div>
+          <div class="mt-10">
+            <a href="${proj.link_url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-ink group-hover:text-${color} transition-colors">
+              ${proj.link_label} <i data-lucide="arrow-up-right" class="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+            </a>
+          </div>
+        </article>
+      `;
+      container.insertAdjacentHTML('beforeend', projectCard);
+    });
+  }
+
+  function renderExperiences(experiences) {
+    const container = document.getElementById('experience-container');
+    container.innerHTML = '';
+
+    // Sort berdasarkan order_index
+    const sortedExps = experiences.sort((a, b) => a.order_index - b.order_index);
+
+    sortedExps.forEach((exp, index) => {
+      const isFirst = index === 0;
+      const dotColor = isFirst ? 'border-indigo bg-white' : 'border-inkfaint bg-haze';
+      const textColor = isFirst ? 'text-indigo' : 'text-inksoft';
+
+      const expItem = `
+        <div data-animate class="relative pl-8 pb-12 last:pb-0 in-view group">
+          <!-- Timeline Dot -->
+          <div class="absolute left-[-17px] top-1.5 w-[14px] h-[14px] rounded-full border-[3px] ${dotColor} z-10 group-hover:border-indigo transition-colors shadow-sm"></div>
+          
+          <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 mb-2">
+            <h3 class="font-display font-bold text-xl text-ink">${exp.role_title}</h3>
+            <span class="font-mono text-xs uppercase tracking-wider ${textColor}">${exp.period}</span>
+          </div>
+          <h4 class="font-display font-semibold text-base text-inksoft mb-4 flex items-center gap-1.5">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${exp.company}
+          </h4>
+          <p class="text-inksoft text-sm leading-relaxed max-w-3xl">${exp.description}</p>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', expItem);
+    });
+  }
+
+  // Interaksi UI Dasar (Menu, Cursor, Scroll Animasi)
+  function setupInteractions() {
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const cursor = document.getElementById('cursor-glow');
+
+    // Toggle Mobile Menu
+    menuBtn.addEventListener('click', () => {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', !isExpanded);
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close menu on link click
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Custom Cursor
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Scroll Animations (Simple Intersection Observer)
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if(entry.isIntersecting){
+        if (entry.isIntersecting) {
           entry.target.classList.add('in-view');
         }
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
-
-    // Custom cursor spotlight (desktop only)
-    let raf;
-    if(window.matchMedia('(pointer: fine)').matches){
-      window.addEventListener('mousemove', (e) => {
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-          document.documentElement.style.setProperty('--mx', e.clientX + 'px');
-          document.documentElement.style.setProperty('--my', e.clientY + 'px');
-        });
-      });
-    }
-
-    // Mobile menu toggle
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (menuBtn && mobileMenu) {
-      menuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        const isExpanded = !mobileMenu.classList.contains('hidden');
-        menuBtn.setAttribute('aria-expanded', isExpanded);
-      });
-      document.querySelectorAll('.mobile-link').forEach(link => {
-        link.addEventListener('click', () => { 
-          mobileMenu.classList.add('hidden'); 
-          menuBtn.setAttribute('aria-expanded', 'false'); 
-        });
-      });
-    }
-  });
+    document.querySelectorAll('[data-animate]').forEach((el) => {
+      observer.observe(el);
+    });
+  }
 </script>
+
 </body>
 </html>
