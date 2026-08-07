@@ -347,33 +347,50 @@ function renderFeatures(features) {
     });
   }
 
-  function renderProjects(projects) {
+function renderProjects(projects) {
     const container = document.getElementById('projects-container');
     container.innerHTML = '';
     
-    const featuredProjects = projects.filter(p => p.is_featured === true);
+    // Perbaikan filter is_featured agar fleksibel membaca teks/boolean
+    const featuredProjects = projects.filter(p => 
+      p.is_featured === true || 
+      String(p.is_featured).toLowerCase() === 'true'
+    );
 
     featuredProjects.forEach((proj, index) => {
       const isIndigo = index % 2 === 0;
       const color = isIndigo ? 'indigo' : 'cyanx';
-      const icon = isIndigo ? 'cloud' : 'pie-chart';
       
-      const tools = proj.tools.split(',').map(t => `<span class="px-2 py-1 bg-white/60 border border-black/5 rounded-md text-xs font-mono text-inksoft">${t.trim()}</span>`).join('');
+      const tools = proj.tools 
+        ? proj.tools.split(',').map(t => `<span class="px-2 py-1 bg-white/60 border border-black/5 rounded-md text-xs font-mono text-inksoft">${t.trim()}</span>`).join('')
+        : '';
+
+      // PENENTUAN THUMBNAIL:
+      // 1. Jika ada isi di kolom 'image_url' Google Sheets, pakai URL tersebut.
+      // 2. Jika kosong, otomatis buat screenshot dari link_url proyek.
+      const thumbnailUrl = (proj.image_url && proj.image_url.trim() !== '') 
+        ? proj.image_url 
+        : `https://s0.wp.com/mshots/v1/${encodeURIComponent(proj.link_url)}?w=800&h=500`;
 
       const projectCard = `
-        <article data-animate class="glass rounded-[2rem] p-8 glow-ring flex flex-col justify-between in-view group relative overflow-hidden">
+        <article data-animate class="glass rounded-[2rem] p-6 sm:p-8 glow-ring flex flex-col justify-between in-view group relative overflow-hidden">
           <div class="absolute -right-10 -top-10 w-40 h-40 bg-${color}/5 rounded-full blur-2xl group-hover:bg-${color}/10 transition-all duration-500"></div>
           <div>
-            <span class="w-12 h-12 rounded-2xl bg-${color}/10 flex items-center justify-center text-${color} mb-6">
-              <i data-lucide="${icon}" class="w-6 h-6"></i>
-            </span>
+            <!-- Box Image Thumbnail -->
+            <div class="w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-6 bg-slate-100 border border-black/5 relative">
+              <img src="${thumbnailUrl}" 
+                   alt="${proj.title}" 
+                   class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                   loading="lazy" />
+            </div>
+
             <h3 class="font-display font-extrabold text-2xl text-ink leading-tight">${proj.title}</h3>
             <p class="mt-4 text-inksoft text-sm leading-relaxed whitespace-pre-line">${proj.overview}</p>
             <div class="mt-6 flex flex-wrap gap-2">
               ${tools}
             </div>
           </div>
-          <div class="mt-10">
+          <div class="mt-8">
             <a href="${proj.link_url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-ink group-hover:text-${color} transition-colors">
               ${proj.link_label} <i data-lucide="arrow-up-right" class="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
             </a>
