@@ -11,6 +11,7 @@ Welcome to my personal portfolio repository! This website showcases my professio
 * **Fully Responsive:** Seamless layout optimized across mobile, tablet, and desktop views.
 * **Interactive Portfolio Links:** Quick access to my interactive CV spreadsheet and custom AI Assistant.
 * **Lightweight & Fast:** Built without heavy frameworks for minimal load times.
+* **Floating AI Chatbot** Interactive AI Assistant (RAG Chatbot)
 
 ---
 
