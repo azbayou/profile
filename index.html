@@ -471,5 +471,87 @@ function renderProjects(projects) {
     });
   }
 </script>
+  <!-- ========================================== -->
+<!-- FLOATING CHATBOT WIDGET                    -->
+<!-- ========================================== -->
+<div id="rag-chat-widget">
+  <!-- Popup Frame Chatbot -->
+  <div id="rag-chat-popup">
+    <!-- GANTI URL DI BAWAH DENGAN URL STREAMLIT LU (tambahkan ?embed=true di akhir) -->
+    <iframe 
+      src="https://bay-ragcb.streamlit.app/?embed=true" 
+      width="100%" 
+      height="100%" 
+      style="border:none;">
+    </iframe>
+  </div>
+
+  <!-- Tombol Melayang (Floating Button) -->
+  <button id="rag-chat-btn" onclick="toggleRagChat()">
+    💬 Tanya AI
+  </button>
+</div>
+
+<style>
+  #rag-chat-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999999;
+    font-family: Arial, sans-serif;
+  }
+
+  #rag-chat-btn {
+    background-color: #2563eb; /* Warna tombol */
+    color: white;
+    border: none;
+    padding: 14px 22px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  #rag-chat-btn:hover {
+    background-color: #1d4ed8;
+    transform: scale(1.05);
+  }
+
+  #rag-chat-popup {
+    display: none;
+    width: 380px;
+    height: 580px;
+    margin-bottom: 12px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    background: #ffffff;
+  }
+
+  /* Responsif untuk layar HP kecil */
+  @media (max-width: 480px) {
+    #rag-chat-popup {
+      width: 90vw;
+      height: 70vh;
+    }
+  }
+</style>
+
+<script>
+  function toggleRagChat() {
+    var popup = document.getElementById("rag-chat-popup");
+    var btn = document.getElementById("rag-chat-btn");
+    
+    if (popup.style.display === "block") {
+      popup.style.display = "none";
+      btn.innerHTML = "💬 Tanya AI";
+    } else {
+      popup.style.display = "block";
+      btn.innerHTML = "✖ Tutup";
+    }
+  }
+</script>
 </body>
 </html>
