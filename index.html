@@ -471,7 +471,8 @@ function renderProjects(projects) {
     });
   }
 </script>
-  <!-- ========================================== -->
+
+<!-- ========================================== -->
 <!-- FLOATING CHATBOT WIDGET                    -->
 <!-- ========================================== -->
 <div id="rag-chat-widget">
@@ -488,7 +489,8 @@ function renderProjects(projects) {
 
   <!-- Tombol Melayang (Floating Button) -->
   <button id="rag-chat-btn" onclick="toggleRagChat()">
-    💬 Tanya Miyo
+    <img src="2_20260925_193506_0001.png" alt="Miyo" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;">
+    Tanya Miyo
   </button>
 </div>
 
@@ -505,13 +507,17 @@ function renderProjects(projects) {
     background-color: #2563eb; /* Warna tombol */
     color: white;
     border: none;
-    padding: 14px 22px;
+    padding: 12px 20px;
     border-radius: 50px;
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
+    display: flex; /* Menyelaraskan gambar dan teks */
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Jarak antara gambar dan teks */
   }
 
   #rag-chat-btn:hover {
@@ -521,8 +527,8 @@ function renderProjects(projects) {
 
   #rag-chat-popup {
     display: none;
-    width: 380px;
-    height: 580px;
+    width: 300px;  /* Diperkecil dari 380px (~20%) */
+    height: 460px; /* Diperkecil dari 580px (~20%) */
     margin-bottom: 12px;
     border-radius: 16px;
     overflow: hidden;
@@ -546,10 +552,12 @@ function renderProjects(projects) {
     
     if (popup.style.display === "block") {
       popup.style.display = "none";
-      btn.innerHTML = "💬 Tanya Miyo";
+      // Mengembalikan tombol ke isi semula (Gambar + Teks) saat ditutup
+      btn.innerHTML = '<img src="2_20260925_193506_0001.png" alt="Miyo" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;"> Tanya Miyo';
     } else {
       popup.style.display = "block";
-      btn.innerHTML = "✖ Tutup";
+      // Mengubah jadi tombol Tutup saat popup terbuka
+      btn.innerHTML = "✖ Tutup"; 
     }
   }
 </script>
