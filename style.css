@@ -168,3 +168,21 @@ h1, h2, h3, h4, .font-display {
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   #cursor-glow { display: none; }
 }
+
+/* Membuat semua tautan di dalam balasan Miyo tampak seperti tombol */
+.chat-message a {
+  display: inline-block;
+  background-color: #25d366; /* atau warna biru khas tema web */
+  color: #ffffff;
+  padding: 8px 14px;
+  margin-top: 6px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.chat-message a:hover {
+  opacity: 0.9;
+}
