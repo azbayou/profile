@@ -235,7 +235,7 @@ h1, h2, h3, h4, .font-display {
   background-color: #2563eb; 
   color: white;
   border: none;
-  padding: 14px 22px 14px 45px; /* Padding kiri lebih besar untuk memberi ruang bagi Miyo */
+  padding: 14px 22px 14px 55px; /* Padding kiri lebih besar untuk memberi ruang bagi Miyo */
   border-radius: 50px;
   font-size: 16px;
   font-weight: bold;
