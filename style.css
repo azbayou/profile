@@ -222,7 +222,7 @@ h1, h2, h3, h4, .font-display {
 
 #rag-miyo-img {
   position: absolute;
-  left: -60px; /* Menarik gambar ke kiri, keluar dari tombol */
+  left: -50px; /* Menarik gambar ke kiri, keluar dari tombol */
   bottom: -10px; /* Menurunkan sedikit agar overlap dari bawah */
   width: 100px; /* Ukuran Miyo dibesarkan */
   height: auto;
