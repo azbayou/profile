@@ -475,129 +475,54 @@ function renderProjects(projects) {
 <!-- ========================================== -->
 <!-- FLOATING CHATBOT WIDGET                    -->
 <!-- ========================================== -->
-<div id="rag-chat-widget">
-  <!-- Popup Frame Chatbot -->
-  <div id="rag-chat-popup">
-    <!-- GANTI URL DI BAWAH DENGAN URL STREAMLIT LU (tambahkan ?embed=true di akhir) -->
-    <iframe 
-      src="https://bay-ragcb.streamlit.app/?embed=true" 
-      width="100%" 
-      height="100%" 
-      style="border:none;">
-    </iframe>
+  <div id="rag-chat-widget">
+    <!-- Popup Frame Chatbot -->
+    <div id="rag-chat-popup">
+      <!-- GANTI URL DI BAWAH DENGAN URL STREAMLIT LU (tambahkan ?embed=true di akhir) -->
+      <iframe 
+        src="https://bay-ragcb.streamlit.app/?embed=true" 
+        width="100%" 
+        height="100%" 
+        style="border:none;">
+      </iframe>
+    </div>
+
+    <!-- Container untuk tombol dan gambar Miyo -->
+    <div id="rag-btn-container">
+      <!-- Gambar Miyo yang overlaping -->
+      <img id="rag-miyo-img" src="2_20260925_193506_0001.png" alt="Miyo">
+      <!-- Tombol Melayang (Floating Button) -->
+      <button id="rag-chat-btn" onclick="toggleRagChat()">
+        <span id="rag-btn-text">Tanya Miyo</span>
+      </button>
+    </div>
   </div>
 
-  <!-- Container untuk tombol dan gambar Miyo -->
-  <div id="rag-btn-container">
-    <!-- Gambar Miyo yang overlaping -->
-    <img id="rag-miyo-img" src="2_20260925_193506_0001.png" alt="Miyo">
-    <!-- Tombol Melayang (Floating Button) -->
-    <button id="rag-chat-btn" onclick="toggleRagChat()">
-      <span id="rag-btn-text">Tanya Miyo</span>
-    </button>
-  </div>
-</div>
-
-<style>
-  #rag-chat-widget {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 999999;
-    font-family: Arial, sans-serif;
-  }
-
-  #rag-chat-popup {
-    display: none;
-    width: 380px; 
-    height: 580px; 
-    margin-bottom: 20px; /* Sedikit jarak ekstra karena gambar Miyo besar */
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    background: #ffffff;
-  }
-
-  /* Responsif untuk layar HP kecil */
-  @media (max-width: 480px) {
-    #rag-chat-popup {
-      width: 90vw;
-      height: 70vh;
+  <script>
+    function toggleRagChat() {
+      var popup = document.getElementById("rag-chat-popup");
+      var btnText = document.getElementById("rag-btn-text");
+      var btn = document.getElementById("rag-chat-btn");
+      var img = document.getElementById("rag-miyo-img");
+      
+      if (popup.style.display === "block") {
+        popup.style.display = "none";
+        // Mengembalikan teks tombol saat ditutup
+        btnText.innerText = "Tanya Miyo";
+        // Tampilkan kembali gambar Miyo besar
+        img.style.display = "block";
+        // Kembalikan padding
+        btn.style.padding = "14px 22px 14px 45px";
+      } else {
+        popup.style.display = "block";
+        // Mengubah jadi tombol Tutup saat popup terbuka
+        btnText.innerText = "✖ Tutup"; 
+        // Sembunyikan gambar Miyo besar agar tidak menghalangi saat popup terbuka
+        img.style.display = "none";
+        // Sesuaikan padding karena gambar hilang
+        btn.style.padding = "14px 22px";
+      }
     }
-  }
-
-  #rag-btn-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Memastikan tombol di kanan */
-    width: fit-content;
-    margin-left: auto; /* Mendorong container ke kanan */
-    height: 80px; /* Cukup tinggi untuk menampung gambar besar */
-  }
-
-  #rag-miyo-img {
-    position: absolute;
-    left: -60px; /* Menarik gambar ke kiri, keluar dari tombol */
-    bottom: -10px; /* Menurunkan sedikit agar overlap dari bawah */
-    width: 100px; /* Ukuran Miyo dibesarkan */
-    height: auto;
-    z-index: 2; /* Memastikan gambar berada di atas tombol */
-    pointer-events: none; /* Agar klik tetap tembus ke tombol jika area kosong */
-    transition: all 0.3s ease;
-  }
-
-  #rag-chat-btn {
-    background-color: #2563eb; 
-    color: white;
-    border: none;
-    padding: 14px 22px 14px 45px; /* Padding kiri lebih besar untuk memberi ruang bagi Miyo */
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 150px; /* Lebar minimum agar tidak terlalu pendek */
-    height: 50px;
-    position: relative;
-    z-index: 1; /* Tombol di bawah gambar Miyo */
-  }
-
-  #rag-chat-btn:hover {
-    background-color: #1d4ed8;
-    transform: scale(1.02);
-  }
-</style>
-
-<script>
-  function toggleRagChat() {
-    var popup = document.getElementById("rag-chat-popup");
-    var btnText = document.getElementById("rag-btn-text");
-    var btn = document.getElementById("rag-chat-btn");
-    var img = document.getElementById("rag-miyo-img");
-    
-    if (popup.style.display === "block") {
-      popup.style.display = "none";
-      // Mengembalikan teks tombol saat ditutup
-      btnText.innerText = "Tanya Miyo";
-      // Tampilkan kembali gambar Miyo besar
-      img.style.display = "block";
-      // Kembalikan padding
-      btn.style.padding = "14px 22px 14px 45px";
-    } else {
-      popup.style.display = "block";
-      // Mengubah jadi tombol Tutup saat popup terbuka
-      btnText.innerText = "✖ Tutup"; 
-      // Sembunyikan gambar Miyo besar agar tidak menghalangi saat popup terbuka
-      img.style.display = "none";
-      // Sesuaikan padding karena gambar hilang
-      btn.style.padding = "14px 22px";
-    }
-  }
-</script>
+  </script>
 </body>
 </html>
