@@ -1,35 +1,136 @@
+/* ============================================================
+   THEME VARIABLES
+   ============================================================ */
 :root {
+  /* Backgrounds */
+  --bg-primary: #FCFDFE;
+  --bg-secondary: #F6F8FB;
+  --bg-section: rgba(246, 248, 251, 0.6);
+  --nav-bg: rgba(252, 253, 254, 0.9);
+
+  /* Text */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-faint: #94A3B8;
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-strong-bg: rgba(255, 255, 255, 0.78);
+
+  /* Borders */
   --border-hair: rgba(15, 23, 42, 0.08);
+
+  /* Effects */
+  --dot-grid-color: rgba(15, 23, 42, 0.09);
   --glow-indigo: rgba(99, 102, 241, 0.35);
   --glow-cyan: rgba(6, 182, 212, 0.35);
+  --cursor-glow-opacity: 0.5;
+
+  /* Components */
+  --selection-bg: rgba(99, 102, 241, 0.18);
+  --selection-color: #0F172A;
+  --scrollbar-track: #F6F8FB;
+  --loader-bg: #ffffff;
+  --skill-pill-bg: rgba(255, 255, 255, 0.5);
+  --skill-pill-border: rgba(15, 23, 42, 0.05);
+  --skill-pill-hover-color: #4338CA;
+  --tool-pill-bg: rgba(15, 23, 42, 0.04);
+  --tool-pill-color: #0F172A;
+
+  /* Contact section gradient end */
+  --contact-gradient-to: rgba(238, 242, 255, 0.3);
+  --footer-bg: #ffffff;
+
+  /* Chatbot */
+  --chat-btn-bg: #2563eb;
+  --chat-btn-hover: #1d4ed8;
+  --chat-popup-bg: #ffffff;
+
+  /* Cursor (internal) */
   --mx: 50%;
   --my: 20%;
 }
 
-html, body { 
-  background: #FCFDFE; 
+html.dark {
+  --bg-primary: #0B0F19;
+  --bg-secondary: #111827;
+  --bg-section: rgba(17, 24, 39, 0.6);
+  --nav-bg: rgba(11, 15, 25, 0.9);
+
+  --text-primary: #E2E8F0;
+  --text-secondary: #94A3B8;
+  --text-faint: #64748B;
+
+  --glass-bg: rgba(15, 23, 42, 0.60);
+  --glass-strong-bg: rgba(15, 23, 42, 0.80);
+
+  --border-hair: rgba(226, 232, 240, 0.08);
+
+  --dot-grid-color: rgba(226, 232, 240, 0.06);
+  --glow-indigo: rgba(99, 102, 241, 0.25);
+  --glow-cyan: rgba(6, 182, 212, 0.25);
+  --cursor-glow-opacity: 0.3;
+
+  --selection-bg: rgba(99, 102, 241, 0.30);
+  --selection-color: #E2E8F0;
+  --scrollbar-track: #0B0F19;
+  --loader-bg: #0B0F19;
+  --skill-pill-bg: rgba(30, 41, 59, 0.50);
+  --skill-pill-border: rgba(226, 232, 240, 0.08);
+  --skill-pill-hover-color: #818CF8;
+  --tool-pill-bg: rgba(226, 232, 240, 0.06);
+  --tool-pill-color: #E2E8F0;
+
+  --contact-gradient-to: rgba(30, 27, 75, 0.3);
+  --footer-bg: #0B0F19;
+
+  --chat-btn-bg: #4F46E5;
+  --chat-btn-hover: #6366F1;
+  --chat-popup-bg: #111827;
 }
 
-body { 
-  font-family: 'Inter', sans-serif; 
-  color: #0F172A; 
+/* ============================================================
+   SMOOTH THEME TRANSITION (applied briefly during toggle)
+   ============================================================ */
+html.transitioning,
+html.transitioning *,
+html.transitioning *::before,
+html.transitioning *::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+  transition-delay: 0s !important;
 }
 
-h1, h2, h3, h4, .font-display { 
-  font-family: 'Plus Jakarta Sans', sans-serif; 
+/* ============================================================
+   BASE
+   ============================================================ */
+html, body {
+  background: var(--bg-primary);
 }
 
-.font-mono { 
-  font-family: 'JetBrains Mono', monospace; 
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
 }
 
-/* Ambient dot grid */
+h1, h2, h3, h4, .font-display {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ============================================================
+   AMBIENT DOT GRID
+   ============================================================ */
 .dot-grid {
-  background-image: radial-gradient(rgba(15, 23, 42, 0.09) 1px, transparent 1px);
+  background-image: radial-gradient(var(--dot-grid-color) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
-/* Cursor-reactive spotlight */
+/* ============================================================
+   CURSOR SPOTLIGHT
+   ============================================================ */
 #cursor-glow {
   position: fixed;
   top: 0; left: 0;
@@ -37,38 +138,46 @@ h1, h2, h3, h4, .font-display {
   transform: translate3d(calc(var(--mx) - 310px), calc(var(--my) - 310px), 0);
   background: radial-gradient(circle at center, var(--glow-indigo), transparent 60%);
   filter: blur(10px);
-  opacity: 0.5;
+  opacity: var(--cursor-glow-opacity);
   pointer-events: none;
   z-index: 0;
   transition: opacity .4s ease;
   will-change: transform;
 }
 
-/* Glassmorphism (light mode) */
+/* ============================================================
+   GLASSMORPHISM
+   ============================================================ */
 .glass {
-  background: rgba(255, 255, 255, 0.62);
+  background: var(--glass-bg);
   backdrop-filter: blur(18px) saturate(160%);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
   border: 1px solid var(--border-hair);
 }
 
 .glass-strong {
-  background: rgba(255, 255, 255, 0.78);
+  background: var(--glass-strong-bg);
   backdrop-filter: blur(22px) saturate(180%);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
   border: 1px solid var(--border-hair);
 }
 
-.glow-ring { 
-  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; 
+/* ============================================================
+   GLOW RING
+   ============================================================ */
+.glow-ring {
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
 }
 
 .glow-ring:hover {
   transform: translateY(-6px);
   border-color: rgba(99, 102, 241, 0.35);
-  box-shadow: 0 24px 48px -20px rgba(99, 102, 241, 0.28), 0 0 60px -18px rgba(6, 182, 212, 0.35);
+  box-shadow: 0 24px 48px -20px var(--glow-indigo), 0 0 60px -18px var(--glow-cyan);
 }
 
+/* ============================================================
+   TEXT GRADIENT & BUTTONS
+   ============================================================ */
 .text-gradient {
   background-image: linear-gradient(90deg, #6366F1, #06B6D4);
   -webkit-background-clip: text;
@@ -81,61 +190,69 @@ h1, h2, h3, h4, .font-display {
   box-shadow: 0 12px 30px -10px rgba(99, 102, 241, 0.55);
 }
 
-.btn-primary:hover { 
-  box-shadow: 0 16px 40px -10px rgba(6, 182, 212, 0.6); 
-  transform: translateY(-2px); 
+.btn-primary:hover {
+  box-shadow: 0 16px 40px -10px rgba(6, 182, 212, 0.6);
+  transform: translateY(-2px);
 }
 
-/* Ticker */
-.ticker-track { 
-  animation: marquee 32s linear infinite; 
+/* ============================================================
+   TICKER
+   ============================================================ */
+.ticker-track {
+  animation: marquee 32s linear infinite;
 }
 
-.ticker-track:hover { 
-  animation-play-state: paused; 
+.ticker-track:hover {
+  animation-play-state: paused;
 }
 
-/* Scroll fade-in */
+/* ============================================================
+   SCROLL FADE-IN
+   ============================================================ */
 [data-animate] {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
 }
 
-[data-animate].in-view { 
-  opacity: 1; 
-  transform: translateY(0); 
+[data-animate].in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Timeline */
+/* ============================================================
+   TIMELINE
+   ============================================================ */
 .timeline-line {
   background: linear-gradient(to bottom, #06B6D4, #6366F1 55%, rgba(99, 102, 241, 0));
-  box-shadow: 0 0 18px 1px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 0 18px 1px var(--glow-indigo);
 }
 
 .timeline-dot {
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 1), 0 0 0 6px rgba(99, 102, 241, 0.25);
+  box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 6px rgba(99, 102, 241, 0.25);
 }
 
-/* Badges & Pills */
+/* ============================================================
+   BADGES & PILLS
+   ============================================================ */
 .skill-pill {
   display: inline-flex;
   align-items: center;
   border-radius: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(15, 23, 42, 0.05);
+  background-color: var(--skill-pill-bg);
+  border: 1px solid var(--skill-pill-border);
   padding: 0.375rem 0.75rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #475569;
+  color: var(--text-secondary);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   transition: all .25s ease;
 }
 
 .skill-pill:hover {
   border-color: rgba(99, 102, 241, 0.4);
-  color: #4338CA;
+  color: var(--skill-pill-hover-color);
   transform: translateY(-2px);
 }
 
@@ -143,36 +260,50 @@ h1, h2, h3, h4, .font-display {
   display: inline-flex;
   align-items: center;
   border-radius: 9999px;
-  background-color: rgba(15, 23, 42, 0.04);
+  background-color: var(--tool-pill-bg);
   padding: 0.25rem 0.625rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #0F172A;
+  color: var(--tool-pill-color);
 }
 
-::selection { 
-  background: rgba(99, 102, 241, 0.18); 
-  color: #0F172A; 
+/* ============================================================
+   SELECTION & SCROLLBAR
+   ============================================================ */
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-color);
 }
 
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: #F6F8FB; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
 ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #818CF8, #22D3EE); border-radius: 8px; }
 
 :focus-visible { outline: 2px solid #6366F1; outline-offset: 3px; border-radius: 4px; }
 
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   #cursor-glow { display: none; }
 }
 
-/* Membuat semua tautan di dalam balasan Miyo tampak seperti tombol */
+/* ============================================================
+   THEME TOGGLE ICON VISIBILITY
+   ============================================================ */
+html:not(.dark) .icon-moon { display: none; }
+html.dark .icon-sun { display: none; }
+
+/* ============================================================
+   CHATBOT WIDGET
+   ============================================================ */
 .chat-message a {
   display: inline-block;
-  background-color: #25d366; /* atau warna biru khas tema web */
+  background-color: #25d366;
   color: #ffffff;
   padding: 8px 14px;
   margin-top: 6px;
@@ -193,13 +324,13 @@ h1, h2, h3, h4, .font-display {
 
 #rag-chat-popup {
   display: none;
-  width: 380px; 
-  height: 580px; 
-  margin-bottom: 20px; /* Sedikit jarak ekstra karena gambar Miyo besar */
+  width: 380px;
+  height: 580px;
+  margin-bottom: 20px;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  background: #ffffff;
+  background: var(--chat-popup-bg);
 }
 
 /* Responsif untuk layar HP kecil */
@@ -214,28 +345,28 @@ h1, h2, h3, h4, .font-display {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Memastikan tombol di kanan */
+  justify-content: flex-end;
   width: fit-content;
-  margin-left: auto; /* Mendorong container ke kanan */
-  height: 80px; /* Cukup tinggi untuk menampung gambar besar */
+  margin-left: auto;
+  height: 80px;
 }
 
 #rag-miyo-img {
   position: absolute;
-  left: -40px; /* Menarik gambar ke kiri, keluar dari tombol */
-  bottom: -10px; /* Menurunkan sedikit agar overlap dari bawah */
-  width: 100px; /* Ukuran Miyo dibesarkan */
+  left: -40px;
+  bottom: -10px;
+  width: 100px;
   height: auto;
-  z-index: 2; /* Memastikan gambar berada di atas tombol */
-  pointer-events: none; /* Agar klik tetap tembus ke tombol jika area kosong */
+  z-index: 2;
+  pointer-events: none;
   transition: all 0.3s ease;
 }
 
 #rag-chat-btn {
-  background-color: #2563eb; 
+  background-color: var(--chat-btn-bg);
   color: white;
   border: none;
-  padding: 14px 22px 14px 55px; /* Padding kiri lebih besar untuk memberi ruang bagi Miyo */
+  padding: 14px 22px 14px 55px;
   border-radius: 50px;
   font-size: 16px;
   font-weight: bold;
@@ -245,14 +376,14 @@ h1, h2, h3, h4, .font-display {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 150px; /* Lebar minimum agar tidak terlalu pendek */
+  min-width: 150px;
   height: 50px;
   position: relative;
-  z-index: 1; /* Tombol di bawah gambar Miyo */
+  z-index: 1;
 }
 
 #rag-chat-btn:hover {
-  background-color: #1d4ed8;
+  background-color: var(--chat-btn-hover);
   transform: scale(1.02);
 }
 
