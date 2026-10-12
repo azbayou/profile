@@ -692,7 +692,9 @@ function renderProjects(projects) {
   }
 
   /* ================= DARK MODE ================= */
-  html.dark {
+  html.dark,
+  :root.dark,
+  .dark {
     --miyo-primary: #6366f1;
     --miyo-primary-dark: #4f46e5;
     --miyo-primary-gradient: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
@@ -763,7 +765,8 @@ function renderProjects(projects) {
     user-select: none;
   }
 
-  html.dark #miyo-trigger-btn {
+  html.dark #miyo-trigger-btn,
+  .dark #miyo-trigger-btn {
     box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
     border-color: rgba(255, 255, 255, 0.25);
   }
