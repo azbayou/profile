@@ -289,3 +289,524 @@ h1, h2, h3, h4, .font-display {
 html:not(.dark) .icon-moon { display: none; }
 html.dark .icon-sun { display: none; }
 
+/* ============================================================
+   MIYO CHAT WIDGET
+   ============================================================ */
+
+/* ================= LIGHT MODE (DEFAULT) ================= */
+:root {
+  --miyo-primary: #4f46e5;
+  --miyo-primary-dark: #4338ca;
+  --miyo-primary-gradient: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  --miyo-window-bg: #ffffff;
+  --miyo-body-bg: #f1f5f9;
+  --miyo-border: rgba(0, 0, 0, 0.08);
+  --miyo-text-dark: #0f172a;
+  --miyo-text-muted: #64748b;
+  --miyo-bot-bubble: #ffffff;
+  --miyo-bot-bubble-border: rgba(0, 0, 0, 0.06);
+  --miyo-user-bubble: #e0e7ff;
+  --miyo-user-bubble-text: #1e1b4b;
+  --miyo-avatar-bg: #eef2ff;
+  --miyo-avatar-border: #c7d2fe;
+  --miyo-chips-container-bg: #ffffff;
+  --miyo-chips-container-border: #cbd5e1;
+  --miyo-chip-bg: #f8fafc;
+  --miyo-chip-border: #e2e8f0;
+  --miyo-chip-text: #0f172a;
+  --miyo-chip-hover-bg: #eef2ff;
+  --miyo-chip-hover-border: #818cf8;
+  --miyo-chip-hover-text: #4338ca;
+  --miyo-footer-bg: #ffffff;
+  --miyo-footer-border: #e2e8f0;
+  --miyo-input-bg: #ffffff;
+  --miyo-input-border: #cbd5e1;
+  --miyo-input-text: #0f172a;
+  --miyo-code-bg: rgba(0, 0, 0, 0.06);
+  --miyo-code-color: #334155;
+  --miyo-scrollbar-thumb: rgba(0, 0, 0, 0.15);
+  --miyo-radius: 18px;
+  --miyo-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.22), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* ================= DARK MODE ================= */
+html.dark,
+:root.dark,
+.dark {
+  --miyo-primary: #6366f1;
+  --miyo-primary-dark: #4f46e5;
+  --miyo-primary-gradient: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  --miyo-window-bg: #0f172a;
+  --miyo-body-bg: #0b0f19;
+  --miyo-border: rgba(255, 255, 255, 0.10);
+  --miyo-text-dark: #f1f5f9;
+  --miyo-text-muted: #94a3b8;
+  --miyo-bot-bubble: #1e293b;
+  --miyo-bot-bubble-border: rgba(255, 255, 255, 0.08);
+  --miyo-user-bubble: #312e81;
+  --miyo-user-bubble-text: #e0e7ff;
+  --miyo-avatar-bg: #1e293b;
+  --miyo-avatar-border: #4338ca;
+  --miyo-chips-container-bg: #141d2e;
+  --miyo-chips-container-border: rgba(255, 255, 255, 0.12);
+  --miyo-chip-bg: #1e293b;
+  --miyo-chip-border: #334155;
+  --miyo-chip-text: #e2e8f0;
+  --miyo-chip-hover-bg: #2d3748;
+  --miyo-chip-hover-border: #818cf8;
+  --miyo-chip-hover-text: #c7d2fe;
+  --miyo-footer-bg: #0f172a;
+  --miyo-footer-border: rgba(255, 255, 255, 0.08);
+  --miyo-input-bg: #1e293b;
+  --miyo-input-border: #334155;
+  --miyo-input-text: #f8fafc;
+  --miyo-code-bg: rgba(255, 255, 255, 0.12);
+  --miyo-code-color: #93c5fd;
+  --miyo-scrollbar-thumb: rgba(255, 255, 255, 0.2);
+  --miyo-shadow: 0 16px 40px -5px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+#miyo-chat-root,
+#miyo-chat-root * {
+  box-sizing: border-box;
+}
+
+#miyo-chat-root {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999999;
+  font-family: inherit;
+}
+
+/* Trigger Button with Miyo Cat Overlapping */
+#miyo-trigger-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#miyo-trigger-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: var(--miyo-primary-gradient);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  height: 48px;
+  padding: 0 24px 0 64px;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(79, 70, 229, 0.45);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  user-select: none;
+}
+
+html.dark #miyo-trigger-btn,
+.dark #miyo-trigger-btn {
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+#miyo-trigger-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.55);
+}
+
+#miyo-trigger-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+#miyo-trigger-cat {
+  position: absolute;
+  left: -12px;
+  bottom: -4px;
+  width: 76px;
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+  transition: transform 0.25s ease;
+}
+
+#miyo-trigger-btn:hover #miyo-trigger-cat {
+  transform: rotate(2deg) scale(1.04);
+}
+
+#miyo-trigger-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+.miyo-unread-badge {
+  position: absolute;
+  top: -4px;
+  right: 4px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--miyo-window-bg);
+  animation: miyo-pulse 2s infinite;
+  transition: border-color 0.3s ease;
+}
+
+/* Chat Window */
+#miyo-window {
+  position: absolute;
+  bottom: 66px;
+  right: 0;
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  height: 540px;
+  max-height: calc(100vh - 120px);
+  background: var(--miyo-window-bg);
+  border-radius: var(--miyo-radius);
+  box-shadow: var(--miyo-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, border-color 0.3s ease;
+  transform-origin: bottom right;
+  border: 1px solid var(--miyo-border);
+}
+#miyo-window.miyo-closed {
+  opacity: 0;
+  transform: scale(0.85) translateY(20px);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.miyo-header {
+  background: var(--miyo-primary-gradient);
+  color: #ffffff;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+.miyo-header-left { display: flex; align-items: center; gap: 12px; }
+.miyo-avatar-wrapper {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.miyo-avatar-img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+.miyo-online-dot {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 10px;
+  height: 10px;
+  background: #10b981;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+}
+.miyo-header-text h3 { margin: 0; font-size: 15px; font-weight: 600; color: #ffffff; }
+.miyo-subtitle { margin: 2px 0 0; font-size: 11.5px; opacity: 0.92; color: #ffffff; }
+#miyo-close-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+#miyo-close-btn:hover { background: rgba(255, 255, 255, 0.2); }
+
+.miyo-body {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: var(--miyo-body-bg);
+  transition: background-color 0.3s ease;
+}
+.miyo-body::-webkit-scrollbar {
+  width: 6px;
+}
+.miyo-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.miyo-body::-webkit-scrollbar-thumb {
+  background: var(--miyo-scrollbar-thumb);
+  border-radius: 9999px;
+}
+
+.miyo-msg {
+  display: flex;
+  max-width: 88%;
+  animation: miyo-fade-in 0.2s ease-out;
+}
+.miyo-msg-bot {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 8px;
+}
+.miyo-msg-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--miyo-avatar-bg);
+  border: 1px solid var(--miyo-avatar-border);
+  flex-shrink: 0;
+  object-fit: contain;
+  margin-bottom: 2px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.miyo-msg-user {
+  align-self: flex-end;
+  flex-direction: column;
+}
+.miyo-bubble {
+  padding: 12px 15px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--miyo-text-dark);
+  word-break: break-word;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.miyo-bubble p {
+  margin: 6px 0;
+}
+.miyo-bubble p:first-child {
+  margin-top: 0;
+}
+.miyo-bubble p:last-child {
+  margin-bottom: 0;
+}
+.miyo-bubble ul,
+.miyo-bubble ol {
+  margin: 6px 0 8px 20px;
+  padding: 0;
+}
+.miyo-bubble ul {
+  list-style-type: disc;
+}
+.miyo-bubble ol {
+  list-style-type: decimal;
+}
+.miyo-bubble li {
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+.miyo-bubble li:last-child {
+  margin-bottom: 0;
+}
+.miyo-bubble li.miyo-li-btn {
+  list-style: none;
+  margin-left: -20px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+.miyo-msg-bot .miyo-bubble {
+  background: var(--miyo-bot-bubble);
+  border-bottom-left-radius: 4px;
+  border: 1px solid var(--miyo-bot-bubble-border);
+}
+.miyo-msg-user .miyo-bubble {
+  background: var(--miyo-user-bubble);
+  border-bottom-right-radius: 4px;
+  color: var(--miyo-user-bubble-text);
+}
+.miyo-bubble a.miyo-btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  margin: 4px 4px 4px 0;
+  background: var(--miyo-primary-gradient);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+  transition: all 0.18s ease-in-out;
+  word-break: normal;
+}
+.miyo-bubble a.miyo-btn-link:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.38);
+  color: #ffffff !important;
+}
+.miyo-bubble a:not(.miyo-btn-link) {
+  color: var(--miyo-primary);
+  text-decoration: underline;
+  font-weight: 600;
+}
+.miyo-bubble code {
+  background: var(--miyo-code-bg);
+  color: var(--miyo-code-color);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+}
+.miyo-bubble strong {
+  font-weight: 600;
+  color: inherit;
+}
+.miyo-bubble em {
+  font-style: italic;
+}
+.miyo-signature {
+  margin-top: 8px;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--miyo-text-muted);
+  text-align: right;
+}
+
+.miyo-chips-container {
+  background: var(--miyo-chips-container-bg);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px dashed var(--miyo-chips-container-border);
+  margin-top: 4px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.miyo-chip-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--miyo-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 8px;
+}
+.miyo-chips-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.miyo-chip-btn {
+  background: var(--miyo-chip-bg);
+  border: 1px solid var(--miyo-chip-border);
+  color: var(--miyo-chip-text);
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.miyo-chip-btn:hover {
+  background: var(--miyo-chip-hover-bg);
+  border-color: var(--miyo-chip-hover-border);
+  color: var(--miyo-chip-hover-text);
+  transform: translateY(-1px);
+}
+
+.miyo-typing-indicator {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 8px;
+}
+.miyo-typing-bubble {
+  background: var(--miyo-bot-bubble);
+  padding: 10px 14px;
+  border-radius: 14px;
+  border-bottom-left-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--miyo-bot-bubble-border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.miyo-dot {
+  width: 6px;
+  height: 6px;
+  background: #818cf8;
+  border-radius: 50%;
+  animation: miyo-bounce 1.4s infinite ease-in-out both;
+}
+.miyo-dot:nth-child(1) { animation-delay: -0.32s; }
+.miyo-dot:nth-child(2) { animation-delay: -0.16s; }
+
+.miyo-footer {
+  background: var(--miyo-footer-bg);
+  border-top: 1px solid var(--miyo-footer-border);
+  padding: 10px 14px 8px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.miyo-form { display: flex; gap: 8px; align-items: center; }
+#miyo-input {
+  flex: 1;
+  border: 1px solid var(--miyo-input-border);
+  border-radius: 24px;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s, color 0.3s;
+  background-color: var(--miyo-input-bg);
+  color: var(--miyo-input-text);
+}
+#miyo-input::placeholder {
+  color: var(--miyo-text-muted);
+}
+#miyo-input:focus {
+  border-color: var(--miyo-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
+}
+#miyo-send-btn {
+  background: var(--miyo-primary-gradient);
+  border: none;
+  color: #ffffff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+#miyo-send-btn:hover { transform: scale(1.05); }
+#miyo-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.miyo-powered {
+  font-size: 10px;
+  text-align: center;
+  color: var(--miyo-text-muted);
+  margin-top: 6px;
+  transition: color 0.3s ease;
+}
+.miyo-hidden { display: none !important; }
+
+@keyframes miyo-fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes miyo-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+@keyframes miyo-bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+@media (max-width: 480px) {
+  #miyo-chat-root { bottom: 16px; right: 16px; }
+  #miyo-window { width: calc(100vw - 32px); height: calc(100vh - 100px); max-height: 580px; bottom: 62px; }
+}
+
+
