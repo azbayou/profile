@@ -41,11 +41,6 @@
   --contact-gradient-to: rgba(238, 242, 255, 0.3);
   --footer-bg: #ffffff;
 
-  /* Chatbot */
-  --chat-btn-bg: #2563eb;
-  --chat-btn-hover: #1d4ed8;
-  --chat-popup-bg: #ffffff;
-
   /* Cursor (internal) */
   --mx: 50%;
   --my: 20%;
@@ -83,10 +78,6 @@ html.dark {
 
   --contact-gradient-to: rgba(30, 27, 75, 0.3);
   --footer-bg: #0B0F19;
-
-  --chat-btn-bg: #4F46E5;
-  --chat-btn-hover: #6366F1;
-  --chat-popup-bg: #111827;
 }
 
 /* ============================================================
@@ -298,95 +289,3 @@ h1, h2, h3, h4, .font-display {
 html:not(.dark) .icon-moon { display: none; }
 html.dark .icon-sun { display: none; }
 
-/* ============================================================
-   CHATBOT WIDGET
-   ============================================================ */
-.chat-message a {
-  display: inline-block;
-  background-color: #25d366;
-  color: #ffffff;
-  padding: 8px 14px;
-  margin-top: 6px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease;
-}
-
-#rag-chat-widget {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 999999;
-  font-family: Arial, sans-serif;
-}
-
-#rag-chat-popup {
-  display: none;
-  width: 380px;
-  height: 580px;
-  margin-bottom: 20px;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  background: var(--chat-popup-bg);
-}
-
-/* Responsif untuk layar HP kecil */
-@media (max-width: 480px) {
-  #rag-chat-popup {
-    width: 90vw;
-    height: 70vh;
-  }
-}
-
-#rag-btn-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: fit-content;
-  margin-left: auto;
-  height: 80px;
-}
-
-#rag-miyo-img {
-  position: absolute;
-  left: -40px;
-  bottom: -10px;
-  width: 100px;
-  height: auto;
-  z-index: 2;
-  pointer-events: none;
-  transition: all 0.3s ease;
-}
-
-#rag-chat-btn {
-  background-color: var(--chat-btn-bg);
-  color: white;
-  border: none;
-  padding: 14px 22px 14px 55px;
-  border-radius: 50px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 150px;
-  height: 50px;
-  position: relative;
-  z-index: 1;
-}
-
-#rag-chat-btn:hover {
-  background-color: var(--chat-btn-hover);
-  transform: scale(1.02);
-}
-
-.chat-message a:hover {
-  opacity: 0.9;
-}

@@ -576,57 +576,580 @@ function renderProjects(projects) {
   }
 </script>
 
-<!-- ========================================== -->
-<!-- FLOATING CHATBOT WIDGET                    -->
-<!-- ========================================== -->
-  <div id="rag-chat-widget">
-    <!-- Popup Frame Chatbot -->
-    <div id="rag-chat-popup">
-      <!-- GANTI URL DI BAWAH DENGAN URL STREAMLIT LU (tambahkan ?embed=true di akhir) -->
-      <iframe 
-        src="https://bay-ragcb.streamlit.app/?embed=true" 
-        width="100%" 
-        height="100%" 
-        style="border:none;">
-      </iframe>
-    </div>
-
-    <!-- Container untuk tombol dan gambar Miyo -->
-    <div id="rag-btn-container">
-      <!-- Gambar Miyo yang overlaping -->
-      <img id="rag-miyo-img" src="2_20260925_193506_0001.png" alt="Miyo">
-      <!-- Tombol Melayang (Floating Button) -->
-      <button id="rag-chat-btn" onclick="toggleRagChat()">
-        <span id="rag-btn-text">Tanya Miyo</span>
-      </button>
-    </div>
+<!-- ================= MIYO CHAT WIDGET ================= -->
+<div id="miyo-chat-root">
+  <div id="miyo-trigger-container">
+    <button id="miyo-trigger-btn" type="button" aria-label="Buka Chat Asisten Miyo">
+      <img src="2_20260925_193506_0001.png" alt="Miyo" id="miyo-trigger-cat" />
+      <span id="miyo-trigger-text">Tanya Miyo</span>
+      <span class="miyo-unread-badge" id="miyo-unread-badge">1</span>
+    </button>
   </div>
 
-  <script>
-    function toggleRagChat() {
-      var popup = document.getElementById("rag-chat-popup");
-      var btnText = document.getElementById("rag-btn-text");
-      var btn = document.getElementById("rag-chat-btn");
-      var img = document.getElementById("rag-miyo-img");
-      
-      if (popup.style.display === "block") {
-        popup.style.display = "none";
-        // Mengembalikan teks tombol saat ditutup
-        btnText.innerText = "Tanya Miyo";
-        // Tampilkan kembali gambar Miyo besar
-        img.style.display = "block";
-        // Kembalikan padding
-        btn.style.padding = "14px 22px 14px 45px";
+  <div id="miyo-window" class="miyo-closed" role="dialog" aria-modal="true" aria-labelledby="miyo-title">
+    <header class="miyo-header">
+      <div class="miyo-header-left">
+        <div class="miyo-avatar-wrapper">
+          <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-avatar-img" />
+          <span class="miyo-online-dot" title="Online"></span>
+        </div>
+        <div class="miyo-header-text">
+          <h3 id="miyo-title">Asisten Miyo</h3>
+          <p class="miyo-subtitle">Online • Asisten Virtual Bayu Aziz</p>
+        </div>
+      </div>
+      <button id="miyo-close-btn" type="button" aria-label="Tutup Chat">&times;</button>
+    </header>
+
+    <div id="miyo-body" class="miyo-body">
+      <div class="miyo-msg miyo-msg-bot">
+        <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" />
+        <div class="miyo-bubble">
+          Hai! Aku <b>Miyo</b>, asisten virtual pribadi Bayu Aziz. Senang bertemu kamu! ✨
+          <br><br>
+          Ada yang ingin kamu ketahui tentang pengalaman logistik, keahlian data, atau proyek AI Bayu?
+        </div>
+      </div>
+
+      <div class="miyo-chips-container" id="miyo-chips">
+        <span class="miyo-chip-title">💡 Topik Populer:</span>
+        <div class="miyo-chips-list">
+          <button type="button" class="miyo-chip-btn" data-query="Ceritakan tentang profil dan pengalaman kerja Bayu Aziz">💼 Profil & Pengalaman</button>
+          <button type="button" class="miyo-chip-btn" data-query="Apa saja keahlian, tools data, dan teknologi yang dikuasai Bayu?">🛠️ Tools & Keahlian</button>
+          <button type="button" class="miyo-chip-btn" data-query="Ceritakan tentang proyek RAG Chatbot yang dibuat oleh Bayu Aziz">🤖 Proyek RAG AI</button>
+          <button type="button" class="miyo-chip-btn" data-query="Bagaimana cara menghubungi Bayu Aziz?">📱 Kontak Resmi</button>
+        </div>
+      </div>
+
+      <div id="miyo-typing-indicator" class="miyo-typing-indicator miyo-hidden">
+        <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" />
+        <div class="miyo-typing-bubble">
+          <span class="miyo-dot"></span>
+          <span class="miyo-dot"></span>
+          <span class="miyo-dot"></span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="miyo-footer">
+      <form id="miyo-chat-form" class="miyo-form">
+        <input
+          type="text"
+          id="miyo-input"
+          placeholder="Tanyakan seputar Bayu, Data, atau AI..."
+          autocomplete="off"
+          required
+        />
+        <button type="submit" id="miyo-send-btn" aria-label="Kirim Pesan">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+      <div class="miyo-powered">
+        Powered by Gemini & Groq • Virtual Rep for Bayu Aziz
+      </div>
+    </footer>
+  </div>
+</div>
+
+<style>
+  :root {
+    --miyo-primary: #4f46e5;
+    --miyo-primary-dark: #4338ca;
+    --miyo-primary-gradient: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    --miyo-bg-body: #f8fafc;
+    --miyo-text-dark: #1e293b;
+    --miyo-text-muted: #64748b;
+    --miyo-bot-bubble: #ffffff;
+    --miyo-user-bubble: #e0e7ff;
+    --miyo-radius: 18px;
+    --miyo-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.22), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  }
+
+  #miyo-chat-root,
+  #miyo-chat-root * {
+    box-sizing: border-box;
+  }
+
+  #miyo-chat-root {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999999;
+    font-family: inherit;
+  }
+
+  /* Trigger Button with Miyo Cat Overlapping (Persis Gambar) */
+  #miyo-trigger-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  #miyo-trigger-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    background: #5046e5;
+    background: linear-gradient(135deg, #5046e5 0%, #6366f1 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 9999px;
+    height: 48px;
+    padding: 0 24px 0 64px;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(79, 70, 229, 0.45);
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+    user-select: none;
+  }
+
+  #miyo-trigger-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.55);
+  }
+
+  #miyo-trigger-btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  #miyo-trigger-cat {
+    position: absolute;
+    left: -12px;
+    bottom: -4px;
+    width: 76px;
+    height: auto;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+    transition: transform 0.25s ease;
+  }
+
+  #miyo-trigger-btn:hover #miyo-trigger-cat {
+    transform: rotate(2deg) scale(1.04);
+  }
+
+  #miyo-trigger-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+
+  .miyo-unread-badge {
+    position: absolute;
+    top: -4px;
+    right: 4px;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+    animation: miyo-pulse 2s infinite;
+  }
+
+  /* Chat Window */
+  #miyo-window {
+    position: absolute;
+    bottom: 66px;
+    right: 0;
+    width: 380px;
+    max-width: calc(100vw - 32px);
+    height: 540px;
+    max-height: calc(100vh - 120px);
+    background: var(--miyo-bg-body);
+    border-radius: var(--miyo-radius);
+    box-shadow: var(--miyo-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: bottom right;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  #miyo-window.miyo-closed {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .miyo-header {
+    background: var(--miyo-primary-gradient);
+    color: #ffffff;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+  .miyo-header-left { display: flex; align-items: center; gap: 12px; }
+  .miyo-avatar-wrapper {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .miyo-avatar-img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+  }
+  .miyo-online-dot {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 10px;
+    height: 10px;
+    background: #10b981;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+  }
+  .miyo-header-text h3 { margin: 0; font-size: 15px; font-weight: 600; color: #ffffff; }
+  .miyo-subtitle { margin: 2px 0 0; font-size: 11.5px; opacity: 0.92; color: #ffffff; }
+  #miyo-close-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  #miyo-close-btn:hover { background: rgba(255, 255, 255, 0.2); }
+
+  .miyo-body {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #f1f5f9;
+  }
+  .miyo-msg {
+    display: flex;
+    max-width: 88%;
+    animation: miyo-fade-in 0.2s ease-out;
+  }
+  .miyo-msg-bot {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .miyo-msg-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+    flex-shrink: 0;
+    object-fit: contain;
+    margin-bottom: 2px;
+  }
+  .miyo-msg-user {
+    align-self: flex-end;
+    flex-direction: column;
+  }
+  .miyo-bubble {
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--miyo-text-dark);
+    word-break: break-word;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+  .miyo-msg-bot .miyo-bubble {
+    background: var(--miyo-bot-bubble);
+    border-bottom-left-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  .miyo-msg-user .miyo-bubble {
+    background: var(--miyo-user-bubble);
+    border-bottom-right-radius: 4px;
+    color: #1e1b4b;
+  }
+  .miyo-bubble a.miyo-btn-link {
+    display: inline-block;
+    padding: 6px 14px;
+    margin: 6px 4px 2px 0;
+    background: var(--miyo-primary);
+    color: #ffffff !important;
+    text-decoration: none !important;
+    border-radius: 18px;
+    font-size: 12.5px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+    transition: all 0.15s ease-in-out;
+  }
+  .miyo-bubble a.miyo-btn-link:hover {
+    background: var(--miyo-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.35);
+  }
+
+  .miyo-chips-container {
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px dashed #cbd5e1;
+    margin-top: 4px;
+  }
+  .miyo-chip-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--miyo-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .miyo-chips-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .miyo-chip-btn {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #0f172a;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .miyo-chip-btn:hover {
+    background: #eef2ff;
+    border-color: #818cf8;
+    color: #4338ca;
+    transform: translateY(-1px);
+  }
+
+  .miyo-typing-indicator {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .miyo-typing-bubble {
+    background: #ffffff;
+    padding: 10px 14px;
+    border-radius: 14px;
+    border-bottom-left-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  .miyo-dot {
+    width: 6px;
+    height: 6px;
+    background: #818cf8;
+    border-radius: 50%;
+    animation: miyo-bounce 1.4s infinite ease-in-out both;
+  }
+  .miyo-dot:nth-child(1) { animation-delay: -0.32s; }
+  .miyo-dot:nth-child(2) { animation-delay: -0.16s; }
+
+  .miyo-footer {
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    padding: 10px 14px 8px;
+  }
+  .miyo-form { display: flex; gap: 8px; align-items: center; }
+  #miyo-input {
+    flex: 1;
+    border: 1px solid #cbd5e1;
+    border-radius: 24px;
+    padding: 10px 16px;
+    font-size: 13.5px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #ffffff;
+    color: #1e293b;
+  }
+  #miyo-input:focus {
+    border-color: var(--miyo-primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  }
+  #miyo-send-btn {
+    background: var(--miyo-primary-gradient);
+    border: none;
+    color: #ffffff;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s;
+    flex-shrink: 0;
+  }
+  #miyo-send-btn:hover { transform: scale(1.05); }
+  #miyo-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .miyo-powered {
+    font-size: 10px;
+    text-align: center;
+    color: #94a3b8;
+    margin-top: 6px;
+  }
+  .miyo-hidden { display: none !important; }
+
+  @keyframes miyo-fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes miyo-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+  @keyframes miyo-bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+  @media (max-width: 480px) {
+    #miyo-chat-root { bottom: 16px; right: 16px; }
+    #miyo-window { width: calc(100vw - 32px); height: calc(100vh - 100px); max-height: 580px; bottom: 62px; }
+  }
+</style>
+
+<script>
+  (function () {
+    // URL Backend Vercel Miyo Chatbot:
+    const MIYO_API_URL = "https://profile-miyo-widget.vercel.app/api/chat";
+
+    const triggerBtn = document.getElementById("miyo-trigger-btn");
+    const unreadBadge = document.getElementById("miyo-unread-badge");
+    const chatWindow = document.getElementById("miyo-window");
+    const closeBtn = document.getElementById("miyo-close-btn");
+    const chatForm = document.getElementById("miyo-chat-form");
+    const chatInput = document.getElementById("miyo-input");
+    const sendBtn = document.getElementById("miyo-send-btn");
+    const chatBody = document.getElementById("miyo-body");
+    const typingIndicator = document.getElementById("miyo-typing-indicator");
+    const chipBtns = document.querySelectorAll(".miyo-chip-btn");
+
+    let conversationHistory = [];
+
+    triggerBtn.addEventListener("click", () => {
+      const isClosed = chatWindow.classList.contains("miyo-closed");
+      if (isClosed) {
+        chatWindow.classList.remove("miyo-closed");
+        if (unreadBadge) unreadBadge.style.display = "none";
+        setTimeout(() => chatInput.focus(), 250);
       } else {
-        popup.style.display = "block";
-        // Mengubah jadi tombol Tutup saat popup terbuka
-        btnText.innerText = "✖ Tutup"; 
-        // Sembunyikan gambar Miyo besar agar tidak menghalangi saat popup terbuka
-        img.style.display = "none";
-        // Sesuaikan padding karena gambar hilang
-        btn.style.padding = "14px 22px";
+        chatWindow.classList.add("miyo-closed");
+      }
+    });
+
+    closeBtn.addEventListener("click", () => chatWindow.classList.add("miyo-closed"));
+
+    chipBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const query = btn.getAttribute("data-query");
+        if (query) {
+          submitQuery(query);
+          const chipsContainer = document.getElementById("miyo-chips");
+          if (chipsContainer) chipsContainer.style.display = "none";
+        }
+      });
+    });
+
+    chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const message = chatInput.value.trim();
+      if (!message) return;
+      chatInput.value = "";
+      submitQuery(message);
+    });
+
+    async function submitQuery(userText) {
+      appendUserMessage(userText);
+      conversationHistory.push({ role: "user", content: userText });
+
+      showTyping(true);
+      sendBtn.disabled = true;
+
+      try {
+        const response = await fetch(MIYO_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userText, history: conversationHistory })
+        });
+
+        const data = await response.json();
+        showTyping(false);
+        sendBtn.disabled = false;
+
+        if (response.ok && data.reply) {
+          appendBotMessage(data.reply);
+          conversationHistory.push({ role: "assistant", content: data.reply });
+        } else {
+          const errText = data.error || "Miyo sedang tidak dapat menjawab saat ini.";
+          appendBotMessage(`⚠️ ${errText}`);
+        }
+      } catch (err) {
+        showTyping(false);
+        sendBtn.disabled = false;
+        appendBotMessage("⚠️ Gagal terhubung ke Miyo. Pastikan endpoint Vercel sudah aktif.");
       }
     }
-  </script>
+
+    function appendUserMessage(text) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "miyo-msg miyo-msg-user";
+      msgDiv.innerHTML = `<div class="miyo-bubble">${escapeHtml(text)}</div>`;
+      chatBody.insertBefore(msgDiv, typingIndicator);
+      scrollToBottom();
+    }
+
+    function appendBotMessage(text) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "miyo-msg miyo-msg-bot";
+      msgDiv.innerHTML = `
+        <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" />
+        <div class="miyo-bubble">${parseMarkdown(text)}</div>
+      `;
+      chatBody.insertBefore(msgDiv, typingIndicator);
+      scrollToBottom();
+    }
+
+    function showTyping(show) {
+      if (show) {
+        typingIndicator.classList.remove("miyo-hidden");
+        scrollToBottom();
+      } else {
+        typingIndicator.classList.add("miyo-hidden");
+      }
+    }
+
+    function scrollToBottom() {
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function escapeHtml(string) {
+      return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function parseMarkdown(raw) {
+      let text = escapeHtml(raw);
+      const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g;
+      text = text.replace(linkRegex, (m, title, url) => `<a href="${url}" target="_blank" rel="noopener noreferrer" class="miyo-btn-link">${title}</a>`);
+      text = text.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+      text = text.replace(/\n/g, "<br>");
+      return text;
+    }
+  })();
+</script>
+<!-- ================= END WIDGET ================= -->
 </body>
 </html>
