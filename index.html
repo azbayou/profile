@@ -868,13 +868,46 @@ function renderProjects(projects) {
     flex-direction: column;
   }
   .miyo-bubble {
-    padding: 10px 14px;
+    padding: 12px 15px;
     border-radius: 14px;
     font-size: 13.5px;
-    line-height: 1.5;
+    line-height: 1.55;
     color: var(--miyo-text-dark);
     word-break: break-word;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+  .miyo-bubble p {
+    margin: 6px 0;
+  }
+  .miyo-bubble p:first-child {
+    margin-top: 0;
+  }
+  .miyo-bubble p:last-child {
+    margin-bottom: 0;
+  }
+  .miyo-bubble ul,
+  .miyo-bubble ol {
+    margin: 6px 0 8px 20px;
+    padding: 0;
+  }
+  .miyo-bubble ul {
+    list-style-type: disc;
+  }
+  .miyo-bubble ol {
+    list-style-type: decimal;
+  }
+  .miyo-bubble li {
+    margin-bottom: 4px;
+    line-height: 1.5;
+  }
+  .miyo-bubble li:last-child {
+    margin-bottom: 0;
+  }
+  .miyo-bubble li.miyo-li-btn {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 6px;
+    margin-bottom: 6px;
   }
   .miyo-msg-bot .miyo-bubble {
     background: var(--miyo-bot-bubble);
@@ -887,22 +920,51 @@ function renderProjects(projects) {
     color: #1e1b4b;
   }
   .miyo-bubble a.miyo-btn-link {
-    display: inline-block;
-    padding: 6px 14px;
-    margin: 6px 4px 2px 0;
-    background: var(--miyo-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    margin: 4px 4px 4px 0;
+    background: var(--miyo-primary-gradient);
     color: #ffffff !important;
     text-decoration: none !important;
-    border-radius: 18px;
+    border-radius: 20px;
     font-size: 12.5px;
     font-weight: 600;
     box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
-    transition: all 0.15s ease-in-out;
+    transition: all 0.18s ease-in-out;
+    word-break: normal;
   }
   .miyo-bubble a.miyo-btn-link:hover {
-    background: var(--miyo-primary-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.35);
+    transform: translateY(-1.5px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.38);
+    color: #ffffff !important;
+  }
+  .miyo-bubble a:not(.miyo-btn-link) {
+    color: var(--miyo-primary);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .miyo-bubble code {
+    background: rgba(0, 0, 0, 0.06);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: monospace;
+  }
+  .miyo-bubble strong {
+    font-weight: 600;
+    color: inherit;
+  }
+  .miyo-bubble em {
+    font-style: italic;
+  }
+  .miyo-signature {
+    margin-top: 8px;
+    font-size: 12px;
+    font-style: italic;
+    color: var(--miyo-text-muted);
+    text-align: right;
   }
 
   .miyo-chips-container {
@@ -1137,16 +1199,87 @@ function renderProjects(projects) {
     }
 
     function escapeHtml(string) {
-      return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      return String(string)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
     }
 
     function parseMarkdown(raw) {
-      let text = escapeHtml(raw);
-      const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g;
-      text = text.replace(linkRegex, (m, title, url) => `<a href="${url}" target="_blank" rel="noopener noreferrer" class="miyo-btn-link">${title}</a>`);
-      text = text.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
-      text = text.replace(/\n/g, "<br>");
-      return text;
+      if (!raw) return "";
+
+      // 1. Normalisasi line breaks
+      let text = String(raw).replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+
+      // 2. Escape HTML awal untuk keamanan XSS
+      text = escapeHtml(text);
+
+      // 3. Tangani Markdown Link: [Title](URL)
+      // Mentolerir newline/spasi antara ']' dan '(', serta newline/spasi di dalam query param URL (misal URL WhatsApp yang terputus)
+      const linkRegex = /\[\s*([^\]\n]+?)\s*\]\s*\(\s*((?:https?:\/\/|mailto:)[^\)]*?)\s*\)/gi;
+      text = text.replace(linkRegex, (match, title, rawUrl) => {
+        const cleanUrl = rawUrl.replace(/\s+/g, "").replace(/&amp;/g, "&");
+        return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="miyo-btn-link">${title.trim()}</a>`;
+      });
+
+      // 4. Tangani URL mandiri yang belum dibungkus link (misal https://wa.me/...)
+      text = text.replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/gi, (m, prefix, url) => {
+        const cleanUrl = url.replace(/&amp;/g, "&");
+        return `${prefix}<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="miyo-btn-link">🔗 Kunjungi Tautan</a>`;
+      });
+
+      // 5. Format Kode, Tebal, dan Miring
+      // Kode inline `code`
+      text = text.replace(/`([^`\n]+)`/g, "<code>$1</code>");
+      // Bold: **text** atau __text__
+      text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+      text = text.replace(/__(.*?)__/g, "<strong>$1</strong>");
+      // Italic: *text* atau _text_ (menghindari bintang bullet di awal baris)
+      text = text.replace(/(^|[^\*])\*([^\*\n]+?)\*(?!\*)/g, "$1<em>$2</em>");
+      text = text.replace(/(^|[^_])_([^_\n]+?)_(?!_)/g, "$1<em>$2</em>");
+
+      // 6. Tangani List (*, -, atau 1.) serta Paragraf
+      const lines = text.split("\n");
+      let inUl = false;
+      let inOl = false;
+      const htmlParts = [];
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+
+        // Cek penutup khas bot di baris terakhir, misal "-Miyo~"
+        if (/^[-–—]\s*Miyo~?$/i.test(line)) {
+          if (inUl) { htmlParts.push("</ul>"); inUl = false; }
+          if (inOl) { htmlParts.push("</ol>"); inOl = false; }
+          htmlParts.push(`<div class="miyo-signature">${line}</div>`);
+          continue;
+        }
+
+        const ulMatch = line.match(/^[\*\-]\s+(.+)$/);
+        const olMatch = line.match(/^\d+\.\s+(.+)$/);
+
+        if (ulMatch) {
+          if (inOl) { htmlParts.push("</ol>"); inOl = false; }
+          if (!inUl) { htmlParts.push("<ul>"); inUl = true; }
+          const itemContent = ulMatch[1];
+          const isBtn = itemContent.includes("miyo-btn-link");
+          htmlParts.push(`<li class="${isBtn ? "miyo-li-btn" : ""}">${itemContent}</li>`);
+        } else if (olMatch) {
+          if (inUl) { htmlParts.push("</ul>"); inUl = false; }
+          if (!inOl) { htmlParts.push("<ol>"); inOl = true; }
+          htmlParts.push(`<li>${olMatch[1]}</li>`);
+        } else {
+          if (inUl) { htmlParts.push("</ul>"); inUl = false; }
+          if (inOl) { htmlParts.push("</ol>"); inOl = false; }
+          if (line.length > 0) {
+            htmlParts.push(`<p>${line}</p>`);
+          }
+        }
+      }
+      if (inUl) htmlParts.push("</ul>");
+      if (inOl) htmlParts.push("</ol>");
+
+      return htmlParts.join("");
     }
   })();
 </script>
