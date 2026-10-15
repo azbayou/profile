@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Snake Klasik - Game Ular Arkade</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Press Start 2P untuk aksen retro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --neon-green: #10b981;
+            --neon-red: #f43f5e;
+            --neon-gold: #f59e0b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top, #1e293b 0%, #090d16 100%);
+            color: #f8fafc;
+            overscroll-behavior: none;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .font-arcade {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        /* Efek bayangan neon untuk kanvas */
+        .canvas-container {
+            box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.25),
+                        inset 0 0 20px rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(51, 65, 85, 0.8);
+        }
+
+        /* Gaya Tombol Game */
+        .btn-game {
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
+        }
+        .btn-game:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+        }
+
+        /* Gaya D-Pad Virtual untuk Perangkat Sentuh */
+        .dpad-btn {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 1px solid #334155;
+            box-shadow: 0 5px 0 #090d16, 0 8px 15px rgba(0,0,0,0.4);
+            transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+            touch-action: manipulation;
+        }
+        .dpad-btn:active, .dpad-btn.active-press {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #090d16, 0 2px 5px rgba(0,0,0,0.4);
+            background: linear-gradient(145deg, #10b981, #059669);
+            border-color: #34d399;
+            color: #022c22;
+        }
+
+        /* Animasi Denyut Halus */
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6)); }
+            50% { filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.95)); }
+        }
+        .glow-title {
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-between py-3 px-3 sm:py-6 sm:px-6">
+
+    <!-- Kontainer Utama -->
+    <main class="w-full max-w-lg flex flex-col items-center gap-3 sm:gap-4 my-auto">
+        
+        <!-- Header & Judul -->
+        <header class="w-full flex items-center justify-between bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl px-4 py-3 shadow-lg">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl glow-title">
+                    🐍
+                </div>
+                <div>
+                    <h1 class="font-arcade text-sm sm:text-base text-emerald-400 tracking-wider">SNAKE KLASIK</h1>
+                    <p class="text-xs text-slate-400">Edisi Arkade Modern</p>
+                </div>
+            </div>
+
+            <!-- Pengaturan Cepat (Suara & Mode Dinding) -->
+            <div class="flex items-center gap-2">
+                <button id="wallModeBtn" type="button" title="Ubah Mode Dinding"
+                    class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-slate-300 flex items-center gap-1.5 transition">
+                    <span id="wallModeIcon">🧱</span>
+                    <span id="wallModeText" class="hidden sm:inline">Dinding Mati</span>
+                </button>
+                <button id="soundToggleBtn" type="button" title="Bisu / Suara"
+                    class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 flex items-center justify-center text-base transition">
+                    🔊
+                </button>
+            </div>
+        </header>
+
+        <!-- Panel Papan Skor -->
+        <section class="w-full grid grid-cols-3 gap-2.5 sm:gap-3">
+            <!-- Skor Saat Ini -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-2.5 sm:p-3 flex flex-col items-center justify-center shadow-md relative overflow-hidden">
+                <span class="text-[11px] uppercase tracking-wider font-bold text-slate-400">Skor</span>
+                <span id="scoreDisplay" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tabular-nums mt-0.5">0</span>
+            </div>
+
+            <!-- Skor Tertinggi -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-2.5 sm:p-3 flex flex-col items-center justify-center shadow-md relative overflow-hidden">
+                <span class="text-[11px] uppercase tracking-wider font-bold text-amber-400/90 flex items-center gap-1">
+                    🏆 Rekor
+                </span>
+                <span id="highScoreDisplay" class="text-2xl sm:text-3xl font-extrabold text-amber-400 tabular-nums mt-0.5">0</span>
+            </div>
+
+            <!-- Tingkat Kesulitan & Kontrol Jeda -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-2 sm:p-2.5 flex flex-col justify-between items-center shadow-md">
+                <label for="difficultySelect" class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Kecepatan</label>
+                <select id="difficultySelect" 
+                    class="w-full mt-1 bg-slate-800 hover:bg-slate-750 text-slate-100 text-xs sm:text-sm font-bold rounded-lg px-2 py-1.5 border border-slate-700 focus:outline-none focus:border-emerald-500 text-center cursor-pointer">
+                    <option value="easy">Santai (x0.8)</option>
+                    <option value="normal" selected>Normal (x1.0)</option>
+                    <option value="hard">Cepat (x1.5)</option>
+                    <option value="extreme">Ekstrem (x2.0)</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Baris Tombol Aksi Cepat -->
+        <section class="w-full flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2 text-xs text-slate-400 bg-slate-900/60 px-3 py-2 rounded-xl border border-slate-800/80">
+                <span>Panjang Ular: <strong id="snakeLengthDisplay" class="text-emerald-400">3</strong></span>
+                <span class="text-slate-600">•</span>
+                <span id="bonusTimerContainer" class="hidden items-center gap-1 text-amber-400 font-bold animate-pulse">
+                    ⭐ Bonus aktif!
+                </span>
+                <span id="statusBadge" class="text-slate-400">Siap Bermain</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button id="pauseBtn" type="button" disabled
+                    class="btn-game px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:pointer-events-none text-slate-950 font-bold text-xs sm:text-sm flex items-center gap-1.5">
+                    <span id="pauseBtnIcon">⏸️</span>
+                    <span id="pauseBtnText">Jeda</span>
+                </button>
+                <button id="restartQuickBtn" type="button" disabled
+                    class="btn-game px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:pointer-events-none text-slate-200 border border-slate-700 font-bold text-xs sm:text-sm flex items-center gap-1">
+                    🔄 <span class="hidden sm:inline">Ulang</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Area Papan Permainan (Canvas + Overlay) -->
+        <div id="boardWrapper" class="relative w-full aspect-square max-w-[440px] rounded-2xl overflow-hidden canvas-container bg-slate-950 flex items-center justify-center">
+            <canvas id="gameCanvas" class="w-full h-full block"></canvas>
+
+            <!-- OVERLAY 1: Layar Mulai -->
+            <div id="startOverlay" class="absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center z-10 transition-opacity duration-200">
+                <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-4xl mb-4 glow-title">
+                    🐍
+                </div>
+                <h2 class="font-arcade text-lg sm:text-xl text-emerald-400 mb-2">SIAP BERMAIN?</h2>
+                <p class="text-xs sm:text-sm text-slate-300 max-w-xs mb-5 leading-relaxed">
+                    Kumpulkan apel merah <span class="text-rose-400 font-bold">(+10)</span> dan bintang emas <span class="text-amber-400 font-bold">(+50)</span> tanpa menabrak tubuhmu sendiri!
+                </p>
+
+                <!-- Ringkasan Kontrol -->
+                <div class="grid grid-cols-2 gap-2 w-full max-w-xs mb-6 text-left text-xs bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+                    <div class="flex items-center gap-2 text-slate-300">
+                        <span class="text-base">⌨️</span>
+                        <span>Panah / WASD</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-300">
+                        <span class="text-base">📱</span>
+                        <span>Tombol / Geser</span>
+                    </div>
+                </div>
+
+                <button id="startGameBtn" type="button"
+                    class="btn-game w-full max-w-xs py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-base tracking-wide flex items-center justify-center gap-2">
+                    ▶ MULAI PERMAINAN
+                </button>
+            </div>
+
+            <!-- OVERLAY 2: Layar Jeda (Pause) -->
+            <div id="pauseOverlay" class="hidden absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex-col items-center justify-center p-6 text-center z-10">
+                <div class="text-4xl mb-3">⏸️</div>
+                <h2 class="font-arcade text-lg text-amber-400 mb-2">PERMAINAN DIJEDA</h2>
+                <p class="text-xs sm:text-sm text-slate-300 mb-6">Ambil napas sejenak, ularmu menunggu perintah!</p>
+                <div class="flex flex-col sm:flex-row gap-3 w-full max-w-xs">
+                    <button id="resumeGameBtn" type="button"
+                        class="btn-game flex-1 py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm">
+                        ▶ Lanjutkan
+                    </button>
+                    <button id="restartFromPauseBtn" type="button"
+                        class="btn-game flex-1 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-sm">
+                        🔄 Mulai Ulang
+                    </button>
+                </div>
+            </div>
+
+            <!-- OVERLAY 3: Layar Permainan Berakhir (Game Over) -->
+            <div id="gameOverOverlay" class="hidden absolute inset-0 bg-slate-950/90 backdrop-blur-md flex-col items-center justify-center p-6 text-center z-10">
+                <div class="text-4xl mb-2">💥</div>
+                <h2 class="font-arcade text-base sm:text-lg text-rose-500 mb-1">PERMAINAN BERAKHIR!</h2>
+                <p id="gameOverReason" class="text-xs sm:text-sm text-slate-400 mb-4">Ular menabrak dinding pembatas.</p>
+
+                <!-- Badge Rekor Baru -->
+                <div id="newRecordBadge" class="hidden mb-3 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-xs font-extrabold tracking-wide animate-bounce">
+                    🎉 REKOR TERTINGGI BARU! 🎉
+                </div>
+
+                <!-- Kotak Ringkasan Skor Akhir -->
+                <div class="w-full max-w-xs bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-5 grid grid-cols-2 gap-3">
+                    <div>
+                        <div class="text-[11px] text-slate-400 uppercase font-bold">Skor Akhir</div>
+                        <div id="finalScoreText" class="text-2xl font-extrabold text-emerald-400 mt-0.5">0</div>
+                    </div>
+                    <div class="border-l border-slate-800">
+                        <div class="text-[11px] text-slate-400 uppercase font-bold">Rekor Terbaik</div>
+                        <div id="finalHighScoreText" class="text-2xl font-extrabold text-amber-400 mt-0.5">0</div>
+                    </div>
+                </div>
+
+                <button id="playAgainBtn" type="button"
+                    class="btn-game w-full max-w-xs py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-base tracking-wide flex items-center justify-center gap-2">
+                    🔄 MAIN LAGI
+                </button>
+            </div>
+        </div>
+
+        <!-- Kontroler Layar Sentuh (D-Pad Virtual) -->
+        <section class="w-full flex flex-col items-center mt-1">
+            <div class="grid grid-cols-3 gap-2.5 w-48 sm:w-52">
+                <div></div>
+                <button type="button" data-dir="UP" aria-label="Atas"
+                    class="dpad-btn h-13 sm:h-14 py-3 rounded-2xl flex items-center justify-center text-xl font-bold text-slate-200 select-none">
+                    ▲
+                </button>
+                <div></div>
+
+                <button type="button" data-dir="LEFT" aria-label="Kiri"
+                    class="dpad-btn h-13 sm:h-14 py-3 rounded-2xl flex items-center justify-center text-xl font-bold text-slate-200 select-none">
+                    ◀
+                </button>
+                <button type="button" data-dir="DOWN" aria-label="Bawah"
+                    class="dpad-btn h-13 sm:h-14 py-3 rounded-2xl flex items-center justify-center text-xl font-bold text-slate-200 select-none">
+                    ▼
+                </button>
+                <button type="button" data-dir="RIGHT" aria-label="Kanan"
+                    class="dpad-btn h-13 sm:h-14 py-3 rounded-2xl flex items-center justify-center text-xl font-bold text-slate-200 select-none">
+                    ▶
+                </button>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-2.5 text-center">
+                Tip: Gunakan tombol <strong>Panah / WASD</strong>, <strong>Spasi</strong> untuk Jeda, atau sentuh tombol arah di atas.
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Logika Permainan JavaScript -->
+    <script>
+        /**
+         * ============================================================================
+         * SISTEM AUDIO SINTETIS (Web Audio API - Tanpa File Eksternal)
+         * ============================================================================
+         */
+        class SoundEffects {
+            constructor() {
+                this.ctx = null;
+                this.muted = false;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    if (AudioContext) {
+                        this.ctx = new AudioContext();
+                    }
+                }
+                if (this.ctx && this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            playTone(freq, type, duration, startTime = 0, volume = 0.12) {
+                if (this.muted || !this.ctx) return;
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, this.ctx.currentTime + startTime);
+
+                    gain.gain.setValueAtTime(volume, this.ctx.currentTime + startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + startTime + duration);
+
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+
+                    osc.start(this.ctx.currentTime + startTime);
+                    osc.stop(this.ctx.currentTime + startTime + duration);
+                } catch (e) {
+                    // Abaikan jika browser memblokir autoplay audio
+                }
+            }
+
+            eatFood() {
+                this.init();
+                this.playTone(520, 'sine', 0.08, 0, 0.15);
+                this.playTone(780, 'triangle', 0.12, 0.06, 0.15);
+            }
+
+            eatBonus() {
+                this.init();
+                this.playTone(587.33, 'triangle', 0.08, 0, 0.16);
+                this.playTone(880, 'triangle', 0.08, 0.07, 0.16);
+                this.playTone(1174.66, 'sine', 0.18, 0.14, 0.18);
+            }
+
+            click() {
+                this.init();
+                this.playTone(400, 'sine', 0.05, 0, 0.08);
+            }
+
+            gameOver() {
+                this.init();
+                this.playTone(300, 'sawtooth', 0.15, 0, 0.14);
+                this.playTone(220, 'sawtooth', 0.18, 0.14, 0.14);
+                this.playTone(150, 'sawtooth', 0.35, 0.30, 0.16);
+            }
+        }
+
+        const sfx = new SoundEffects();
+
+        /**
+         * ============================================================================
+         * KONFIGURASI & VARIABEL GLOBAL PERMAINAN
+         * ============================================================================
+         */
+        const GRID_COUNT = 20; // Ukuran papan 20x20 petak
+        const HIGH_SCORE_KEY = 'snake_klasik_highscore_v1';
+
+        const DIFFICULTY_CONFIG = {
+            easy:    { speedMs: 155, multiplier: 0.8, label: 'Santai' },
+            normal:  { speedMs: 115, multiplier: 1.0, label: 'Normal' },
+            hard:    { speedMs: 80,  multiplier: 1.5, label: 'Cepat' },
+            extreme: { speedMs: 55,  multiplier: 2.0, label: 'Ekstrem' }
+        };
+
+        // Referensi Elemen DOM
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const highScoreDisplay = document.getElementById('highScoreDisplay');
+        const snakeLengthDisplay = document.getElementById('snakeLengthDisplay');
+        const statusBadge = document.getElementById('statusBadge');
+        const bonusTimerContainer = document.getElementById('bonusTimerContainer');
+        const difficultySelect = document.getElementById('difficultySelect');
+
+        // Overlay & Tombol
+        const startOverlay = document.getElementById('startOverlay');
+        const pauseOverlay = document.getElementById('pauseOverlay');
+        const gameOverOverlay = document.getElementById('gameOverOverlay');
+        const gameOverReason = document.getElementById('gameOverReason');
+        const finalScoreText = document.getElementById('finalScoreText');
+        const finalHighScoreText = document.getElementById('finalHighScoreText');
+        const newRecordBadge = document.getElementById('newRecordBadge');
+
+        const startGameBtn = document.getElementById('startGameBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const pauseBtnIcon = document.getElementById('pauseBtnIcon');
+        const pauseBtnText = document.getElementById('pauseBtnText');
+        const restartQuickBtn = document.getElementById('restartQuickBtn');
+        const resumeGameBtn = document.getElementById('resumeGameBtn');
+        const restartFromPauseBtn = document.getElementById('restartFromPauseBtn');
+        const playAgainBtn = document.getElementById('playAgainBtn');
+        const soundToggleBtn = document.getElementById('soundToggleBtn');
+        const wallModeBtn = document.getElementById('wallModeBtn');
+        const wallModeIcon = document.getElementById('wallModeIcon');
+        const wallModeText = document.getElementById('wallModeText');
+        const dpadButtons = document.querySelectorAll('.dpad-btn');
+
+        // State Permainan
+        let snake = [];
+        let direction = { x: 1, y: 0 };
+        let inputQueue = []; // Antrean input agar belok cepat tidak menabrak leher sendiri
+        let food = { x: 10, y: 10 };
+        let bonusFood = null; // { x, y, expiresAt, duration }
+        let foodsEatenCount = 0;
+        let particles = [];
+
+        let score = 0;
+        let highScore = 0;
+        let wrapWalls = false; // false = Dinding Mati, true = Tembus Dinding
+        let gameState = 'IDLE'; // 'IDLE' | 'PLAYING' | 'PAUSED' | 'GAMEOVER'
+        let lastTickTime = 0;
+        let animationFrameId = null;
+
+        /**
+         * ============================================================================
+         * INISIALISASI & PENYIMPANAN SKOR TERTINGGI
+         * ============================================================================
+         */
+        function loadHighScore() {
+            try {
+                const saved = localStorage.getItem(HIGH_SCORE_KEY);
+                highScore = saved ? parseInt(saved, 10) || 0 : 0;
+            } catch (e) {
+                highScore = 0;
+            }
+            highScoreDisplay.textContent = highScore;
+        }
+
+        function saveHighScore(newScore) {
+            if (newScore > highScore) {
+                highScore = newScore;
+                highScoreDisplay.textContent = highScore;
+                try {
+                    localStorage.setItem(HIGH_SCORE_KEY, String(highScore));
+                } catch (e) {
+                    // Abaikan jika penyimpanan lokal dibatasi
+                }
+                return true;
+            }
+            return false;
+        }
+
+        /**
+         * Mengatur ukuran piksel kanvas agar tajam di layar Retina/High-DPI
+         */
+        function resizeCanvas() {
+            const wrapper = document.getElementById('boardWrapper');
+            const rect = wrapper.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+
+            canvas.width = Math.floor(rect.width * dpr);
+            canvas.height = Math.floor(rect.height * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            drawScene(performance.now());
+        }
+
+        /**
+         * Mengatur ulang variabel permainan untuk sesi baru
+         */
+        function resetGameData() {
+            const startX = Math.floor(GRID_COUNT / 2);
+            const startY = Math.floor(GRID_COUNT / 2);
+
+            snake = [
+                { x: startX, y: startY },
+                { x: startX - 1, y: startY },
+                { x: startX - 2, y: startY }
+            ];
+            direction = { x: 1, y: 0 };
+            inputQueue = [];
+            score = 0;
+            foodsEatenCount = 0;
+            bonusFood = null;
+            particles = [];
+
+            scoreDisplay.textContent = '0';
+            snakeLengthDisplay.textContent = snake.length;
+            bonusTimerContainer.classList.add('hidden');
+            bonusTimerContainer.classList.remove('flex');
+            statusBadge.classList.remove('hidden');
+
+            spawnFood();
+        }
+
+        /**
+         * Memunculkan apel pada posisi acak yang tidak ditempati tubuh ular
+         */
+        function spawnFood() {
+            const occupied = new Set(snake.map(seg => `${seg.x},${seg.y}`));
+            if (bonusFood) occupied.add(`${bonusFood.x},${bonusFood.y}`);
+
+            const emptyCells = [];
+            for (let x = 0; x < GRID_COUNT; x++) {
+                for (let y = 0; y < GRID_COUNT; y++) {
+                    if (!occupied.has(`${x},${y}`)) {
+                        emptyCells.push({ x, y });
+                    }
+                }
+            }
+
+            if (emptyCells.length > 0) {
+                const chosen = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                food = { x: chosen.x, y: chosen.y };
+            }
+        }
+
+        /**
+         * Memunculkan Makanan Bonus Bintang Emas setiap 5 apel
+         */
+        function spawnBonusFood() {
+            const occupied = new Set(snake.map(seg => `${seg.x},${seg.y}`));
+            occupied.add(`${food.x},${food.y}`);
+
+            const emptyCells = [];
+            for (let x = 0; x < GRID_COUNT; x++) {
+                for (let y = 0; y < GRID_COUNT; y++) {
+                    if (!occupied.has(`${x},${y}`)) {
+                        emptyCells.push({ x, y });
+                    }
+                }
+            }
+
+            if (emptyCells.length > 0) {
+                const chosen = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                const duration = 6500; // Aktif selama 6.5 detik
+                bonusFood = {
+                    x: chosen.x,
+                    y: chosen.y,
+                    expiresAt: performance.now() + duration,
+                    duration: duration
+                };
+                bonusTimerContainer.classList.remove('hidden');
+                bonusTimerContainer.classList.add('flex');
+                statusBadge.classList.add('hidden');
+            }
+        }
+
+        /**
+         * Efek pecahan partikel saat ular memakan makanan atau menabrak
+         */
+        function createParticles(gridX, gridY, color, count = 14) {
+            const cellSize = (canvas.width / (window.devicePixelRatio || 1)) / GRID_COUNT;
+            const centerX = (gridX + 0.5) * cellSize;
+            const centerY = (gridY + 0.5) * cellSize;
+
+            for (let i = 0; i < count; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 1 + Math.random() * 3.2;
+                particles.push({
+                    x: centerX,
+                    y: centerY,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    radius: 2 + Math.random() * 2.5,
+                    color: color,
+                    alpha: 1
+                });
+            }
+        }
+
+        /**
+         * ============================================================================
+         * LOGIKA PERGERAKAN & DETEKSI TABRAKAN (GAME TICK)
+         * ============================================================================
+         */
+        function updateGameTick(now) {
+            // Ambil arah berikutnya dari antrean jika ada
+            if (inputQueue.length > 0) {
+                direction = inputQueue.shift();
+            }
+
+            // Hitung posisi kepala baru
+            let nextX = snake[0].x + direction.x;
+            let nextY = snake[0].y + direction.y;
+
+            // Cek interaksi dinding pembatas
+            if (wrapWalls) {
+                nextX = (nextX + GRID_COUNT) % GRID_COUNT;
+                nextY = (nextY + GRID_COUNT) % GRID_COUNT;
+            } else {
+                if (nextX < 0 || nextX >= GRID_COUNT || nextY < 0 || nextY >= GRID_COUNT) {
+                    createParticles(snake[0].x, snake[0].y, '#f43f5e', 22);
+                    triggerGameOver('Ular menabrak dinding pembatas!');
+                    return;
+                }
+            }
+
+            // Cek apakah kepala menabrak tubuh sendiri (kecuali ujung ekor yang akan bergeser)
+            const willEatNormal = (nextX === food.x && nextY === food.y);
+            const willEatBonus = (bonusFood && nextX === bonusFood.x && nextY === bonusFood.y);
+            const bodyToCheck = (willEatNormal || willEatBonus) ? snake : snake.slice(0, -1);
+
+            for (let i = 0; i < bodyToCheck.length; i++) {
+                if (bodyToCheck[i].x === nextX && bodyToCheck[i].y === nextY) {
+                    createParticles(nextX, nextY, '#f43f5e', 22);
+                    triggerGameOver('Ular menabrak tubuhnya sendiri!');
+                    return;
+                }
+            }
+
+            // Tambahkan kepala baru
+            const newHead = { x: nextX, y: nextY };
+            snake.unshift(newHead);
+
+            const diffKey = difficultySelect.value;
+            const multiplier = DIFFICULTY_CONFIG[diffKey].multiplier;
+
+            // Cek jika memakan apel biasa
+            if (willEatNormal) {
+                sfx.eatFood();
+                const pointsEarned = Math.round(10 * multiplier);
+                score += pointsEarned;
+                foodsEatenCount++;
+
+                scoreDisplay.textContent = score;
+                snakeLengthDisplay.textContent = snake.length;
+                saveHighScore(score);
+
+                createParticles(food.x, food.y, '#f43f5e', 16);
+                spawnFood();
+
+                // Munculkan bintang emas setiap 5 apel
+                if (foodsEatenCount % 5 === 0 && !bonusFood) {
+                    spawnBonusFood();
+                }
+            } else if (willEatBonus) {
+                // Jika memakan makanan bonus bintang emas
+                sfx.eatBonus();
+                const bonusPoints = Math.round(50 * multiplier);
+                score += bonusPoints;
+                scoreDisplay.textContent = score;
+                snakeLengthDisplay.textContent = snake.length;
+                saveHighScore(score);
+
+                createParticles(bonusFood.x, bonusFood.y, '#fbbf24', 24);
+                bonusFood = null;
+                bonusTimerContainer.classList.add('hidden');
+                bonusTimerContainer.classList.remove('flex');
+                statusBadge.classList.remove('hidden');
+            } else {
+                // Jika tidak makan apa-apa, geser ekor
+                snake.pop();
+            }
+
+            // Cek kedaluwarsa makanan bonus
+            if (bonusFood && now > bonusFood.expiresAt) {
+                bonusFood = null;
+                bonusTimerContainer.classList.add('hidden');
+                bonusTimerContainer.classList.remove('flex');
+                statusBadge.classList.remove('hidden');
+            }
+        }
+
+        /**
+         * ============================================================================
+         * RENDER VISUAL KANVAS
+         * ============================================================================
+         */
+        function drawScene(now) {
+            const width = canvas.width / (window.devicePixelRatio || 1);
+            const height = canvas.height / (window.devicePixelRatio || 1);
+            const cellSize = width / GRID_COUNT;
+
+            // 1. Bersihkan Latar Belakang Kanvas
+            ctx.fillStyle = '#090d16';
+            ctx.fillRect(0, 0, width, height);
+
+            // 2. Gambar Papan Kotak-Kotak Halus (Checkerboard)
+            for (let x = 0; x < GRID_COUNT; x++) {
+                for (let y = 0; y < GRID_COUNT; y++) {
+                    if ((x + y) % 2 === 0) {
+                        ctx.fillStyle = 'rgba(30, 41, 59, 0.28)';
+                        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+
+            // Indikator tepi jika mode Tembus Dinding aktif
+            if (wrapWalls) {
+                ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+                ctx.lineWidth = 3;
+                ctx.setLineDash([6, 6]);
+                ctx.strokeRect(1.5, 1.5, width - 3, height - 3);
+                ctx.setLineDash([]);
+            }
+
+            // 3. Gambar Apel Merah (Makanan Utama) dengan Animasi Denyut
+            const pulse = 1 + Math.sin(now * 0.008) * 0.08;
+            const foodCenterX = (food.x + 0.5) * cellSize;
+            const foodCenterY = (food.y + 0.5) * cellSize;
+            const foodRadius = (cellSize * 0.38) * pulse;
+
+            ctx.save();
+            ctx.shadowColor = '#f43f5e';
+            ctx.shadowBlur = 12;
+            ctx.fillStyle = '#f43f5e';
+            ctx.beginPath();
+            ctx.arc(foodCenterX, foodCenterY, foodRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Kilau & Daun Apel Kecil
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = '#fda4af';
+            ctx.beginPath();
+            ctx.arc(foodCenterX - foodRadius * 0.3, foodCenterY - foodRadius * 0.3, foodRadius * 0.25, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#4ade80';
+            ctx.beginPath();
+            ctx.ellipse(foodCenterX + 2, foodCenterY - foodRadius, 4, 2, -Math.PI / 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            // 4. Gambar Makanan Bonus Bintang Emas (Jika Aktif)
+            if (bonusFood) {
+                const remainingRatio = Math.max(0, (bonusFood.expiresAt - now) / bonusFood.duration);
+                const bx = (bonusFood.x + 0.5) * cellSize;
+                const by = (bonusFood.y + 0.5) * cellSize;
+                const bRadius = (cellSize * 0.42) * (1 + Math.sin(now * 0.015) * 0.12);
+
+                ctx.save();
+                ctx.shadowColor = '#fbbf24';
+                ctx.shadowBlur = 15;
+                ctx.fillStyle = '#fbbf24';
+                ctx.beginPath();
+                ctx.arc(bx, by, bRadius, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Lingkaran waktu mundur di sekitar bonus
+                ctx.strokeStyle = '#fef08a';
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                ctx.arc(bx, by, cellSize * 0.48, -Math.PI / 2, -Math.PI / 2 + (Math.PI * 2 * remainingRatio));
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            // 5. Gambar Tubuh & Kepala Ular
+            for (let i = snake.length - 1; i >= 0; i--) {
+                const seg = snake[i];
+                const isHead = (i === 0);
+                const pad = isHead ? 1 : 2;
+                const segX = seg.x * cellSize + pad;
+                const segY = seg.y * cellSize + pad;
+                const segSize = cellSize - pad * 2;
+                const cornerRadius = isHead ? cellSize * 0.32 : cellSize * 0.25;
+
+                // Gradasi warna dari kepala hijau terang ke ekor hijau zamrud
+                const ratio = i / Math.max(1, snake.length - 1);
+                ctx.save();
+                if (isHead) {
+                    ctx.shadowColor = 'rgba(16, 185, 129, 0.6)';
+                    ctx.shadowBlur = 10;
+                    ctx.fillStyle = '#34d399';
+                } else {
+                    const r = Math.round(16 - ratio * 6);
+                    const g = Math.round(185 - ratio * 65);
+                    const b = Math.round(129 - ratio * 40);
+                    ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+                }
+
+                // Gambar kotak membulat untuk segmen ular
+                drawRoundedRect(ctx, segX, segY, segSize, segSize, cornerRadius);
+                ctx.fill();
+
+                // Gambar mata pada kepala ular sesuai arah hadap
+                if (isHead) {
+                    ctx.shadowBlur = 0;
+                    const centerX = (seg.x + 0.5) * cellSize;
+                    const centerY = (seg.y + 0.5) * cellSize;
+                    const eyeOffsetForward = cellSize * 0.16;
+                    const eyeOffsetSide = cellSize * 0.18;
+
+                    // Tentukan vektor tegak lurus arah jalan untuk posisi 2 mata
+                    const perpX = -direction.y;
+                    const perpY = direction.x;
+
+                    const eye1X = centerX + direction.x * eyeOffsetForward + perpX * eyeOffsetSide;
+                    const eye1Y = centerY + direction.y * eyeOffsetForward + perpY * eyeOffsetSide;
+                    const eye2X = centerX + direction.x * eyeOffsetForward - perpX * eyeOffsetSide;
+                    const eye2Y = centerY + direction.y * eyeOffsetForward - perpY * eyeOffsetSide;
+
+                    // Bagian putih mata
+                    ctx.fillStyle = '#ffffff';
+                    ctx.beginPath();
+                    ctx.arc(eye1X, eye1Y, cellSize * 0.11, 0, Math.PI * 2);
+                    ctx.arc(eye2X, eye2Y, cellSize * 0.11, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Pupil hitam
+                    ctx.fillStyle = '#022c22';
+                    ctx.beginPath();
+                    ctx.arc(eye1X + direction.x * 1.2, eye1Y + direction.y * 1.2, cellSize * 0.06, 0, Math.PI * 2);
+                    ctx.arc(eye2X + direction.x * 1.2, eye2Y + direction.y * 1.2, cellSize * 0.06, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+
+            // 6. Update dan Gambar Partikel Efek
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.035;
+
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
+                    continue;
+                }
+
+                ctx.save();
+                ctx.globalAlpha = p.alpha;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        /**
+         * Fungsi pembantu menggambar persegi dengan sudut melengkung
+         */
+        function drawRoundedRect(context, x, y, width, height, radius) {
+            context.beginPath();
+            context.moveTo(x + radius, y);
+            context.lineTo(x + width - radius, y);
+            context.quadraticCurveTo(x + width, y, x + width, y + radius);
+            context.lineTo(x + width, y + height - radius);
+            context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            context.lineTo(x + radius, y + height);
+            context.quadraticCurveTo(x, y + height, x, y + height - radius);
+            context.lineTo(x, y + radius);
+            context.quadraticCurveTo(x, y, x + radius, y);
+            context.closePath();
+        }
+
+        /**
+         * ============================================================================
+         * LOOP ANIMASI UTAMA & MANAJEMEN STATE PERMAINAN
+         * ============================================================================
+         */
+        function gameLoop(now) {
+            if (gameState === 'PLAYING') {
+                const currentDiff = difficultySelect.value;
+                const tickInterval = DIFFICULTY_CONFIG[currentDiff].speedMs;
+
+                if (now - lastTickTime >= tickInterval) {
+                    updateGameTick(now);
+                    lastTickTime = now;
+                }
+            }
+
+            drawScene(now);
+            animationFrameId = requestAnimationFrame(gameLoop);
+        }
+
+        function startGame() {
+            sfx.click();
+            const previousHighScore = highScore;
+            resetGameData();
+            gameState = 'PLAYING';
+            lastTickTime = performance.now();
+
+            // Sembunyikan semua overlay
+            startOverlay.classList.add('hidden');
+            pauseOverlay.classList.add('hidden');
+            pauseOverlay.classList.remove('flex');
+            gameOverOverlay.classList.add('hidden');
+            gameOverOverlay.classList.remove('flex');
+            newRecordBadge.classList.add('hidden');
+
+            // Aktifkan tombol kontrol
+            pauseBtn.disabled = false;
+            restartQuickBtn.disabled = false;
+            updatePauseButtonUI(false);
+            statusBadge.textContent = 'Sedang Bermain';
+            statusBadge.className = 'text-emerald-400 font-semibold';
+
+            // Simpan skor awal untuk referensi apakah pemain memecahkan rekor di sesi ini
+            canvas.dataset.prevHighScore = previousHighScore;
+        }
+
+        function togglePause() {
+            if (gameState !== 'PLAYING' && gameState !== 'PAUSED') return;
+            sfx.click();
+
+            if (gameState === 'PLAYING') {
+                gameState = 'PAUSED';
+                pauseOverlay.classList.remove('hidden');
+                pauseOverlay.classList.add('flex');
+                updatePauseButtonUI(true);
+                statusBadge.textContent = 'Dijeda';
+                statusBadge.className = 'text-amber-400 font-semibold';
+            } else {
+                gameState = 'PLAYING';
+                lastTickTime = performance.now();
+                pauseOverlay.classList.add('hidden');
+                pauseOverlay.classList.remove('flex');
+                updatePauseButtonUI(false);
+                statusBadge.textContent = 'Sedang Bermain';
+                statusBadge.className = 'text-emerald-400 font-semibold';
+            }
+        }
+
+        function updatePauseButtonUI(isPaused) {
+            if (isPaused) {
+                pauseBtnIcon.textContent = '▶️';
+                pauseBtnText.textContent = 'Lanjut';
+                pauseBtn.classList.replace('bg-amber-500', 'bg-emerald-500');
+                pauseBtn.classList.replace('hover:bg-amber-400', 'hover:bg-emerald-400');
+            } else {
+                pauseBtnIcon.textContent = '⏸️';
+                pauseBtnText.textContent = 'Jeda';
+                pauseBtn.classList.replace('bg-emerald-500', 'bg-amber-500');
+                pauseBtn.classList.replace('hover:bg-emerald-400', 'hover:bg-amber-400');
+            }
+        }
+
+        function triggerGameOver(reasonText) {
+            sfx.gameOver();
+            gameState = 'GAMEOVER';
+
+            pauseBtn.disabled = true;
+            statusBadge.textContent = 'Berakhir';
+            statusBadge.className = 'text-rose-400 font-semibold';
+            bonusTimerContainer.classList.add('hidden');
+            bonusTimerContainer.classList.remove('flex');
+            statusBadge.classList.remove('hidden');
+
+            const prevHigh = parseInt(canvas.dataset.prevHighScore || '0', 10);
+            const isNewRecord = score > 0 && score > prevHigh && score >= highScore;
+
+            gameOverReason.textContent = reasonText;
+            finalScoreText.textContent = score;
+            finalHighScoreText.textContent = highScore;
+
+            if (isNewRecord) {
+                newRecordBadge.classList.remove('hidden');
+            } else {
+                newRecordBadge.classList.add('hidden');
+            }
+
+            gameOverOverlay.classList.remove('hidden');
+            gameOverOverlay.classList.add('flex');
+        }
+
+        /**
+         * ============================================================================
+         * KONTROL INPUT (KEYBOARD, TOMBOL LAYAR, DAN SWIPE SENTUHAN)
+         * ============================================================================
+         */
+        function queueDirectionChange(newDir) {
+            if (gameState !== 'PLAYING') return;
+
+            // Bandingkan dengan arah terakhir di antrean (atau arah saat ini jika antrean kosong)
+            const lastScheduledDir = inputQueue.length > 0 ? inputQueue[inputQueue.length - 1] : direction;
+
+            // Cegah berbalik arah 180 derajat langsung
+            const isOpposite = (newDir.x === -lastScheduledDir.x && newDir.y === -lastScheduledDir.y);
+            const isSame = (newDir.x === lastScheduledDir.x && newDir.y === lastScheduledDir.y);
+
+            if (!isOpposite && !isSame && inputQueue.length < 2) {
+                inputQueue.push(newDir);
+            }
+        }
+
+        // Kontrol Keyboard (Arrow Keys, WASD, Spasi, Enter)
+        window.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+
+            // Spasi atau P untuk Jeda/Lanjut
+            if (key === ' ' || key === 'p') {
+                if (gameState === 'PLAYING' || gameState === 'PAUSED') {
+                    e.preventDefault();
+                    togglePause();
+                }
+                return;
+            }
+
+            // Enter untuk Mulai atau Main Lagi saat di layar overlay
+            if (key === 'enter') {
+                if (gameState === 'IDLE' || gameState === 'GAMEOVER') {
+                    e.preventDefault();
+                    startGame();
+                }
+                return;
+            }
+
+            const keyMap = {
+                'arrowup':    { x: 0, y: -1 },
+                'w':          { x: 0, y: -1 },
+                'arrowdown':  { x: 0, y: 1 },
+                's':          { x: 0, y: 1 },
+                'arrowleft':  { x: -1, y: 0 },
+                'a':          { x: -1, y: 0 },
+                'arrowright': { x: 1, y: 0 },
+                'd':          { x: 1, y: 0 }
+            };
+
+            if (keyMap[key]) {
+                e.preventDefault();
+                queueDirectionChange(keyMap[key]);
+            }
+        });
+
+        // Kontrol D-Pad Layar Sentuh & Mouse
+        const dirVectors = {
+            UP:    { x: 0, y: -1 },
+            DOWN:  { x: 0, y: 1 },
+            LEFT:  { x: -1, y: 0 },
+            RIGHT: { x: 1, y: 0 }
+        };
+
+        dpadButtons.forEach(btn => {
+            const dirName = btn.getAttribute('data-dir');
+            const handlePress = (e) => {
+                e.preventDefault();
+                if (gameState === 'IDLE') {
+                    startGame();
+                }
+                queueDirectionChange(dirVectors[dirName]);
+                btn.classList.add('active-press');
+                setTimeout(() => btn.classList.remove('active-press'), 120);
+            };
+
+            btn.addEventListener('touchstart', handlePress, { passive: false });
+            btn.addEventListener('mousedown', handlePress);
+        });
+
+        // Dukungan Geser Layar (Swipe Gestures) langsung pada Kanvas
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        canvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        canvas.addEventListener('touchmove', (e) => {
+            if (gameState === 'PLAYING') {
+                e.preventDefault(); // Cegah halaman ikut tergulir saat menggeser di atas papan permainan
+            }
+        }, { passive: false });
+
+        canvas.addEventListener('touchend', (e) => {
+            if (e.changedTouches.length === 0) return;
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            const dy = e.changedTouches[0].clientY - touchStartY;
+            const minSwipeDistance = 24;
+
+            if (Math.abs(dx) < minSwipeDistance && Math.abs(dy) < minSwipeDistance) return;
+
+            if (Math.abs(dx) > Math.abs(dy)) {
+                queueDirectionChange(dx > 0 ? dirVectors.RIGHT : dirVectors.LEFT);
+            } else {
+                queueDirectionChange(dy > 0 ? dirVectors.DOWN : dirVectors.UP);
+            }
+        }, { passive: true });
+
+        // Event Listener Tombol Antarmuka
+        startGameBtn.addEventListener('click', startGame);
+        playAgainBtn.addEventListener('click', startGame);
+        resumeGameBtn.addEventListener('click', togglePause);
+        pauseBtn.addEventListener('click', togglePause);
+        restartQuickBtn.addEventListener('click', startGame);
+        restartFromPauseBtn.addEventListener('click', startGame);
+
+        difficultySelect.addEventListener('change', () => {
+            sfx.click();
+            difficultySelect.blur(); // Lepaskan fokus agar tombol panah tidak mengubah dropdown saat bermain
+        });
+
+        soundToggleBtn.addEventListener('click', () => {
+            sfx.muted = !sfx.muted;
+            soundToggleBtn.textContent = sfx.muted ? '🔇' : '🔊';
+            if (!sfx.muted) sfx.click();
+        });
+
+        wallModeBtn.addEventListener('click', () => {
+            sfx.click();
+            wrapWalls = !wrapWalls;
+            if (wrapWalls) {
+                wallModeIcon.textContent = '🌀';
+                wallModeText.textContent = 'Tembus Dinding';
+                wallModeBtn.classList.replace('text-slate-300', 'text-sky-400');
+                wallModeBtn.classList.replace('border-slate-700', 'border-sky-500/50');
+            } else {
+                wallModeIcon.textContent = '🧱';
+                wallModeText.textContent = 'Dinding Mati';
+                wallModeBtn.classList.replace('text-sky-400', 'text-slate-300');
+                wallModeBtn.classList.replace('border-sky-500/50', 'border-slate-700');
+            }
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // Jalankan saat halaman selesai dimuat
+        window.onload = function () {
+            loadHighScore();
+            resetGameData();
+            resizeCanvas();
+            animationFrameId = requestAnimationFrame(gameLoop);
+        };
+    </script>
+</body>
+</html>
