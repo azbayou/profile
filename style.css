@@ -39,11 +39,11 @@
 
   /* Contact section gradient end */
   --contact-gradient-to: rgba(238, 242, 255, 0.3);
-  --footer-bg: #ffffff;
+  --footer-bg: rgba(252, 253, 254, 0.78);
 
   /* Cursor (internal) */
-  --mx: 50%;
-  --my: 20%;
+  --mx: 50vw;
+  --my: 20vh;
 }
 
 html.dark {
@@ -77,18 +77,20 @@ html.dark {
   --tool-pill-color: #E2E8F0;
 
   --contact-gradient-to: rgba(30, 27, 75, 0.3);
-  --footer-bg: #0B0F19;
+  --footer-bg: rgba(11, 15, 25, 0.78);
 }
 
 /* ============================================================
    SMOOTH THEME TRANSITION (applied briefly during toggle)
    ============================================================ */
-html.transitioning,
-html.transitioning *,
-html.transitioning *::before,
-html.transitioning *::after {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
-  transition-delay: 0s !important;
+@media (prefers-reduced-motion: no-preference) {
+  html.transitioning,
+  html.transitioning *:not(#cursor-glow),
+  html.transitioning *:not(#cursor-glow)::before,
+  html.transitioning *:not(#cursor-glow)::after {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+    transition-delay: 0s !important;
+  }
 }
 
 /* ============================================================
@@ -134,6 +136,12 @@ h1, h2, h3, h4, .font-display {
   z-index: 0;
   transition: opacity .4s ease;
   will-change: transform;
+}
+
+@media (hover: none), (pointer: coarse) {
+  #cursor-glow {
+    display: none;
+  }
 }
 
 /* ============================================================
@@ -211,6 +219,17 @@ h1, h2, h3, h4, .font-display {
   transform: translateY(0);
 }
 
+[data-animate].glow-ring {
+  transition: opacity .7s cubic-bezier(.22, 1, .36, 1),
+              transform .35s ease,
+              box-shadow .35s ease,
+              border-color .35s ease;
+}
+
+[data-animate].in-view.glow-ring:hover {
+  transform: translateY(-6px);
+}
+
 /* ============================================================
    TIMELINE
    ============================================================ */
@@ -273,7 +292,7 @@ h1, h2, h3, h4, .font-display {
 ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
 ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #818CF8, #22D3EE); border-radius: 8px; }
 
-:focus-visible { outline: 2px solid #6366F1; outline-offset: 3px; border-radius: 4px; }
+:focus-visible { outline: 2px solid #6366F1; outline-offset: 3px; }
 
 /* ============================================================
    REDUCED MOTION
@@ -375,7 +394,7 @@ html.dark,
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 999999;
+  z-index: 90;
   font-family: inherit;
 }
 
@@ -396,7 +415,7 @@ html.dark,
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 9999px;
   height: 48px;
-  padding: 0 24px 0 64px;
+  padding: 0 24px 0 68px;
   cursor: pointer;
   box-shadow: 0 4px 18px rgba(79, 70, 229, 0.45);
   transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
@@ -475,7 +494,7 @@ html.dark #miyo-trigger-btn,
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, border-color 0.3s ease;
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.28s, background-color 0.3s ease, border-color 0.3s ease;
   transform-origin: bottom right;
   border: 1px solid var(--miyo-border);
 }
@@ -806,7 +825,7 @@ html.dark #miyo-trigger-btn,
 
 @media (max-width: 480px) {
   #miyo-chat-root { bottom: 16px; right: 16px; }
-  #miyo-window { width: calc(100vw - 32px); height: calc(100vh - 100px); max-height: 580px; bottom: 62px; }
+  #miyo-window { width: calc(100vw - 32px); height: calc(100vh - 100px); height: calc(100dvh - 100px); max-height: 580px; bottom: 62px; }
 }
 
 
