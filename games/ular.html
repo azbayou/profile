@@ -2,8 +2,12 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Klasik - Game Ular Arkade</title>
+    <link rel="icon" type="image/png" href="../favicon.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" href="../favicon-light.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Plus Jakarta Sans & Press Start 2P untuk aksen retro -->
@@ -81,28 +85,34 @@
     <main class="w-full max-w-lg flex flex-col items-center gap-3 sm:gap-4 my-auto">
         
         <!-- Header & Judul -->
-        <header class="w-full flex items-center justify-between bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl px-4 py-3 shadow-lg">
+        <header class="w-full flex flex-col gap-2.5 bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl px-4 py-3 shadow-lg">
+            <!-- Baris Navigasi & Pengaturan Cepat -->
+            <div class="w-full flex items-center justify-between gap-2 pb-2.5 border-b border-slate-800/80">
+                <a href="../index.html" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-slate-300 flex items-center gap-1 transition" title="Kembali ke Portofolio" aria-label="Kembali ke Portofolio">← <span class="hidden sm:inline">Portofolio</span></a>
+
+                <!-- Pengaturan Cepat (Suara & Mode Dinding) -->
+                <div class="flex items-center gap-2">
+                    <button id="wallModeBtn" type="button" title="Ubah Mode Dinding"
+                        class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-slate-300 flex items-center gap-1.5 transition">
+                        <span id="wallModeIcon">🧱</span>
+                        <span id="wallModeText" class="hidden sm:inline">Dinding Mati</span>
+                    </button>
+                    <button id="soundToggleBtn" type="button" title="Bisu / Suara"
+                        class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 flex items-center justify-center text-base transition">
+                        🔊
+                    </button>
+                </div>
+            </div>
+
+            <!-- Judul Permainan -->
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl glow-title">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl glow-title shrink-0">
                     🐍
                 </div>
                 <div>
                     <h1 class="font-arcade text-sm sm:text-base text-emerald-400 tracking-wider">SNAKE KLASIK</h1>
                     <p class="text-xs text-slate-400">Edisi Arkade Modern</p>
                 </div>
-            </div>
-
-            <!-- Pengaturan Cepat (Suara & Mode Dinding) -->
-            <div class="flex items-center gap-2">
-                <button id="wallModeBtn" type="button" title="Ubah Mode Dinding"
-                    class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-slate-300 flex items-center gap-1.5 transition">
-                    <span id="wallModeIcon">🧱</span>
-                    <span id="wallModeText" class="hidden sm:inline">Dinding Mati</span>
-                </button>
-                <button id="soundToggleBtn" type="button" title="Bisu / Suara"
-                    class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 flex items-center justify-center text-base transition">
-                    🔊
-                </button>
             </div>
         </header>
 
@@ -243,21 +253,21 @@
             <div class="grid grid-cols-3 gap-2.5 w-48 sm:w-52">
                 <div></div>
                 <button type="button" data-dir="UP" aria-label="Atas"
-                    class="dpad-btn h-13 sm:h-14 py-3 rounded-2xl flex items-center justify-center text-xl font-bold text-slate-200 select-none">
+                    class="dpad-btn h-12 sm:h-14 py-3 rounded-2xl flex items-center justify-center text-xl font-bold text-slate-200 select-none">
                     ▲
                 </button>
                 <div></div>
 
                 <button type="button" data-dir="LEFT" aria-label="Kiri"
-                    class="dpad-btn h-13 sm:h-14 py-3 rounded-2xl flex items-center justify-center text-xl font-bold text-slate-200 select-none">
+                    class="dpad-btn h-12 sm:h-14 py-3 rounded-2xl flex items-center justify-center text-xl font-bold text-slate-200 select-none">
                     ◀
                 </button>
                 <button type="button" data-dir="DOWN" aria-label="Bawah"
-                    class="dpad-btn h-13 sm:h-14 py-3 rounded-2xl flex items-center justify-center text-xl font-bold text-slate-200 select-none">
+                    class="dpad-btn h-12 sm:h-14 py-3 rounded-2xl flex items-center justify-center text-xl font-bold text-slate-200 select-none">
                     ▼
                 </button>
                 <button type="button" data-dir="RIGHT" aria-label="Kanan"
-                    class="dpad-btn h-13 sm:h-14 py-3 rounded-2xl flex items-center justify-center text-xl font-bold text-slate-200 select-none">
+                    class="dpad-btn h-12 sm:h-14 py-3 rounded-2xl flex items-center justify-center text-xl font-bold text-slate-200 select-none">
                     ▶
                 </button>
             </div>
@@ -395,7 +405,7 @@
         let direction = { x: 1, y: 0 };
         let inputQueue = []; // Antrean input agar belok cepat tidak menabrak leher sendiri
         let food = { x: 10, y: 10 };
-        let bonusFood = null; // { x, y, expiresAt, duration }
+        let bonusFood = null; // { x, y, expiresAt, duration, remainingMs }
         let foodsEatenCount = 0;
         let particles = [];
 
@@ -523,7 +533,8 @@
                     x: chosen.x,
                     y: chosen.y,
                     expiresAt: performance.now() + duration,
-                    duration: duration
+                    duration: duration,
+                    remainingMs: duration
                 };
                 bonusTimerContainer.classList.remove('hidden');
                 bonusTimerContainer.classList.add('flex');
@@ -709,7 +720,10 @@
 
             // 4. Gambar Makanan Bonus Bintang Emas (Jika Aktif)
             if (bonusFood) {
-                const remainingRatio = Math.max(0, (bonusFood.expiresAt - now) / bonusFood.duration);
+                const remainingMs = (gameState === 'PAUSED' && typeof bonusFood.remainingMs === 'number')
+                    ? bonusFood.remainingMs
+                    : Math.max(0, bonusFood.expiresAt - now);
+                const remainingRatio = Math.max(0, remainingMs / bonusFood.duration);
                 const bx = (bonusFood.x + 0.5) * cellSize;
                 const by = (bonusFood.y + 0.5) * cellSize;
                 const bRadius = (cellSize * 0.42) * (1 + Math.sin(now * 0.015) * 0.12);
@@ -837,6 +851,12 @@
          * LOOP ANIMASI UTAMA & MANAJEMEN STATE PERMAINAN
          * ============================================================================
          */
+        function ensureGameLoop() {
+            if (animationFrameId === null) {
+                animationFrameId = requestAnimationFrame(gameLoop);
+            }
+        }
+
         function gameLoop(now) {
             if (gameState === 'PLAYING') {
                 const currentDiff = difficultySelect.value;
@@ -849,7 +869,12 @@
             }
 
             drawScene(now);
-            animationFrameId = requestAnimationFrame(gameLoop);
+
+            if (gameState === 'PLAYING' || particles.length > 0) {
+                animationFrameId = requestAnimationFrame(gameLoop);
+            } else {
+                animationFrameId = null;
+            }
         }
 
         function startGame() {
@@ -876,6 +901,8 @@
 
             // Simpan skor awal untuk referensi apakah pemain memecahkan rekor di sesi ini
             canvas.dataset.prevHighScore = previousHighScore;
+
+            ensureGameLoop();
         }
 
         function togglePause() {
@@ -884,19 +911,27 @@
 
             if (gameState === 'PLAYING') {
                 gameState = 'PAUSED';
+                if (bonusFood) {
+                    bonusFood.remainingMs = Math.max(0, bonusFood.expiresAt - performance.now());
+                }
                 pauseOverlay.classList.remove('hidden');
                 pauseOverlay.classList.add('flex');
                 updatePauseButtonUI(true);
                 statusBadge.textContent = 'Dijeda';
                 statusBadge.className = 'text-amber-400 font-semibold';
+                drawScene(performance.now());
             } else {
                 gameState = 'PLAYING';
                 lastTickTime = performance.now();
+                if (bonusFood) {
+                    bonusFood.expiresAt = performance.now() + bonusFood.remainingMs;
+                }
                 pauseOverlay.classList.add('hidden');
                 pauseOverlay.classList.remove('flex');
                 updatePauseButtonUI(false);
                 statusBadge.textContent = 'Sedang Bermain';
                 statusBadge.className = 'text-emerald-400 font-semibold';
+                ensureGameLoop();
             }
         }
 
@@ -940,6 +975,7 @@
 
             gameOverOverlay.classList.remove('hidden');
             gameOverOverlay.classList.add('flex');
+            ensureGameLoop();
         }
 
         /**
@@ -1099,7 +1135,7 @@
             loadHighScore();
             resetGameData();
             resizeCanvas();
-            animationFrameId = requestAnimationFrame(gameLoop);
+            drawScene(performance.now());
         };
     </script>
 </body>

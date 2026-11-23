@@ -3,16 +3,50 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bayu Aziz — Data & AI Engineer &amp; Logistic Specialist | Portfolio</title>
-<meta name="description" content="Bayu Aziz — Applied AI Engineer | Data Engineer | Logistic Specialist Portfolio." />
+<title>Bayu Aziz — Data Engineer &amp; Applied AI Engineer | Portfolio</title>
+<meta name="description" content="Bayu Aziz — Data Engineer & Applied AI Engineer | Portfolio. Bridging 8+ years of logistics operations expertise with Python, SQL, Kafka, Airflow, BigQuery, and agentic AI." />
+<link rel="icon" type="image/png" href="favicon.png" media="(prefers-color-scheme: dark)" />
+<link rel="icon" type="image/png" href="favicon-light.png" media="(prefers-color-scheme: light)" />
+<link id="dynamic-favicon" rel="icon" type="image/png" href="favicon-light.png" />
+<link rel="apple-touch-icon" href="favicon.png" />
+<link rel="canonical" href="https://azbayou.github.io/profile/" />
+
+<!-- Open Graph / Twitter Card -->
+<meta property="og:title" content="Bayu Aziz — Data Engineer &amp; Applied AI Engineer | Portfolio" />
+<meta property="og:description" content="Data &amp; Applied AI Engineer bridging 8+ years of logistics operations expertise with Python, SQL, Kafka, Airflow, BigQuery, and agentic AI." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://azbayou.github.io/profile/" />
+<meta property="og:image" content="https://azbayou.github.io/profile/2_20260925_193506_0001.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Bayu Aziz — Data Engineer &amp; Applied AI Engineer | Portfolio" />
+<meta name="twitter:description" content="Data &amp; Applied AI Engineer bridging 8+ years of logistics operations expertise with Python, SQL, Kafka, Airflow, BigQuery, and agentic AI." />
+<meta name="twitter:image" content="https://azbayou.github.io/profile/2_20260925_193506_0001.png" />
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Bayu Aziz",
+  "jobTitle": "Data Engineer & Applied AI Engineer",
+  "url": "https://azbayou.github.io/profile/",
+  "sameAs": [
+    "https://www.linkedin.com/in/azbayou/",
+    "https://github.com/azbayou"
+  ]
+}
+</script>
 
 <!-- Anti-FOUC: Apply dark mode instantly before any paint -->
 <script>
   (function() {
     var t = localStorage.getItem('theme');
-    if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    var isDark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (isDark) {
       document.documentElement.classList.add('dark');
     }
+    var fav = document.getElementById('dynamic-favicon');
+    if (fav) fav.href = isDark ? 'favicon.png' : 'favicon-light.png';
   })();
 </script>
 
@@ -43,18 +77,10 @@
           mono: ['"JetBrains Mono"', 'monospace'],
         },
         keyframes: {
-          marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
           floaty: { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-10px)' } },
-          pulsering: {
-            '0%': { boxShadow: '0 0 0 0 rgba(99,102,241,0.45)' },
-            '70%': { boxShadow: '0 0 0 10px rgba(99,102,241,0)' },
-            '100%': { boxShadow: '0 0 0 0 rgba(99,102,241,0)' },
-          },
         },
         animation: {
-          marquee: 'marquee 32s linear infinite',
           floaty: 'floaty 6s ease-in-out infinite',
-          pulsering: 'pulsering 2.2s ease-out infinite',
         },
       },
     },
@@ -65,7 +91,7 @@
 <link rel="stylesheet" href="style.css" />
 
 <!-- Lucide Icons -->
-<script src="https://unpkg.com/lucide@latest"></script>
+<script defer src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 </head>
 
 <body class="antialiased relative">
@@ -80,10 +106,10 @@
         <span id="nav-name">Bayu</span><span class="text-gradient">.</span>
       </a>
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider text-inksoft">
-        <a href="#skills" class="hover:text-indigo transition-colors">Skills</a>
-        <a href="#projects" class="hover:text-indigo transition-colors">Projects</a>
-        <a href="#experience" class="hover:text-indigo transition-colors">Experience</a>
-        <a href="#contact" class="hover:text-indigo transition-colors">Contact</a>
+        <a href="#skills" data-section="skills" class="nav-link hover:text-indigo transition-colors">Skills</a>
+        <a href="#projects" data-section="projects" class="nav-link hover:text-indigo transition-colors">Projects</a>
+        <a href="#experience" data-section="experience" class="nav-link hover:text-indigo transition-colors">Experience</a>
+        <a href="#contact" data-section="contact" class="nav-link hover:text-indigo transition-colors">Contact</a>
       </nav>
       <div class="hidden md:flex items-center gap-3">
         <button id="theme-toggle" class="p-2 rounded-lg glass" aria-label="Toggle dark mode">
@@ -109,23 +135,18 @@
   <!-- Mobile menu -->
   <div id="mobile-menu" class="md:hidden hidden glass-strong border-t border-subtle">
     <div class="px-6 py-4 flex flex-col gap-4 font-mono text-sm uppercase tracking-wide text-inksoft">
-      <a href="#skills" class="mobile-link">Skills</a>
-      <a href="#projects" class="mobile-link">Projects</a>
-      <a href="#experience" class="mobile-link">Experience</a>
-      <a href="#contact" class="mobile-link">Contact</a>
+      <a href="#skills" data-section="skills" class="mobile-link nav-link">Skills</a>
+      <a href="#projects" data-section="projects" class="mobile-link nav-link">Projects</a>
+      <a href="#experience" data-section="experience" class="mobile-link nav-link">Experience</a>
+      <a href="#contact" data-section="contact" class="mobile-link nav-link">Contact</a>
     </div>
   </div>
 </header>
 
-<!-- ============ Loading Overlay ============ -->
-<div id="loader" class="fixed inset-0 z-[100] bg-[var(--loader-bg)] flex flex-col items-center justify-center transition-opacity duration-500">
-  <!-- Ikon berputar -->
-  <i data-lucide="loader-2" class="w-10 h-10 text-indigo animate-spin mb-4"></i>
-  
-  <div class="flex items-center gap-2 animate-pulse">
-    <i data-lucide="cloud-download" class="w-4 h-4 text-inksoft"></i>
-    <p class="font-mono text-xs text-inksoft uppercase tracking-widest">Syncing Data...</p>
-  </div>
+<!-- ============ Non-Blocking Sync Indicator ============ -->
+<div id="sync-indicator" class="sync-pill glass-strong" aria-live="polite">
+  <i data-lucide="loader-2" class="w-3.5 h-3.5 text-indigo animate-spin"></i>
+  <span>Syncing data...</span>
 </div>
 
 <!-- ============ HERO ============ -->
@@ -136,14 +157,10 @@
         <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Portfolio
       </span>
       <h1 class="mt-6 font-display font-extrabold text-5xl sm:text-6xl md:text-7xl leading-[1.05] tracking-tight text-ink">
-        Hi, I'm <span class="text-gradient" id="hero-name">Loading...</span>
+        Hi, I'm <span class="text-gradient" id="hero-name">Bayu Aziz</span>
       </h1>
-      <p class="mt-4 font-display font-semibold text-xl sm:text-2xl text-inksoft" id="hero-headline">
-        Loading...
-      </p>
-      <p class="mt-6 text-inksoft text-base sm:text-lg max-w-2xl leading-relaxed mx-auto whitespace-pre-line" id="hero-about">
-        Loading data from Google Sheets...
-      </p>
+      <p class="mt-4 font-display font-semibold text-xl sm:text-2xl text-inksoft" id="hero-headline">Data Engineer &amp; Applied AI Engineer | 8+ Yrs Logistics Operations &amp; Analytics</p>
+      <p class="mt-6 text-inksoft text-base sm:text-lg max-w-2xl leading-relaxed mx-auto whitespace-pre-line" id="hero-about">Data &amp; Applied AI Engineer bridging 8 years of logistics operations expertise with modern data architectures and agentic AI. Specialized in Python, SQL, Kafka, Airflow, BigQuery, and LLM automation to turn complex operational bottlenecks into scalable solutions.</p>
 
       <div class="mt-10 flex flex-wrap justify-center items-center gap-4">
         <a href="#projects" class="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white btn-primary transition-all">
@@ -166,7 +183,10 @@
       <p class="mt-4 text-inksoft leading-relaxed">The toolset I use to transform complex workflows into streamlined insights.</p>
     </div>
     <div id="skills-container" class="mt-10 grid sm:grid-cols-2 gap-5">
-      <!-- Diisi oleh Javascript -->
+      <div class="skeleton-card h-44 rounded-2xl"></div>
+      <div class="skeleton-card h-44 rounded-2xl"></div>
+      <div class="skeleton-card h-44 rounded-2xl"></div>
+      <div class="skeleton-card h-44 rounded-2xl"></div>
     </div>
   </div>
 </section>
@@ -179,8 +199,10 @@
       <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-ink">Featured Projects</h2>
       <p class="mt-4 text-inksoft leading-relaxed">Showcasing data automation, interactive dashboards, and integrations.</p>
     </div>
-    <div id="projects-container" class="mt-10 grid lg:grid-cols-2 gap-6">
-      <!-- Diisi oleh Javascript -->
+    <div id="projects-filters" class="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter projects by domain"></div>
+    <div id="projects-container" class="mt-8 grid lg:grid-cols-2 gap-6">
+      <div class="skeleton-card h-96 rounded-[2rem]"></div>
+      <div class="skeleton-card h-96 rounded-[2rem]"></div>
     </div>
   </div>
 </section>
@@ -197,7 +219,8 @@
     <div class="mt-14 relative pl-10">
       <div class="absolute left-[7px] top-1 bottom-1 w-[2px] timeline-line"></div>
       <div id="experience-container">
-        <!-- Diisi oleh Javascript -->
+        <div class="skeleton-card h-32 rounded-2xl mb-6 ml-8"></div>
+        <div class="skeleton-card h-32 rounded-2xl ml-8"></div>
       </div>
     </div>
 
@@ -211,7 +234,7 @@
     <div class="mt-14 relative pl-10">
       <div class="absolute left-[7px] top-1 bottom-1 w-[2px] timeline-line"></div>
       <div id="education-container">
-        <!-- Diisi oleh Javascript -->
+        <div class="skeleton-card h-28 rounded-2xl ml-8"></div>
       </div>
     </div>
   </div>
@@ -228,10 +251,10 @@
       <h2 class="font-display font-extrabold text-4xl sm:text-5xl text-ink tracking-tight">Let's solve your data bottlenecks.</h2>
       
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a id="btn-email" href="#" class="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold text-white btn-primary transition-all">
+        <a id="btn-email" href="mailto:azbayou@gmail.com" class="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold text-white btn-primary transition-all">
           Email Me <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </a>
-        <a id="btn-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold text-ink glass glow-ring transition-all">
+        <a id="btn-whatsapp" href="https://wa.me/6281222493838" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold text-ink glass glow-ring transition-all">
           WhatsApp Me
         </a>
       </div>
@@ -254,9 +277,12 @@
 
 <!-- ============ FOOTER ============ -->
 <footer class="py-8 border-t border-subtle text-center bg-[var(--footer-bg)] relative z-10">
-  <p class="font-mono text-xs text-inksoft">
-    &copy; <span id="current-year"></span> <span id="footer-name">Bayu Aziz</span>. All rights reserved. <span class="text-cyanx mx-2">&bull;</span> Built with data in mind.
-  </p>
+  <div class="flex flex-col items-center justify-center gap-3 px-4">
+    <a href="#hero" aria-label="Bayu Aziz — Back to top" class="inline-flex items-center justify-center">
+      <img src="logo-bay.png" alt="bay" width="147" height="96" decoding="async" class="footer-logo" />
+    </a>
+    <a href="games/ular.html" class="font-mono text-xs text-inksoft hover:text-indigo transition-colors">🐍 Mini Game</a>
+  </div>
 </footer>
 
 <script>
@@ -283,11 +309,23 @@
   };
 
   let scrollObserver = null;
+  let activeProjectFilter = 'all';
+
+  const PROJECT_CATEGORIES = [
+    { id: 'all', label: 'All' },
+    { id: 'ai', label: 'AI & ML' },
+    { id: 'data', label: 'Data Engineering' },
+    { id: 'analytics', label: 'Analytics & Ops' }
+  ];
 
   document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('current-year').textContent = new Date().getFullYear();
+    const currentYearEl = document.getElementById('current-year');
+    if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
     if (window.lucide) window.lucide.createIcons();
     setupThemeToggle();
+    setupScrollSpy();
+    setupProjectInteractions();
+    setupLightbox();
     setupInteractions();
     fetchData();
   });
@@ -378,6 +416,7 @@
 
   async function fetchData() {
     let renderedFromCache = false;
+    let cachedSignature = '';
 
     // 1. Cek apakah ada data lama yang tersimpan di memori browser (cache)
     try {
@@ -386,9 +425,9 @@
         const parsedData = JSON.parse(cachedData);
         if (parsedData && typeof parsedData === 'object' && !Array.isArray(parsedData)) {
           normalizeFeaturesData(parsedData);
+          cachedSignature = JSON.stringify(parsedData);
           renderAllData(parsedData);
           renderedFromCache = true;
-          hideLoader();
         } else {
           try { localStorage.removeItem('portfolioData'); } catch (_) {}
         }
@@ -398,9 +437,11 @@
       try { localStorage.removeItem('portfolioData'); } catch (_) {}
     }
 
-    // 2. Mengambil data terbaru dari Google Sheets (berjalan di background)
+    // 2. Mengambil data terbaru dari Google Sheets (berjalan di background dengan timeout 8 detik)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(API_URL, { signal: controller.signal });
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
@@ -410,29 +451,36 @@
       }
 
       normalizeFeaturesData(data);
+      const freshSignature = JSON.stringify(data);
 
-      // 3. Simpan data terbaru ke cache browser
+      // 3. Hindari render ulang ganda bila data identik dengan cache
+      if (renderedFromCache && freshSignature === cachedSignature) {
+        hideSyncIndicator();
+        return;
+      }
+
+      // 4. Simpan data terbaru ke cache browser
       try {
-        localStorage.setItem('portfolioData', JSON.stringify(data));
+        localStorage.setItem('portfolioData', freshSignature);
       } catch (storageErr) {
         console.warn('Gagal menyimpan cache portfolioData:', storageErr);
       }
 
-      // 4. Render ulang UI dengan data terbaru dan pastikan loader hilang
+      // 5. Render ulang UI dengan data terbaru dan sembunyikan indikator sync
       renderAllData(data);
-      hideLoader();
+      hideSyncIndicator();
 
     } catch (error) {
       console.error('Gagal mengambil data dari Google Sheets:', error);
       if (!renderedFromCache) {
-        document.getElementById('hero-name').textContent = 'Error Loading Data';
-        const heroHeadline = document.getElementById('hero-headline');
-        if (heroHeadline && heroHeadline.textContent.trim() === 'Loading...') {
-          heroHeadline.textContent = '';
-        }
-        document.getElementById('hero-about').textContent = 'Pastikan Web App URL sudah benar dan dapat diakses publik.';
+        ['skills-container', 'projects-container', 'experience-container', 'education-container'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = '';
+        });
       }
-      hideLoader();
+      hideSyncIndicator();
+    } finally {
+      clearTimeout(timeoutId);
     }
   }
 
@@ -458,12 +506,11 @@
     observeAnimations();
   }
 
-  function hideLoader() {
-    const loader = document.getElementById('loader');
-    if (loader && loader.style.display !== 'none') {
-      loader.style.pointerEvents = 'none';
-      loader.style.opacity = '0';
-      setTimeout(() => { loader.style.display = 'none'; }, 500);
+  function hideSyncIndicator() {
+    const indicator = document.getElementById('sync-indicator');
+    if (indicator && !indicator.classList.contains('sync-hidden')) {
+      indicator.classList.add('sync-hidden');
+      indicator.setAttribute('aria-hidden', 'true');
     }
   }
 
@@ -474,7 +521,8 @@
     if (fullName) {
       document.getElementById('nav-name').textContent = fullName.split(/\s+/)[0];
       document.getElementById('hero-name').textContent = fullName;
-      document.getElementById('footer-name').textContent = fullName;
+      const footerNameEl = document.getElementById('footer-name');
+      if (footerNameEl) footerNameEl.textContent = fullName;
     }
 
     if (profile.headline != null) {
@@ -587,27 +635,83 @@
     return 'layers';
   }
 
+  function inferProjectCategory(title, toolsStr) {
+    const combined = `${title ?? ''} ${toolsStr ?? ''}`.toLowerCase();
+    if (/\b(ai|rag|llm|chatbot|bot|agent|deep learning|neural|cnn|ccn|tensorflow|keras|mobilenet|langchain|chromadb|pgvector|openai|gemini)\b/.test(combined)) {
+      return 'ai';
+    }
+    if (/\b(etl|medallion|lakehouse|pipeline|bigquery|kafka|airflow|databricks|warehouse|sql|postgresql)\b/.test(combined)) {
+      return 'data';
+    }
+    return 'analytics';
+  }
+
   function renderProjects(projects) {
     const container = document.getElementById('projects-container');
+    const filtersContainer = document.getElementById('projects-filters');
     if (!container || !Array.isArray(projects)) return;
     container.innerHTML = '';
+    if (filtersContainer) filtersContainer.innerHTML = '';
 
-    const featuredProjects = projects.filter(p => p && typeof p === 'object' && isTruthyFeatured(p.is_featured));
+    const featuredProjects = projects
+      .filter(p => p && typeof p === 'object' && isTruthyFeatured(p.is_featured))
+      .map(proj => {
+        const title = String(proj.title ?? '').trim();
+        const overview = String(proj.overview ?? proj.description ?? '').trim();
+        return { proj, title, overview };
+      })
+      .filter(item => item.title || item.overview);
 
-    featuredProjects.forEach((proj, index) => {
-      const title = String(proj.title ?? '').trim();
-      const overview = String(proj.overview ?? proj.description ?? '').trim();
-      if (!title && !overview) return;
+    if (featuredProjects.length === 0) return;
 
-      const theme = index % 2 === 0 ? PROJECT_THEMES.indigo : PROJECT_THEMES.cyanx;
+    const counts = { all: featuredProjects.length, ai: 0, data: 0, analytics: 0 };
 
+    const preparedProjects = featuredProjects.map((item, index) => {
+      const { proj, title, overview } = item;
       const rawToolsList = Array.isArray(proj.tools)
         ? proj.tools.map(t => String(t ?? '').trim()).filter(Boolean)
         : String(proj.tools ?? '').split(',').map(t => t.trim()).filter(Boolean);
 
+      const category = inferProjectCategory(title, rawToolsList.join(' '));
+      counts[category] = (counts[category] || 0) + 1;
+      return { proj, title, overview, rawToolsList, category, index };
+    });
+
+    if (activeProjectFilter !== 'all' && !counts[activeProjectFilter]) {
+      activeProjectFilter = 'all';
+    }
+
+    if (filtersContainer) {
+      filtersContainer.innerHTML = PROJECT_CATEGORIES.map(cat => {
+        const isActive = activeProjectFilter === cat.id;
+        return `
+          <button type="button"
+            role="tab"
+            aria-selected="${isActive ? 'true' : 'false'}"
+            data-filter="${cat.id}"
+            class="project-filter-btn ${isActive ? 'active' : ''}">
+            <span>${escapeText(cat.label)}</span>
+            <span class="project-filter-count">${counts[cat.id] || 0}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    preparedProjects.forEach(({ proj, title, overview, rawToolsList, category, index }) => {
+      const theme = index % 2 === 0 ? PROJECT_THEMES.indigo : PROJECT_THEMES.cyanx;
+      const isHiddenCard = activeProjectFilter !== 'all' && category !== activeProjectFilter;
+
+      const maxVisibleTools = 6;
+      const hasExtraTools = rawToolsList.length > maxVisibleTools;
+      const extraCount = rawToolsList.length - maxVisibleTools;
       const toolsHtml = rawToolsList
-        .map(t => `<span class="px-2 py-1 bg-[var(--skill-pill-bg)] border border-subtle rounded-md text-xs font-mono text-inksoft">${escapeText(t)}</span>`)
-        .join('');
+        .map((t, toolIdx) => {
+          const extraCls = toolIdx >= maxVisibleTools ? ' tool-pill-extra hidden' : '';
+          return `<span class="tool-pill${extraCls}">${escapeText(t)}</span>`;
+        })
+        .join('') + (hasExtraTools
+          ? `<button type="button" class="tool-pill tool-pill-more" data-extra-count="${extraCount}" aria-expanded="false">+${extraCount} more</button>`
+          : '');
 
       const primaryTool = rawToolsList[0] || 'Featured Project';
       const placeholderIcon = inferProjectIcon(title, rawToolsList.join(' '));
@@ -638,26 +742,38 @@
         `;
       }
 
+      const thumbInnerHtml = `
+        <span class="absolute inset-0 dot-grid flex flex-col items-center justify-center p-6 text-center select-none">
+          <span class="absolute inset-0 bg-gradient-to-br ${theme.placeholderGlow} pointer-events-none"></span>
+          <span class="relative z-10 flex flex-col items-center gap-3">
+            <span class="w-14 h-14 rounded-2xl glass border ${theme.badge} flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-500">
+              <i data-lucide="${escapeText(placeholderIcon)}" class="w-6 h-6"></i>
+            </span>
+            <span class="font-mono text-[11px] uppercase tracking-widest text-inksoft px-3 py-1 rounded-full glass">${escapeText(primaryTool)}</span>
+          </span>
+        </span>
+        ${imgHtml}
+      `;
+
+      const thumbHtml = imgInfo.primary
+        ? `<button type="button" class="project-thumb-trigger w-full aspect-video rounded-2xl overflow-hidden mb-6 bg-haze border border-subtle relative block p-0 text-left" aria-label="Zoom preview for ${escapeText(title)}" data-lightbox-title="${escapeText(title)}" data-lightbox-link="${escapeText(linkUrl)}" data-lightbox-label="${escapeText(linkLabel || 'View Project')}">${thumbInnerHtml}<span class="project-zoom-badge">🔍 Zoom</span></button>`
+        : `<div class="w-full aspect-video rounded-2xl overflow-hidden mb-6 bg-haze border border-subtle relative">${thumbInnerHtml}</div>`;
+
+      const isLongOverview = overview.length > 180;
+      const overviewId = `proj-overview-${index}`;
+      const overviewHtml = `
+        <p id="${overviewId}" class="project-overview-text mt-4 text-inksoft text-sm leading-relaxed whitespace-pre-line${isLongOverview ? ' line-clamp-3' : ''}">${escapeText(overview)}</p>
+        ${isLongOverview ? `<button type="button" class="read-more-btn mt-2" aria-expanded="false" aria-controls="${overviewId}">Read more ▾</button>` : ''}
+      `;
+
       const projectCard = `
-        <article data-animate class="glass rounded-[2rem] p-6 sm:p-8 glow-ring flex flex-col justify-between group relative overflow-hidden">
+        <article data-animate data-category="${escapeText(category)}" class="project-card glass rounded-[2rem] p-6 sm:p-8 glow-ring flex flex-col justify-between group relative overflow-hidden${isHiddenCard ? ' hidden' : ''}">
           <div class="absolute -right-10 -top-10 w-40 h-40 ${theme.orb} rounded-full blur-2xl transition-all duration-500"></div>
           <div>
-            <div class="w-full aspect-video rounded-2xl overflow-hidden mb-6 bg-haze border border-subtle relative">
-              <div class="absolute inset-0 dot-grid flex flex-col items-center justify-center p-6 text-center select-none">
-                <div class="absolute inset-0 bg-gradient-to-br ${theme.placeholderGlow} pointer-events-none"></div>
-                <div class="relative z-10 flex flex-col items-center gap-3">
-                  <span class="w-14 h-14 rounded-2xl glass border ${theme.badge} flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-500">
-                    <i data-lucide="${escapeText(placeholderIcon)}" class="w-6 h-6"></i>
-                  </span>
-                  <span class="font-mono text-[11px] uppercase tracking-widest text-inksoft px-3 py-1 rounded-full glass">${escapeText(primaryTool)}</span>
-                </div>
-              </div>
-              ${imgHtml}
-            </div>
-
+            ${thumbHtml}
             <h3 class="font-display font-extrabold text-2xl text-ink leading-tight">${escapeText(title)}</h3>
-            <p class="mt-4 text-inksoft text-sm leading-relaxed whitespace-pre-line">${escapeText(overview)}</p>
-            <div class="mt-6 flex flex-wrap gap-2">
+            ${overviewHtml}
+            <div class="project-tools mt-6 flex flex-wrap gap-2">
               ${toolsHtml}
             </div>
           </div>
@@ -674,6 +790,14 @@
           delete img.dataset.fallbackSrc;
           img.src = fallback;
         } else {
+          const trigger = img.closest('.project-thumb-trigger');
+          if (trigger) {
+            trigger.disabled = true;
+            trigger.classList.remove('project-thumb-trigger');
+            trigger.removeAttribute('aria-label');
+            const badge = trigger.querySelector('.project-zoom-badge');
+            if (badge) badge.remove();
+          }
           img.remove();
         }
       });
@@ -700,7 +824,7 @@
 
       const expItem = `
         <div data-animate class="relative pl-8 pb-12 last:pb-0 group">
-          <div class="absolute left-[-17px] top-1.5 w-[14px] h-[14px] rounded-full border-[3px] ${dotColor} z-10 group-hover:border-indigo transition-colors shadow-sm"></div>
+          <div class="timeline-dot absolute left-[-17px] top-1.5 w-[14px] h-[14px] rounded-full border-[3px] ${dotColor} z-10 group-hover:border-indigo transition-colors shadow-sm"></div>
           
           <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 mb-2">
             <h3 class="font-display font-bold text-xl text-ink">${escapeText(roleTitle)}</h3>
@@ -743,7 +867,7 @@
 
       const item = `
         <div data-animate class="relative pl-8 pb-12 last:pb-0 group">
-          <div class="absolute left-[-17px] top-1.5 w-[14px] h-[14px] rounded-full border-[3px] ${dotColor} z-10 group-hover:border-cyanx transition-colors shadow-sm"></div>
+          <div class="timeline-dot absolute left-[-17px] top-1.5 w-[14px] h-[14px] rounded-full border-[3px] ${dotColor} z-10 group-hover:border-cyanx transition-colors shadow-sm"></div>
           
           <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 mb-2">
             <h3 class="font-display font-bold text-xl text-ink">${escapeText(roleTitle)}</h3>
@@ -766,10 +890,16 @@
     const html = document.documentElement;
     let transitionTimer = null;
 
+    function syncFavicon(isDark) {
+      const fav = document.getElementById('dynamic-favicon');
+      if (fav) fav.href = isDark ? 'favicon.png' : 'favicon-light.png';
+    }
+
     function handleToggle() {
       html.classList.add('transitioning');
       html.classList.toggle('dark');
       const isDark = html.classList.contains('dark');
+      syncFavicon(isDark);
       try {
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
       } catch (_) {}
@@ -789,6 +919,7 @@
       try { savedTheme = localStorage.getItem('theme'); } catch (_) {}
       if (!savedTheme) {
         html.classList.toggle('dark', e.matches);
+        syncFavicon(e.matches);
       }
     });
   }
@@ -814,6 +945,186 @@
     }
 
     targets.forEach(el => scrollObserver.observe(el));
+  }
+
+  let openProjectLightbox = () => {};
+
+  function setupScrollSpy() {
+    const sectionIds = ['skills', 'projects', 'experience', 'contact'];
+    const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+    const navLinks = document.querySelectorAll('.nav-link[data-section]');
+    if (!sections.length || !navLinks.length) return;
+
+    const setActive = (activeId) => {
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.section === activeId);
+      });
+    };
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (link.dataset.section) setActive(link.dataset.section);
+      });
+    });
+
+    if (!('IntersectionObserver' in window)) return;
+
+    const activeSet = new Set();
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          activeSet.add(entry.target.id);
+        } else {
+          activeSet.delete(entry.target.id);
+        }
+      });
+
+      if (activeSet.size > 0) {
+        const isNearBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 40);
+        const ordered = isNearBottom ? [...sectionIds].reverse() : sectionIds;
+        const match = ordered.find(id => activeSet.has(id));
+        if (match) setActive(match);
+      } else if (window.scrollY < 160) {
+        setActive('');
+      }
+    }, {
+      rootMargin: '-80px 0px -35% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(sec => spyObserver.observe(sec));
+  }
+
+  function setupProjectInteractions() {
+    const filtersContainer = document.getElementById('projects-filters');
+    const projectsContainer = document.getElementById('projects-container');
+
+    if (filtersContainer) {
+      filtersContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('.project-filter-btn');
+        if (!btn) return;
+        const filter = btn.dataset.filter || 'all';
+        activeProjectFilter = filter;
+
+        filtersContainer.querySelectorAll('.project-filter-btn').forEach(b => {
+          const isMatch = b.dataset.filter === filter;
+          b.classList.toggle('active', isMatch);
+          b.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        });
+
+        if (projectsContainer) {
+          projectsContainer.querySelectorAll('.project-card').forEach(card => {
+            const visible = filter === 'all' || card.dataset.category === filter;
+            card.classList.toggle('hidden', !visible);
+            if (visible) {
+              card.classList.add('in-view');
+            }
+          });
+          observeAnimations(projectsContainer);
+        }
+      });
+    }
+
+    if (projectsContainer) {
+      projectsContainer.addEventListener('click', (e) => {
+        const readMoreBtn = e.target.closest('.read-more-btn');
+        if (readMoreBtn) {
+          const card = readMoreBtn.closest('.project-card');
+          const overviewEl = card ? card.querySelector('.project-overview-text') : null;
+          if (overviewEl) {
+            const isClamped = overviewEl.classList.toggle('line-clamp-3');
+            readMoreBtn.setAttribute('aria-expanded', isClamped ? 'false' : 'true');
+            readMoreBtn.textContent = isClamped ? 'Read more ▾' : 'Show less ▴';
+          }
+          return;
+        }
+
+        const toolsMoreBtn = e.target.closest('.tool-pill-more');
+        if (toolsMoreBtn) {
+          const toolsWrap = toolsMoreBtn.closest('.project-tools');
+          if (toolsWrap) {
+            const extras = toolsWrap.querySelectorAll('.tool-pill-extra');
+            const expanded = toolsMoreBtn.getAttribute('aria-expanded') === 'true';
+            extras.forEach(pill => pill.classList.toggle('hidden', expanded));
+            toolsMoreBtn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+            const extraCount = toolsMoreBtn.dataset.extraCount || extras.length;
+            toolsMoreBtn.textContent = expanded ? `+${extraCount} more` : 'Show less';
+          }
+          return;
+        }
+
+        const thumbTrigger = e.target.closest('.project-thumb-trigger');
+        if (thumbTrigger) {
+          const img = thumbTrigger.querySelector('.project-thumb-img');
+          if (!img) return;
+          openProjectLightbox({
+            src: img.currentSrc || img.src,
+            title: thumbTrigger.dataset.lightboxTitle || '',
+            link: thumbTrigger.dataset.lightboxLink || '',
+            label: thumbTrigger.dataset.lightboxLabel || ''
+          });
+        }
+      });
+    }
+  }
+
+  function setupLightbox() {
+    const lightbox = document.getElementById('project-lightbox');
+    const closeBtn = document.getElementById('lightbox-close');
+    const backdrop = lightbox ? lightbox.querySelector('.lightbox-backdrop') : null;
+    const imgEl = document.getElementById('lightbox-img');
+    const titleEl = document.getElementById('lightbox-title');
+    const linkEl = document.getElementById('lightbox-link');
+    let lastFocused = null;
+
+    if (!lightbox || !imgEl || !titleEl || !linkEl) return;
+
+    function closeLightbox() {
+      if (lightbox.classList.contains('hidden')) return;
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex', 'open');
+      document.body.style.overflow = '';
+      imgEl.src = '';
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus();
+      }
+      lastFocused = null;
+    }
+
+    openProjectLightbox = ({ src, title, link, label }) => {
+      if (!src) return;
+      lastFocused = document.activeElement;
+      imgEl.src = src;
+      imgEl.alt = title || 'Project preview';
+      titleEl.textContent = title || '';
+
+      const safeLink = sanitizeUrl(link);
+      if (safeLink) {
+        linkEl.href = safeLink;
+        linkEl.innerHTML = `${escapeText(label || 'View Project')} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>`;
+        linkEl.classList.remove('hidden');
+      } else {
+        linkEl.removeAttribute('href');
+        linkEl.classList.add('hidden');
+      }
+
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex', 'open');
+      document.body.style.overflow = 'hidden';
+      if (closeBtn) closeBtn.focus();
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (backdrop) backdrop.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+        closeLightbox();
+      }
+    });
   }
 
   function setupInteractions() {
@@ -857,11 +1168,24 @@
   }
 </script>
 
+<!-- ================= PROJECT LIGHTBOX MODAL ================= -->
+<div id="project-lightbox" class="fixed inset-0 z-[110] hidden items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+  <div class="lightbox-backdrop"></div>
+  <div class="lightbox-content">
+    <button id="lightbox-close" type="button" class="lightbox-close" aria-label="Close preview">&times;</button>
+    <img id="lightbox-img" class="lightbox-img" src="" alt="" referrerpolicy="no-referrer" />
+    <div class="lightbox-caption">
+      <h3 id="lightbox-title" class="font-display font-bold text-base sm:text-lg text-ink"></h3>
+      <a id="lightbox-link" href="#" target="_blank" rel="noopener noreferrer" class="hidden inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-mono font-semibold text-white btn-primary transition-all shrink-0"></a>
+    </div>
+  </div>
+</div>
+
 <!-- ================= MIYO CHAT WIDGET ================= -->
 <div id="miyo-chat-root">
   <div id="miyo-trigger-container">
     <button id="miyo-trigger-btn" type="button" aria-label="Buka Chat Asisten Miyo">
-      <img src="2_20260925_193506_0001.png" alt="Miyo" id="miyo-trigger-cat" />
+      <img src="2_20260925_193506_0001.png" alt="Miyo" id="miyo-trigger-cat" width="76" height="76" decoding="async" />
       <span id="miyo-trigger-text">Tanya Miyo</span>
       <span class="miyo-unread-badge" id="miyo-unread-badge">1</span>
     </button>
@@ -871,7 +1195,7 @@
     <header class="miyo-header">
       <div class="miyo-header-left">
         <div class="miyo-avatar-wrapper">
-          <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-avatar-img" />
+          <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-avatar-img" width="34" height="34" decoding="async" />
           <span class="miyo-online-dot" title="Online"></span>
         </div>
         <div class="miyo-header-text">
@@ -879,12 +1203,20 @@
           <p class="miyo-subtitle">Online • Asisten Virtual Bayu Aziz</p>
         </div>
       </div>
-      <button id="miyo-close-btn" type="button" aria-label="Tutup Chat">&times;</button>
+      <div class="miyo-header-actions">
+        <button id="miyo-reset-btn" type="button" aria-label="Mulai Ulang Percakapan" title="Reset Chat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+            <path d="M3 3v5h5"></path>
+          </svg>
+        </button>
+        <button id="miyo-close-btn" type="button" aria-label="Tutup Chat">&times;</button>
+      </div>
     </header>
 
     <div id="miyo-body" class="miyo-body">
-      <div class="miyo-msg miyo-msg-bot">
-        <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" />
+      <div class="miyo-msg miyo-msg-bot" data-miyo-greeting="true">
+        <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" width="28" height="28" decoding="async" />
         <div class="miyo-bubble">
           Hai! Aku <b>Miyo</b>, asisten virtual pribadi Bayu Aziz. Senang bertemu kamu! ✨
           <br><br>
@@ -903,7 +1235,7 @@
       </div>
 
       <div id="miyo-typing-indicator" class="miyo-typing-indicator miyo-hidden">
-        <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" />
+        <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" width="28" height="28" decoding="async" />
         <div class="miyo-typing-bubble">
           <span class="miyo-dot"></span>
           <span class="miyo-dot"></span>
@@ -940,19 +1272,57 @@
   (function () {
     // URL Backend Vercel Miyo Chatbot:
     const MIYO_API_URL = "https://profile-miyo-widget.vercel.app/api/chat";
+    const MIYO_STORAGE_KEY = "miyoChatHistory";
 
     const triggerBtn = document.getElementById("miyo-trigger-btn");
     const unreadBadge = document.getElementById("miyo-unread-badge");
     const chatWindow = document.getElementById("miyo-window");
+    const resetBtn = document.getElementById("miyo-reset-btn");
     const closeBtn = document.getElementById("miyo-close-btn");
     const chatForm = document.getElementById("miyo-chat-form");
     const chatInput = document.getElementById("miyo-input");
     const sendBtn = document.getElementById("miyo-send-btn");
     const chatBody = document.getElementById("miyo-body");
     const typingIndicator = document.getElementById("miyo-typing-indicator");
+    const chipsContainer = document.getElementById("miyo-chips");
     const chipBtns = document.querySelectorAll(".miyo-chip-btn");
 
     let conversationHistory = [];
+    let isSubmitting = false;
+
+    function saveHistory() {
+      try {
+        sessionStorage.setItem(MIYO_STORAGE_KEY, JSON.stringify(conversationHistory));
+      } catch (_) {}
+    }
+
+    function restoreHistory() {
+      try {
+        const raw = sessionStorage.getItem(MIYO_STORAGE_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed) || parsed.length === 0) return;
+
+        const validItems = parsed.filter(
+          item => item && typeof item === "object" && (item.role === "user" || item.role === "assistant") && typeof item.content === "string"
+        );
+        if (validItems.length === 0) return;
+
+        conversationHistory = validItems;
+        validItems.forEach(item => {
+          if (item.role === "user") {
+            appendUserMessage(item.content);
+          } else {
+            appendBotMessage(item.content);
+          }
+        });
+        if (chipsContainer) chipsContainer.style.display = "none";
+      } catch (_) {
+        try { sessionStorage.removeItem(MIYO_STORAGE_KEY); } catch (_) {}
+      }
+    }
+
+    restoreHistory();
 
     triggerBtn.addEventListener("click", () => {
       const isClosed = chatWindow.classList.contains("miyo-closed");
@@ -965,9 +1335,24 @@
       }
     });
 
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        conversationHistory = [];
+        try { sessionStorage.removeItem(MIYO_STORAGE_KEY); } catch (_) {}
+        chatBody.querySelectorAll(".miyo-msg:not([data-miyo-greeting='true'])").forEach(el => el.remove());
+        if (chipsContainer) chipsContainer.style.display = "";
+        showTyping(false);
+        isSubmitting = false;
+        sendBtn.disabled = false;
+        chatInput.focus();
+      });
+    }
+
     closeBtn.addEventListener("click", () => chatWindow.classList.add("miyo-closed"));
 
     document.addEventListener("keydown", (e) => {
+      const lightbox = document.getElementById("project-lightbox");
+      if (lightbox && !lightbox.classList.contains("hidden")) return;
       if (e.key === "Escape" && !chatWindow.classList.contains("miyo-closed")) {
         chatWindow.classList.add("miyo-closed");
       }
@@ -975,10 +1360,10 @@
 
     chipBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
+        if (isSubmitting) return;
         const query = btn.getAttribute("data-query");
         if (query) {
           submitQuery(query);
-          const chipsContainer = document.getElementById("miyo-chips");
           if (chipsContainer) chipsContainer.style.display = "none";
         }
       });
@@ -986,41 +1371,60 @@
 
     chatForm.addEventListener("submit", (e) => {
       e.preventDefault();
+      if (isSubmitting) return;
       const message = chatInput.value.trim();
       if (!message) return;
       chatInput.value = "";
+      if (chipsContainer) chipsContainer.style.display = "none";
       submitQuery(message);
     });
 
     async function submitQuery(userText) {
+      if (isSubmitting) return;
+      isSubmitting = true;
+
       appendUserMessage(userText);
       conversationHistory.push({ role: "user", content: userText });
+      saveHistory();
 
       showTyping(true);
       sendBtn.disabled = true;
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
 
       try {
         const response = await fetch(MIYO_API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: userText, history: conversationHistory })
+          body: JSON.stringify({
+            message: userText,
+            history: conversationHistory.slice(-12)
+          }),
+          signal: controller.signal
         });
 
         const data = await response.json();
-        showTyping(false);
-        sendBtn.disabled = false;
 
         if (response.ok && data.reply) {
           appendBotMessage(data.reply);
           conversationHistory.push({ role: "assistant", content: data.reply });
+          saveHistory();
         } else {
           const errText = data.error || "Miyo sedang tidak dapat menjawab saat ini.";
           appendBotMessage(`⚠️ ${errText}`);
         }
       } catch (err) {
+        if (err && err.name === "AbortError") {
+          appendBotMessage("⚠️ Permintaan ke Miyo melebihi batas waktu (15 detik). Silakan coba lagi.");
+        } else {
+          appendBotMessage("⚠️ Gagal terhubung ke Miyo. Pastikan endpoint Vercel sudah aktif.");
+        }
+      } finally {
+        clearTimeout(timeoutId);
         showTyping(false);
         sendBtn.disabled = false;
-        appendBotMessage("⚠️ Gagal terhubung ke Miyo. Pastikan endpoint Vercel sudah aktif.");
+        isSubmitting = false;
       }
     }
 
@@ -1036,7 +1440,7 @@
       const msgDiv = document.createElement("div");
       msgDiv.className = "miyo-msg miyo-msg-bot";
       msgDiv.innerHTML = `
-        <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" />
+        <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" width="28" height="28" decoding="async" />
         <div class="miyo-bubble">${parseMarkdown(text)}</div>
       `;
       chatBody.insertBefore(msgDiv, typingIndicator);
@@ -1057,33 +1461,78 @@
     }
 
     function escapeHtml(string) {
-      return String(string)
+      return String(string ?? "")
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function decodeBasicEntities(str) {
+      return String(str ?? "")
+        .replace(/&amp;/g, "&")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">");
+    }
+
+    function sanitizeMiyoUrl(rawUrl) {
+      if (typeof sanitizeUrl === "function") {
+        return sanitizeUrl(rawUrl);
+      }
+      const trimmed = String(rawUrl ?? "").trim();
+      if (!trimmed || trimmed === "#") return "";
+      if (/^(?:javascript|data|vbscript)\s*:/i.test(trimmed)) return "";
+      if (/^(?:https?:\/\/|mailto:)/i.test(trimmed)) return trimmed;
+      return "";
     }
 
     function parseMarkdown(raw) {
       if (!raw) return "";
 
-      // 1. Normalisasi line breaks
-      let text = String(raw).replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+      // 1. Normalisasi line breaks dan bersihkan karakter sentinel internal
+      let text = String(raw)
+        .replace(/\r\n/g, "\n")
+        .replace(/\r/g, "\n")
+        .replace(/[\uE000\uE001]/g, "");
 
       // 2. Escape HTML awal untuk keamanan XSS
       text = escapeHtml(text);
 
+      // Placeholder aman (tanpa underscore/bintang) agar link tidak ter-wrap ulang atau dirusak italic
+      const linkPlaceholders = [];
+      const addLinkPlaceholder = (html) => {
+        const idx = linkPlaceholders.length;
+        linkPlaceholders.push(html);
+        return `\uE000MIYOLINK${idx}\uE001`;
+      };
+
       // 3. Tangani Markdown Link: [Title](URL)
       // Mentolerir newline/spasi antara ']' dan '(', serta newline/spasi di dalam query param URL (misal URL WhatsApp yang terputus)
-      const linkRegex = /\[\s*([^\]\n]+?)\s*\]\s*\(\s*((?:https?:\/\/|mailto:)[^\)]*?)\s*\)/gi;
+      const linkRegex = /\[\s*([^\]\n]+?)\s*\]\s*\(\s*((?:https?:\/\/|mailto:|javascript:|data:|vbscript:)[^\)]*?)\s*\)/gi;
       text = text.replace(linkRegex, (match, title, rawUrl) => {
-        const cleanUrl = rawUrl.replace(/\s+/g, "").replace(/&amp;/g, "&");
-        return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="miyo-btn-link">${title.trim()}</a>`;
+        const unescapedUrl = decodeBasicEntities(rawUrl.replace(/\s+/g, ""));
+        const safeUrl = sanitizeMiyoUrl(unescapedUrl);
+        if (!safeUrl) {
+          return title.trim();
+        }
+        const safeHref = escapeHtml(safeUrl);
+        return addLinkPlaceholder(
+          `<a href="${safeHref}" target="_blank" rel="noopener noreferrer" class="miyo-btn-link">${title.trim()}</a>`
+        );
       });
 
       // 4. Tangani URL mandiri yang belum dibungkus link (misal https://wa.me/...)
       text = text.replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/gi, (m, prefix, url) => {
-        const cleanUrl = url.replace(/&amp;/g, "&");
-        return `${prefix}<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="miyo-btn-link">🔗 Kunjungi Tautan</a>`;
+        const unescapedUrl = decodeBasicEntities(url);
+        const safeUrl = sanitizeMiyoUrl(unescapedUrl);
+        if (!safeUrl) return m;
+        const safeHref = escapeHtml(safeUrl);
+        return `${prefix}${addLinkPlaceholder(
+          `<a href="${safeHref}" target="_blank" rel="noopener noreferrer" class="miyo-btn-link">🔗 Kunjungi Tautan</a>`
+        )}`;
       });
 
       // 5. Format Kode, Tebal, dan Miring
@@ -1095,6 +1544,9 @@
       // Italic: *text* atau _text_ (menghindari bintang bullet di awal baris)
       text = text.replace(/(^|[^\*])\*([^\*\n]+?)\*(?!\*)/g, "$1<em>$2</em>");
       text = text.replace(/(^|[^_])_([^_\n]+?)_(?!_)/g, "$1<em>$2</em>");
+
+      // Pulihkan seluruh placeholder link tepat sebelum pemecahan baris/list
+      text = text.replace(/\uE000MIYOLINK(\d+)\uE001/g, (_, idx) => linkPlaceholders[Number(idx)] ?? "");
 
       // 6. Tangani List (*, -, atau 1.) serta Paragraf
       const lines = text.split("\n");
