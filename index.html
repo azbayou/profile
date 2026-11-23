@@ -102,8 +102,8 @@
 <header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-[var(--nav-bg)] backdrop-blur-md border-b border-subtle shadow-sm">
   <div class="max-w-7xl mx-auto px-6">
     <div class="flex items-center justify-between h-16">
-      <a href="#hero" class="font-display font-extrabold text-lg tracking-tight text-ink">
-        <span id="nav-name">Bayu</span><span class="text-gradient">.</span>
+      <a href="#hero" aria-label="Bayu Aziz — Home" class="inline-flex items-center">
+        <img src="logo-bay.png" alt="bay" width="147" height="96" decoding="async" class="nav-logo" />
       </a>
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider text-inksoft">
         <a href="#skills" data-section="skills" class="nav-link hover:text-indigo transition-colors">Skills</a>
@@ -277,12 +277,9 @@
 
 <!-- ============ FOOTER ============ -->
 <footer class="py-8 border-t border-subtle text-center bg-[var(--footer-bg)] relative z-10">
-  <div class="flex flex-col items-center justify-center gap-3 px-4">
-    <a href="#hero" aria-label="Bayu Aziz — Back to top" class="inline-flex items-center justify-center">
-      <img src="logo-bay.png" alt="bay" width="147" height="96" decoding="async" class="footer-logo" />
-    </a>
-    <a href="games/ular.html" class="font-mono text-xs text-inksoft hover:text-indigo transition-colors">🐍 Mini Game</a>
-  </div>
+  <p class="font-mono text-xs text-inksoft px-4">
+    &copy; <span id="current-year"></span> <span id="footer-name">Bayu Aziz</span>. All rights reserved. <span class="text-cyanx mx-2">&bull;</span> Built with data in mind. <span class="text-cyanx mx-2">&bull;</span> <a href="games/ular.html" class="hover:text-indigo transition-colors">🐍 Mini Game</a>
+  </p>
 </footer>
 
 <script>
@@ -519,7 +516,8 @@
 
     const fullName = String(profile.name ?? '').trim();
     if (fullName) {
-      document.getElementById('nav-name').textContent = fullName.split(/\s+/)[0];
+      const navNameEl = document.getElementById('nav-name');
+      if (navNameEl) navNameEl.textContent = fullName.split(/\s+/)[0];
       document.getElementById('hero-name').textContent = fullName;
       const footerNameEl = document.getElementById('footer-name');
       if (footerNameEl) footerNameEl.textContent = fullName;

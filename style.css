@@ -734,26 +734,26 @@ html:not(.dark) .icon-moon { display: none; }
 html.dark .icon-sun { display: none; }
 
 /* ============================================================
-   FOOTER LOGO (THEME-ADAPTIVE)
+   NAVBAR BRAND LOGO (THEME-ADAPTIVE)
    ============================================================ */
-.footer-logo {
-  height: 2rem;
+.nav-logo {
+  height: 1.65rem;
   width: auto;
   display: block;
-  opacity: 0.9;
+  opacity: 0.92;
   transition: filter 0.3s ease, opacity 0.2s ease, transform 0.2s ease;
 }
 
-.footer-logo:hover {
+.nav-logo:hover {
   opacity: 1;
   transform: translateY(-1px);
 }
 
-html:not(.dark) .footer-logo {
+html:not(.dark) .nav-logo {
   filter: brightness(0);
 }
 
-html.dark .footer-logo {
+html.dark .nav-logo {
   filter: none;
 }
 
