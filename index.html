@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Bayu Aziz — Data Engineer &amp; Applied AI Engineer | Portfolio</title>
 <meta name="description" content="Bayu Aziz — Data Engineer & Applied AI Engineer | Portfolio. Bridging 8+ years of logistics operations expertise with Python, SQL, Kafka, Airflow, BigQuery, and agentic AI." />
-<link rel="icon" type="image/png" href="favicon.png" media="(prefers-color-scheme: dark)" />
-<link rel="icon" type="image/png" href="favicon-light.png" media="(prefers-color-scheme: light)" />
-<link id="dynamic-favicon" rel="icon" type="image/png" href="favicon-light.png" />
-<link rel="apple-touch-icon" href="favicon.png" />
+<link rel="icon" type="image/png" href="asset/img/favicon.png" media="(prefers-color-scheme: dark)" />
+<link rel="icon" type="image/png" href="asset/img/favicon-light.png" media="(prefers-color-scheme: light)" />
+<link id="dynamic-favicon" rel="icon" type="image/png" href="asset/img/favicon-light.png" />
+<link rel="apple-touch-icon" href="asset/img/favicon.png" />
 <link rel="canonical" href="https://azbayou.github.io/profile/" />
 
 <!-- Open Graph / Twitter Card -->
@@ -16,11 +16,11 @@
 <meta property="og:description" content="Data &amp; Applied AI Engineer bridging 8+ years of logistics operations expertise with Python, SQL, Kafka, Airflow, BigQuery, and agentic AI." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://azbayou.github.io/profile/" />
-<meta property="og:image" content="https://azbayou.github.io/profile/2_20260925_193506_0001.png" />
+<meta property="og:image" content="https://azbayou.github.io/profile/asset/img/2_20260925_193506_0001.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Bayu Aziz — Data Engineer &amp; Applied AI Engineer | Portfolio" />
 <meta name="twitter:description" content="Data &amp; Applied AI Engineer bridging 8+ years of logistics operations expertise with Python, SQL, Kafka, Airflow, BigQuery, and agentic AI." />
-<meta name="twitter:image" content="https://azbayou.github.io/profile/2_20260925_193506_0001.png" />
+<meta name="twitter:image" content="https://azbayou.github.io/profile/asset/img/2_20260925_193506_0001.png" />
 
 <!-- Structured Data -->
 <script type="application/ld+json">
@@ -46,7 +46,7 @@
       document.documentElement.classList.add('dark');
     }
     var fav = document.getElementById('dynamic-favicon');
-    if (fav) fav.href = isDark ? 'favicon.png' : 'favicon-light.png';
+    if (fav) fav.href = isDark ? 'asset/img/favicon.png' : 'asset/img/favicon-light.png';
   })();
 </script>
 
@@ -68,19 +68,8 @@
           inkfaint: 'var(--text-faint)',
           haze: 'var(--bg-secondary)',
           subtle: 'var(--border-hair)',
-          indigo: { DEFAULT: '#6366F1', dim: '#818CF8' },
-          cyanx: { DEFAULT: '#06B6D4', dim: '#22D3EE' },
-        },
-        fontFamily: {
-          display: ['"Plus Jakarta Sans"', 'sans-serif'],
-          body: ['"Inter"', 'sans-serif'],
-          mono: ['"JetBrains Mono"', 'monospace'],
-        },
-        keyframes: {
-          floaty: { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-10px)' } },
-        },
-        animation: {
-          floaty: 'floaty 6s ease-in-out infinite',
+          indigo: '#6366F1',
+          cyanx: '#06B6D4',
         },
       },
     },
@@ -99,11 +88,11 @@
 <div id="cursor-glow"></div>
 
 <!-- ============ NAV ============ -->
-<header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-[var(--nav-bg)] backdrop-blur-md border-b border-subtle shadow-sm">
+<header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 site-nav backdrop-blur-md border-b border-subtle shadow-sm">
   <div class="max-w-7xl mx-auto px-6">
     <div class="flex items-center justify-between h-16">
       <a href="#hero" aria-label="Bayu Aziz — Home" class="inline-flex items-center">
-        <img src="logo-bay.png" alt="bay" width="147" height="96" decoding="async" class="nav-logo" />
+        <img src="asset/img/logo-bay.png" alt="bay" width="147" height="96" decoding="async" class="nav-logo" />
       </a>
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider text-inksoft">
         <a href="#skills" data-section="skills" class="nav-link hover:text-indigo transition-colors">Skills</a>
@@ -144,7 +133,7 @@
 </header>
 
 <!-- ============ Non-Blocking Sync Indicator ============ -->
-<div id="sync-indicator" class="sync-pill glass-strong" aria-live="polite">
+<div id="sync-indicator" class="sync-pill" aria-live="polite">
   <i data-lucide="loader-2" class="w-3.5 h-3.5 text-indigo animate-spin"></i>
   <span>Syncing data...</span>
 </div>
@@ -159,7 +148,7 @@
       <h1 class="mt-6 font-display font-extrabold text-5xl sm:text-6xl md:text-7xl leading-[1.05] tracking-tight text-ink">
         Hi, I'm <span class="text-gradient" id="hero-name">Bayu Aziz</span>
       </h1>
-      <p class="mt-4 font-display font-semibold text-xl sm:text-2xl text-inksoft" id="hero-headline">Data Engineer &amp; Applied AI Engineer | 8+ Yrs Logistics Operations &amp; Analytics</p>
+      <p class="mt-4 font-display font-semibold text-xl sm:text-2xl text-inksoft whitespace-pre-line" id="hero-headline">Data Engineer &amp; Applied AI Engineer | 8+ Yrs Logistics Operations &amp; Analytics</p>
       <p class="mt-6 text-inksoft text-base sm:text-lg max-w-2xl leading-relaxed mx-auto whitespace-pre-line" id="hero-about">Data &amp; Applied AI Engineer bridging 8 years of logistics operations expertise with modern data architectures and agentic AI. Specialized in Python, SQL, Kafka, Airflow, BigQuery, and LLM automation to turn complex operational bottlenecks into scalable solutions.</p>
 
       <div class="mt-10 flex flex-wrap justify-center items-center gap-4">
@@ -175,7 +164,7 @@
 </section>
 
 <!-- ============ TECH STACK & SKILLS ============ -->
-<section id="skills" class="py-24 border-t border-subtle bg-[var(--bg-section)] relative z-10">
+<section id="skills" class="py-24 border-t border-subtle section-alt relative z-10">
   <div class="max-w-7xl mx-auto px-6">
     <div data-animate class="max-w-2xl">
       <span class="font-mono text-xs uppercase tracking-widest text-indigo">Capabilities</span>
@@ -208,7 +197,7 @@
 </section>
 
 <!-- ============ CAREER PATH (EXPERIENCE + EDUCATION) ============ -->
-<section id="experience" class="py-24 border-t border-subtle bg-[var(--bg-section)] relative z-10">
+<section id="experience" class="py-24 border-t border-subtle section-alt relative z-10">
   <div class="max-w-7xl mx-auto px-6">
     <!-- Work Experience -->
     <div data-animate class="max-w-2xl">
@@ -242,7 +231,7 @@
 
 <!-- ============ CONTACT ============ -->
 <section id="contact" class="py-24 border-t border-subtle relative z-10 overflow-hidden">
-  <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[var(--contact-gradient-to)] pointer-events-none"></div>
+  <div class="absolute inset-0 contact-gradient pointer-events-none"></div>
   <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
     <div data-animate>
       <span class="w-12 h-12 mx-auto rounded-2xl bg-indigo/10 flex items-center justify-center text-indigo mb-6 animate-floaty">
@@ -264,9 +253,9 @@
         <a href="https://www.linkedin.com/in/azbayou/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors">
           <i data-lucide="user" class="w-4 h-4"></i> Linkedin
         </a>
-        <a href="https://drive.google.com/open?id=1EHXueVdOmEh3-1kH7vROTracuRPJxnSl&usp=drive_fs" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors">
+        <button type="button" data-cv-trigger="true" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors cursor-pointer">
           <i data-lucide="file-user" class="w-4 h-4"></i> Latest CV
-        </a>
+        </button>
         <a id="ask-my-ai" href="https://bay-ragcb.streamlit.app/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors">
           <i data-lucide="bot-message-square" class="w-4 h-4"></i> Ask my AI
         </a>
@@ -276,7 +265,7 @@
 </section>
 
 <!-- ============ FOOTER ============ -->
-<footer class="py-8 border-t border-subtle text-center bg-[var(--footer-bg)] relative z-10">
+<footer class="py-8 border-t border-subtle text-center site-footer relative z-10">
   <p class="font-mono text-xs text-inksoft px-4">
     &copy; <span id="current-year"></span> <span id="footer-name">Bayu Aziz</span>. All rights reserved. <span class="text-cyanx mx-2">&bull;</span> Built with data in mind. <span class="text-cyanx mx-2">&bull;</span> <a href="games/ular.html" class="hover:text-indigo transition-colors">🐍 Mini Game</a>
   </p>
@@ -305,6 +294,33 @@
     }
   };
 
+  const FALLBACK_CV_LIST = [
+    {
+      id: 'cv1',
+      release_date: '11/25/2026',
+      cv_name: 'Applied AI Engineer - Bayu Aziz',
+      note: 'Applied AI Engineer, Workflow Automation',
+      link_cv: 'https://drive.google.com/file/d/1luJyS-oW-2LOW6Sup5SJM9ujors4Jo_V/view?usp=drive_link',
+      is_featured: true
+    },
+    {
+      id: 'cv2',
+      release_date: '11/25/2026',
+      cv_name: 'Data Engineer - Bayu Aziz',
+      note: 'Data Engineer, BI, Analyst',
+      link_cv: 'https://drive.google.com/file/d/1DocgvCKZyy7X2kHeB8awmy9v6Nw8s_gb/view?usp=drive_link',
+      is_featured: true
+    },
+    {
+      id: 'cv3',
+      release_date: '11/25/2026',
+      cv_name: 'Operational Logistic - Bayu Aziz',
+      note: 'Logistic Operational, Recovery Specialist, Fraud Analyst',
+      link_cv: 'https://drive.google.com/file/d/1s8pQejlqOcptdsiHwkZG9CfPOD0ZTh1j/view?usp=drive_link',
+      is_featured: true
+    }
+  ];
+
   let scrollObserver = null;
   let activeProjectFilter = 'all';
 
@@ -323,9 +339,19 @@
     setupScrollSpy();
     setupProjectInteractions();
     setupLightbox();
+    setupCvModal();
+    renderCvList(FALLBACK_CV_LIST);
     setupInteractions();
     fetchData();
   });
+
+  function normalizeLineBreaks(val) {
+    return String(val ?? '')
+      .replace(/\r\n/g, '\n')
+      .replace(/\r/g, '\n')
+      .replace(/\\r\\n/g, '\n')
+      .replace(/\\n/g, '\n');
+  }
 
   function escapeText(val) {
     return String(val ?? '')
@@ -347,6 +373,34 @@
 
   function isTruthyFeatured(val) {
     return val === true || ['true', '1', 'yes'].includes(String(val ?? '').trim().toLowerCase());
+  }
+
+  function resolveDriveCvLinks(rawUrl) {
+    const viewUrl = sanitizeUrl(rawUrl);
+    if (!viewUrl) {
+      return { viewUrl: '', downloadUrl: '' };
+    }
+    const driveMatch =
+      viewUrl.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/i) ||
+      viewUrl.match(/drive\.google\.com\/[^\s#]*[?&]id=([a-zA-Z0-9_-]+)/i);
+    const downloadUrl = (driveMatch && driveMatch[1])
+      ? `https://drive.google.com/uc?export=download&id=${driveMatch[1]}`
+      : viewUrl;
+    return { viewUrl, downloadUrl };
+  }
+
+  function formatCvDate(rawDate) {
+    const trimmed = String(rawDate ?? '').trim();
+    if (!trimmed) return '';
+    const parsed = new Date(trimmed);
+    if (!Number.isNaN(parsed.getTime())) {
+      return parsed.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      });
+    }
+    return trimmed;
   }
 
   function resolveProjectImage(rawInput) {
@@ -491,6 +545,7 @@
     const rawEdu = data.education || data.educations || data.edication || [];
     const eduData = Array.isArray(rawEdu) ? rawEdu : [];
     const featuresData = Array.isArray(data.features) ? data.features : [];
+    const cvData = Array.isArray(data.cv) && data.cv.length ? data.cv : FALLBACK_CV_LIST;
 
     safeRender('profile', () => renderProfile(profileObj));
     safeRender('skills', () => renderSkills(skillsData));
@@ -498,6 +553,7 @@
     safeRender('experiences', () => renderExperiences(experiencesData));
     safeRender('education', () => renderEducation(eduData));
     safeRender('features', () => renderFeatures(featuresData));
+    safeRender('cv', () => renderCvList(cvData));
 
     if (window.lucide) window.lucide.createIcons();
     observeAnimations();
@@ -524,10 +580,10 @@
     }
 
     if (profile.headline != null) {
-      document.getElementById('hero-headline').textContent = String(profile.headline);
+      document.getElementById('hero-headline').textContent = normalizeLineBreaks(profile.headline);
     }
     if (profile.about != null) {
-      document.getElementById('hero-about').textContent = String(profile.about);
+      document.getElementById('hero-about').textContent = normalizeLineBreaks(profile.about);
     }
 
     const email = String(profile.email ?? '').trim();
@@ -560,8 +616,19 @@
       const label = String(feat.features_name ?? feat.feature_name ?? feat.name ?? '').trim();
       if (!label) return;
 
+      const isLatestCv = feat.id === 'f2' || /latest[\s_-]?cv/i.test(label);
       const isAskMyAi = feat.id === 'f3' || /ask[\s_-]?my[\s_-]?ai/i.test(label);
       const linkUrl = isAskMyAi ? 'https://bay-ragcb.streamlit.app/' : sanitizeUrl(feat.link);
+
+      if (isLatestCv) {
+        renderedItems.push(`
+          <button type="button" data-cv-trigger="true" class="flex items-center gap-2 text-inksoft hover:text-indigo transition-colors cursor-pointer">
+            <i data-lucide="${escapeText(iconName)}" class="w-4 h-4"></i> ${escapeText(label)}
+          </button>
+        `);
+        return;
+      }
+
       if (!linkUrl) return;
 
       const elementId = (isAskMyAi && !askMyAiAssigned) ? 'id="ask-my-ai"' : '';
@@ -655,7 +722,7 @@
       .filter(p => p && typeof p === 'object' && isTruthyFeatured(p.is_featured))
       .map(proj => {
         const title = String(proj.title ?? '').trim();
-        const overview = String(proj.overview ?? proj.description ?? '').trim();
+        const overview = normalizeLineBreaks(proj.overview ?? proj.description ?? '').trim();
         return { proj, title, overview };
       })
       .filter(item => item.title || item.overview);
@@ -757,7 +824,7 @@
         ? `<button type="button" class="project-thumb-trigger w-full aspect-video rounded-2xl overflow-hidden mb-6 bg-haze border border-subtle relative block p-0 text-left" aria-label="Zoom preview for ${escapeText(title)}" data-lightbox-title="${escapeText(title)}" data-lightbox-link="${escapeText(linkUrl)}" data-lightbox-label="${escapeText(linkLabel || 'View Project')}">${thumbInnerHtml}<span class="project-zoom-badge">🔍 Zoom</span></button>`
         : `<div class="w-full aspect-video rounded-2xl overflow-hidden mb-6 bg-haze border border-subtle relative">${thumbInnerHtml}</div>`;
 
-      const isLongOverview = overview.length > 180;
+      const isLongOverview = overview.length > 180 || overview.split('\n').length > 3;
       const overviewId = `proj-overview-${index}`;
       const overviewHtml = `
         <p id="${overviewId}" class="project-overview-text mt-4 text-inksoft text-sm leading-relaxed whitespace-pre-line${isLongOverview ? ' line-clamp-3' : ''}">${escapeText(overview)}</p>
@@ -813,12 +880,12 @@
 
     sortedExps.forEach((exp, index) => {
       const isFirst = index === 0;
-      const dotColor = isFirst ? 'border-indigo bg-[var(--bg-primary)]' : 'border-inkfaint bg-haze';
+      const dotColor = isFirst ? 'border-indigo timeline-dot-active' : 'border-inkfaint bg-haze';
       const textColor = isFirst ? 'text-indigo' : 'text-inksoft';
       const roleTitle = String(exp.role_title ?? '').trim();
       const period = String(exp.period ?? '').trim();
       const company = String(exp.company ?? '').trim();
-      const description = String(exp.description ?? '');
+      const description = normalizeLineBreaks(exp.description ?? '');
 
       const expItem = `
         <div data-animate class="relative pl-8 pb-12 last:pb-0 group">
@@ -856,12 +923,12 @@
 
     sorted.forEach((edu, index) => {
       const isFirst = index === 0;
-      const dotColor = isFirst ? 'border-cyanx bg-[var(--bg-primary)]' : 'border-inkfaint bg-haze';
+      const dotColor = isFirst ? 'border-cyanx timeline-dot-active' : 'border-inkfaint bg-haze';
       const textColor = isFirst ? 'text-cyanx' : 'text-inksoft';
       const roleTitle = String(edu.role_title ?? edu.degree ?? edu.title ?? '').trim();
       const period = String(edu.period ?? '').trim();
       const institution = String(edu.education || edu.edication || edu.institution || edu.school || '').trim();
-      const description = String(edu.description ?? '');
+      const description = normalizeLineBreaks(edu.description ?? '');
 
       const item = `
         <div data-animate class="relative pl-8 pb-12 last:pb-0 group">
@@ -890,7 +957,7 @@
 
     function syncFavicon(isDark) {
       const fav = document.getElementById('dynamic-favicon');
-      if (fav) fav.href = isDark ? 'favicon.png' : 'favicon-light.png';
+      if (fav) fav.href = isDark ? 'asset/img/favicon.png' : 'asset/img/favicon-light.png';
     }
 
     function handleToggle() {
@@ -1080,7 +1147,7 @@
     function closeLightbox() {
       if (lightbox.classList.contains('hidden')) return;
       lightbox.classList.add('hidden');
-      lightbox.classList.remove('flex', 'open');
+      lightbox.classList.remove('open');
       document.body.style.overflow = '';
       imgEl.src = '';
       if (lastFocused && typeof lastFocused.focus === 'function') {
@@ -1107,7 +1174,7 @@
       }
 
       lightbox.classList.remove('hidden');
-      lightbox.classList.add('flex', 'open');
+      lightbox.classList.add('open');
       document.body.style.overflow = 'hidden';
       if (closeBtn) closeBtn.focus();
     };
@@ -1121,6 +1188,125 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
         closeLightbox();
+      }
+    });
+  }
+
+  function renderCvList(cvItems) {
+    const listEl = document.getElementById('cv-modal-list');
+    const countEl = document.getElementById('cv-modal-count');
+    const subtitleEl = document.getElementById('cv-modal-subtitle');
+    if (!listEl) return;
+
+    const normalizeCvItems = (items) => (Array.isArray(items) ? items : [])
+      .filter(item => item && typeof item === 'object' && isTruthyFeatured(item.is_featured))
+      .map(item => {
+        const name = String(item.cv_name ?? item.name ?? item.title ?? '').trim();
+        const note = normalizeLineBreaks(item.note ?? item.description ?? '').trim();
+        const releaseDate = formatCvDate(item.release_date);
+        const rawLink = item['link cv'] ?? item.link_cv ?? item.link ?? item.url ?? '';
+        const { viewUrl, downloadUrl } = resolveDriveCvLinks(rawLink);
+        return { name, note, releaseDate, viewUrl, downloadUrl };
+      })
+      .filter(item => Boolean(item.name));
+
+    let itemsToRender = normalizeCvItems(cvItems);
+    if (itemsToRender.length === 0) {
+      itemsToRender = normalizeCvItems(FALLBACK_CV_LIST);
+    }
+
+    listEl.innerHTML = itemsToRender.map(({ name, note, releaseDate, viewUrl, downloadUrl }) => {
+      const safeName = escapeText(name);
+      const safeNote = escapeText(note);
+      const safeDate = escapeText(releaseDate);
+      const safeViewUrl = escapeText(viewUrl);
+      const safeDownloadUrl = escapeText(downloadUrl);
+
+      const titleHtml = viewUrl
+        ? `<a href="${safeViewUrl}" target="_blank" rel="noopener noreferrer" class="cv-item-title">${safeName}</a>`
+        : `<span class="cv-item-title">${safeName}</span>`;
+
+      const metaParts = [];
+      if (note) metaParts.push(`<span class="cv-item-note">${safeNote}</span>`);
+      if (releaseDate) metaParts.push(`<span class="cv-item-date">${safeDate}</span>`);
+
+      const actionParts = [];
+      if (viewUrl) {
+        actionParts.push(`<a href="${safeViewUrl}" target="_blank" rel="noopener noreferrer" class="cv-action-btn cv-action-view" aria-label="View ${safeName}"><i data-lucide="eye" class="w-3.5 h-3.5"></i> View</a>`);
+      }
+      if (downloadUrl) {
+        actionParts.push(`<a href="${safeDownloadUrl}" target="_blank" rel="noopener noreferrer" class="cv-action-btn cv-action-download" aria-label="Download ${safeName}"><i data-lucide="download" class="w-3.5 h-3.5"></i> Download</a>`);
+      }
+
+      return `
+        <div class="cv-item">
+          <div class="cv-item-icon" aria-hidden="true">
+            <i data-lucide="file-text" class="w-5 h-5"></i>
+          </div>
+          <div class="cv-item-info">
+            ${titleHtml}
+            ${metaParts.length ? `<div class="cv-item-meta">${metaParts.join('')}</div>` : ''}
+          </div>
+          ${actionParts.length ? `<div class="cv-item-actions">${actionParts.join('')}</div>` : ''}
+        </div>
+      `;
+    }).join('');
+
+    const total = itemsToRender.length;
+    if (countEl) {
+      countEl.textContent = `${total} ${total === 1 ? 'file' : 'files'}`;
+    }
+    if (subtitleEl) {
+      subtitleEl.textContent = `Google Drive Folder • ${total} ${total === 1 ? 'PDF' : 'PDFs'}`;
+    }
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  function setupCvModal() {
+    const modal = document.getElementById('cv-folder-modal');
+    const closeBtn = document.getElementById('cv-modal-close');
+    const backdrop = modal ? modal.querySelector('.cv-modal-backdrop') : null;
+    let lastFocused = null;
+
+    if (!modal) return;
+
+    function openCvModal() {
+      if (!modal.classList.contains('hidden')) return;
+      lastFocused = document.activeElement;
+      modal.classList.remove('hidden');
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function closeCvModal() {
+      if (modal.classList.contains('hidden')) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus();
+      }
+      lastFocused = null;
+    }
+
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('[data-cv-trigger="true"]');
+      if (trigger) {
+        e.preventDefault();
+        openCvModal();
+      }
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeCvModal);
+    if (backdrop) backdrop.addEventListener('click', closeCvModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeCvModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeCvModal();
       }
     });
   }
@@ -1167,7 +1353,7 @@
 </script>
 
 <!-- ================= PROJECT LIGHTBOX MODAL ================= -->
-<div id="project-lightbox" class="fixed inset-0 z-[110] hidden items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+<div id="project-lightbox" class="hidden" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
   <div class="lightbox-backdrop"></div>
   <div class="lightbox-content">
     <button id="lightbox-close" type="button" class="lightbox-close" aria-label="Close preview">&times;</button>
@@ -1179,11 +1365,36 @@
   </div>
 </div>
 
+<!-- ================= CV FOLDER MODAL ================= -->
+<div id="cv-folder-modal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="cv-modal-title">
+  <div class="cv-modal-backdrop"></div>
+  <div class="cv-modal-content">
+    <div class="cv-modal-header">
+      <div class="cv-modal-header-left">
+        <div class="cv-folder-badge" aria-hidden="true">
+          <i data-lucide="folder-open" class="w-5 h-5"></i>
+        </div>
+        <div class="cv-modal-title-wrap">
+          <h3 id="cv-modal-title">Latest CV</h3>
+          <p id="cv-modal-subtitle">Google Drive Folder</p>
+        </div>
+      </div>
+      <button id="cv-modal-close" type="button" class="cv-modal-close" aria-label="Close CV folder">&times;</button>
+    </div>
+    <div class="cv-modal-body">
+      <div id="cv-modal-list" class="cv-modal-list"></div>
+    </div>
+    <div class="cv-modal-footer">
+      <span id="cv-modal-count" class="cv-modal-count"></span>
+    </div>
+  </div>
+</div>
+
 <!-- ================= MIYO CHAT WIDGET ================= -->
 <div id="miyo-chat-root">
   <div id="miyo-trigger-container">
     <button id="miyo-trigger-btn" type="button" aria-label="Buka Chat Asisten Miyo">
-      <img src="2_20260925_193506_0001.png" alt="Miyo" id="miyo-trigger-cat" width="76" height="76" decoding="async" />
+      <img src="asset/img/2_20260925_193506_0001.png" alt="Miyo" id="miyo-trigger-cat" width="76" height="76" decoding="async" />
       <span id="miyo-trigger-text">Tanya Miyo</span>
       <span class="miyo-unread-badge" id="miyo-unread-badge">1</span>
     </button>
@@ -1193,7 +1404,7 @@
     <header class="miyo-header">
       <div class="miyo-header-left">
         <div class="miyo-avatar-wrapper">
-          <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-avatar-img" width="34" height="34" decoding="async" />
+          <img src="asset/img/2_20260925_193506_0001.png" alt="Miyo" class="miyo-avatar-img" width="34" height="34" decoding="async" />
           <span class="miyo-online-dot" title="Online"></span>
         </div>
         <div class="miyo-header-text">
@@ -1214,7 +1425,7 @@
 
     <div id="miyo-body" class="miyo-body">
       <div class="miyo-msg miyo-msg-bot" data-miyo-greeting="true">
-        <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" width="28" height="28" decoding="async" />
+        <img src="asset/img/2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" width="28" height="28" decoding="async" />
         <div class="miyo-bubble">
           Hai! Aku <b>Miyo</b>, asisten virtual pribadi Bayu Aziz. Senang bertemu kamu! ✨
           <br><br>
@@ -1233,7 +1444,7 @@
       </div>
 
       <div id="miyo-typing-indicator" class="miyo-typing-indicator miyo-hidden">
-        <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" width="28" height="28" decoding="async" />
+        <img src="asset/img/2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" width="28" height="28" decoding="async" />
         <div class="miyo-typing-bubble">
           <span class="miyo-dot"></span>
           <span class="miyo-dot"></span>
@@ -1350,7 +1561,9 @@
 
     document.addEventListener("keydown", (e) => {
       const lightbox = document.getElementById("project-lightbox");
+      const cvModal = document.getElementById("cv-folder-modal");
       if (lightbox && !lightbox.classList.contains("hidden")) return;
+      if (cvModal && !cvModal.classList.contains("hidden")) return;
       if (e.key === "Escape" && !chatWindow.classList.contains("miyo-closed")) {
         chatWindow.classList.add("miyo-closed");
       }
@@ -1438,7 +1651,7 @@
       const msgDiv = document.createElement("div");
       msgDiv.className = "miyo-msg miyo-msg-bot";
       msgDiv.innerHTML = `
-        <img src="2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" width="28" height="28" decoding="async" />
+        <img src="asset/img/2_20260925_193506_0001.png" alt="Miyo" class="miyo-msg-avatar" width="28" height="28" decoding="async" />
         <div class="miyo-bubble">${parseMarkdown(text)}</div>
       `;
       chatBody.insertBefore(msgDiv, typingIndicator);

@@ -32,10 +32,12 @@ Welcome to my personal portfolio repository! This website showcases my professio
 .
 ├── index.html                  # Main layout, dynamic CMS renderer, and Miyo AI chat widget
 ├── style.css                   # Custom styles, theme variables, animations, and UI components
-├── favicon.png                 # Optimized 128x128 RGBA "bay" favicon (white for dark theme)
-├── favicon-light.png           # Optimized 128x128 RGBA "bay" favicon (black for light theme)
-├── logo-bay.png                # Theme-adaptive wordmark logo for navbar (white/black)
-├── 2_20260925_193506_0001.png  # Optimized 160x160 RGBA mascot avatar for Miyo
+├── asset/
+│   └── img/
+│       ├── favicon.png                 # Optimized 128x128 RGBA "bay" favicon (white for dark theme)
+│       ├── favicon-light.png           # Optimized 128x128 RGBA "bay" favicon (black for light theme)
+│       ├── logo-bay.png                # Theme-adaptive wordmark logo for navbar (white/black)
+│       └── 2_20260925_193506_0001.png  # Optimized 160x160 RGBA mascot avatar for Miyo
 ├── games/
 │   └── ular.html               # Standalone Snake arcade mini-game ("Snake Klasik")
 └── README.md                   # Repository documentation
